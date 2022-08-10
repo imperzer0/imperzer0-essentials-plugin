@@ -1,0 +1,18 @@
+main: com.imperzer0.essentials.Main
+name: imperzer0-essentials
+version: 1.0.0
+author: imperzer0
+api-version: 1.19
+load: POSTWORLD
+prefix: "[ :: imperzer0-essentials :: ]"
+website: https://github.com/imperzer0/imperzer0-essentials.git
+database: false
+
+commands:
+  give:
+    aliases: [ g ]
+    description: Gives stuff
+    usage: "[ <user> ] <item> [ <amount> ]"
+    permission: imperzer0-essentials.command.give
+    permission-message: Permission denied. Please contact administrator.
+
