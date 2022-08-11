@@ -35,6 +35,7 @@ public class Main extends JavaPlugin
 		new OwnerEnchantedKit(loger);
 		new RemoveOwnerEnchantedKit(loger);
 		new GameMode(loger);
+		new MkStack(loger);
 	}
 	
 	/// When disabled

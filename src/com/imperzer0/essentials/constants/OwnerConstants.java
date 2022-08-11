@@ -120,9 +120,9 @@ public class OwnerConstants
 		owner.setFoodLevel(20);
 	}
 	
-	public static boolean is_owner_item(@NotNull ItemStack item)
+	public static boolean is_owner_item(ItemStack item)
 	{
-		return item.getEnchantments().equals(ENCHANTMENTS);
+		return item != null && item.getEnchantments().equals(ENCHANTMENTS);
 	}
 	
 	enum OWNER_ITEMS
