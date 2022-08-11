@@ -52,7 +52,7 @@ public class BagUtils
 	public static void clear_bag(@NotNull Main plugin, @NotNull CommandSender sender, @NotNull UUID owner)
 	{
 		if (sender.hasPermission(Bag.PERMISSION_CLEAR + owner) ||
-		    sender.hasPermission(Bag.PERMISSION_CLEAR + "ALL"))
+		    sender.hasPermission(Bag.PERMISSION_CLEAR + "all"))
 		{
 			inventories.remove(owner);
 			save_inventory(plugin, owner);
