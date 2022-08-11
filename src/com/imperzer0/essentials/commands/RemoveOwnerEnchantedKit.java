@@ -2,7 +2,9 @@ package com.imperzer0.essentials.commands;
 
 import com.imperzer0.essentials.Main;
 import com.imperzer0.essentials.constants.OwnerConstants;
+import com.imperzer0.essentials.utils.CommandUtils;
 import com.imperzer0.essentials.utils.Loger;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,11 +35,7 @@ public class RemoveOwnerEnchantedKit implements CommandExecutor
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args)
 	{
-		if (!sender.hasPermission(PERMISSION))
-		{
-			loger.no_permissions(sender);
-			return false;
-		}
+		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE, loger)) return false;
 		
 		if (args.length == 0)
 			if (sender instanceof HumanEntity human)
@@ -48,6 +46,9 @@ public class RemoveOwnerEnchantedKit implements CommandExecutor
 						human_inventory.remove(stack);
 				human_inventory.setArmorContents(null);
 				OwnerConstants.clear_owner_effects(human);
+				
+				loger.message(sender, ChatColor.GRAY + "Removed owner kit items from '" + ChatColor.GOLD + human.getName() +
+				                      ChatColor.GRAY + "'.");
 				return true;
 			}
 			else loger.invalid_entity(sender);

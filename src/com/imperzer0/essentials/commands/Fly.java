@@ -1,6 +1,7 @@
 package com.imperzer0.essentials.commands;
 
 import com.imperzer0.essentials.Main;
+import com.imperzer0.essentials.utils.CommandUtils;
 import com.imperzer0.essentials.utils.Loger;
 import com.imperzer0.essentials.utils.PlayerUtils;
 import org.bukkit.ChatColor;
@@ -34,11 +35,7 @@ public class Fly implements CommandExecutor, TabCompleter
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args)
 	{
-		if (!sender.hasPermission(PERMISSION))
-		{
-			loger.no_permissions(sender);
-			return false;
-		}
+		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE, loger)) return false;
 		
 		if (args.length > 1)
 		{

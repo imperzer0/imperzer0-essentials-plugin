@@ -1,10 +1,7 @@
 package com.imperzer0.essentials;
 
 
-import com.imperzer0.essentials.commands.Fly;
-import com.imperzer0.essentials.commands.Give;
-import com.imperzer0.essentials.commands.OwnerEnchantedKit;
-import com.imperzer0.essentials.commands.RemoveOwnerEnchantedKit;
+import com.imperzer0.essentials.commands.*;
 import com.imperzer0.essentials.utils.Loger;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,24 +19,30 @@ public class Main extends JavaPlugin
 		                 " ... ======================");
 	}
 	
-	/// When disabled
-	@Override
-	public void onDisable()
-	{
-		getLogger().info("========================= Disabled plugin " + getName() + " v" + getDescription().getVersion() +
-		                 " =======================");
-	}
-	
 	/// When enabled
 	@Override
 	public void onEnable()
 	{
 		getLogger().info("======================== Enabled plugin " + getName() + " v" + getDescription().getVersion() +
 		                 " ========================");
+		
+		// Listeners
+		
+		
+		// Commands
 		new Give(loger);
 		new Fly(loger);
 		new OwnerEnchantedKit(loger);
 		new RemoveOwnerEnchantedKit(loger);
+		new GameMode(loger);
+	}
+	
+	/// When disabled
+	@Override
+	public void onDisable()
+	{
+		getLogger().info("========================= Disabled plugin " + getName() + " v" + getDescription().getVersion() +
+		                 " =======================");
 	}
 	
 	@Override

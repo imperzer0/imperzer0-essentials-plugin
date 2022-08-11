@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.UUID;
 
 public class PlayerUtils
@@ -40,7 +41,6 @@ public class PlayerUtils
 	{
 		ArrayList<String> identifiers = new ArrayList<>();
 		for (OfflinePlayer player : Bukkit.getOfflinePlayers())
-		{
 			if (filter == null)
 			{
 				identifiers.add(player.getName());
@@ -48,17 +48,20 @@ public class PlayerUtils
 			}
 			else
 			{
-				if (player.getName().contains(filter)) identifiers.add(player.getName());
+				if (Objects.requireNonNull(player.getName()).contains(filter)) identifiers.add(player.getName());
 				if (player.getUniqueId().toString().contains(filter)) identifiers.add(player.getUniqueId().toString());
 			}
-		}
 		return identifiers;
 	}
 	
-	public static @NotNull ArrayList<String> Bukkit_getPlayersUids()
+	public static @NotNull ArrayList<String> Bukkit_getAllPlayersUUIDs(String filter)
 	{
 		ArrayList<String> identifiers = new ArrayList<>();
-		for (OfflinePlayer player : Bukkit.getOfflinePlayers()) identifiers.add(player.getUniqueId().toString());
+		for (OfflinePlayer player : Bukkit.getOfflinePlayers())
+			if (filter == null)
+				identifiers.add(player.getUniqueId().toString());
+			else if (player.getUniqueId().toString().contains(filter))
+				identifiers.add(player.getUniqueId().toString());
 		return identifiers;
 	}
 }

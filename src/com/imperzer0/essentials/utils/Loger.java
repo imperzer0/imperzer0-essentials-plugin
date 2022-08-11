@@ -64,42 +64,36 @@ public class Loger
 		return this;
 	}
 	
-	public Loger no_permissions(@NotNull CommandSender sender)
+	public void no_permissions(@NotNull CommandSender sender)
 	{
 		sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "You don't have permissions to run this command." +
 		                   ChatColor.RESET);
-		return this;
 	}
 	
-	public Loger invalid_entity(@NotNull CommandSender sender)
+	public void invalid_entity(@NotNull CommandSender sender)
 	{
 		sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "You are an unexpected entity." + ChatColor.RESET);
-		return this;
 	}
 	
-	public Loger help(@NotNull CommandSender sender, Command cmd, @NotNull String args_usage)
+	public void help(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String args_usage)
 	{
-		sender.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "/" + ChatColor.LIGHT_PURPLE + cmd + ChatColor.RESET +
-		                   ChatColor.YELLOW + " " + args_usage + ChatColor.RESET);
-		return this;
+		sender.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "/" + ChatColor.LIGHT_PURPLE + cmd.getName() +
+		                   ChatColor.RESET + ChatColor.YELLOW + " " + args_usage + ChatColor.RESET);
 	}
 	
-	public Loger help(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull TextComponent... args_usage)
+	public void help(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull TextComponent... args_usage)
 	{
 		TextComponent[] tcs = new TextComponent[args_usage.length + 1];
-		tcs[0] = new TextComponent(
-				ChatColor.BOLD + "" + ChatColor.LIGHT_PURPLE + "/" + ChatColor.AQUA + cmd + ChatColor.RESET +
-				ChatColor.YELLOW + " ");
+		tcs[0] = new TextComponent(ChatColor.BOLD + "" + ChatColor.LIGHT_PURPLE + "/" + ChatColor.AQUA + cmd.getName() +
+		                           ChatColor.RESET + ChatColor.YELLOW + " ");
 		System.arraycopy(args_usage, 0, tcs, 1, args_usage.length);
 		sender.spigot().sendMessage(tcs);
-		return this;
 	}
 	
-	public Loger error(@NotNull CommandSender sender, @NotNull String what)
+	public void error(@NotNull CommandSender sender, @NotNull String what)
 	{
-		sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "An error occurred: " + ChatColor.ITALIC + what +
-		                   ChatColor.RESET);
-		return this;
+		sender.sendMessage(
+				ChatColor.RED + "" + ChatColor.BOLD + "An error occurred: " + ChatColor.ITALIC + what + ChatColor.RESET);
 	}
 	
 	public Loger error(@NotNull CommandSender sender, @NotNull TextComponent message)

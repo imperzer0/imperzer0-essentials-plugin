@@ -18,47 +18,6 @@ public class OwnerConstants
 	public static final List<PotionEffect> POTION_EFFECTS = new ArrayList<>();
 	public static final ItemStack[] owner_items = new ItemStack[11];
 	
-	
-	enum OWNER_ITEMS
-	{
-		ANNIHILATOR(0),
-		LIGHTNING_AXE(1),
-		BOW_L(2),
-		AUTO_AIM_BOW(3),
-		SPRAY_ARROW(4),
-		FLYING_TRIDENT(5),
-		ELITE_GUARDIANS(6),
-		BOOTS(7),
-		LEGGINGS(8),
-		WINGS(9),
-		HELMET(10);
-		
-		OWNER_ITEMS(int idx) { this.idx = idx; }
-		
-		public int index() { return idx; }
-		
-		public static OWNER_ITEMS from_index(int idx)
-		{
-			return switch (idx)
-					       {
-						       case 0 -> OWNER_ITEMS.ANNIHILATOR;
-						       case 1 -> OWNER_ITEMS.LIGHTNING_AXE;
-						       case 2 -> OWNER_ITEMS.BOW_L;
-						       case 3 -> OWNER_ITEMS.AUTO_AIM_BOW;
-						       case 4 -> OWNER_ITEMS.SPRAY_ARROW;
-						       case 5 -> OWNER_ITEMS.FLYING_TRIDENT;
-						       case 6 -> OWNER_ITEMS.ELITE_GUARDIANS;
-						       case 7 -> OWNER_ITEMS.BOOTS;
-						       case 8 -> OWNER_ITEMS.LEGGINGS;
-						       case 9 -> OWNER_ITEMS.WINGS;
-						       case 10 -> OWNER_ITEMS.HELMET;
-						       default -> null;
-					       };
-		}
-		
-		private final int idx;
-	}
-	
 	static
 	{
 		POTION_EFFECTS.add(new PotionEffect(PotionEffectType.REGENERATION, 1000000, Short.MAX_VALUE - 1, false, false, false));
@@ -142,7 +101,6 @@ public class OwnerConstants
 	public static ItemStack @NotNull [] filter_owner_items_for_armor()
 	{ return Arrays.copyOfRange(owner_items, owner_items.length - 4, owner_items.length); }
 	
-	
 	public static void apply_owner_effects(@NotNull HumanEntity owner)
 	{
 		for (PotionEffect effect : owner.getActivePotionEffects())
@@ -162,14 +120,48 @@ public class OwnerConstants
 		owner.setFoodLevel(20);
 	}
 	
-	public static boolean is_owner_item(ItemStack item)
+	public static boolean is_owner_item(@NotNull ItemStack item)
 	{
-		if (item == null) return false;
-		for (ItemStack owner_item : owner_items)
-			if (owner_item.getType().equals(item.getType()) &&
-			    owner_item.getEnchantments().equals(item.getEnchantments()) &&
-			    Objects.equals(owner_item.getItemMeta(), item.getItemMeta()))
-				return true;
-		return false;
+		return item.getEnchantments().equals(ENCHANTMENTS);
+	}
+	
+	enum OWNER_ITEMS
+	{
+		ANNIHILATOR(0),
+		LIGHTNING_AXE(1),
+		BOW_L(2),
+		AUTO_AIM_BOW(3),
+		SPRAY_ARROW(4),
+		FLYING_TRIDENT(5),
+		ELITE_GUARDIANS(6),
+		BOOTS(7),
+		LEGGINGS(8),
+		WINGS(9),
+		HELMET(10);
+		
+		private final int idx;
+		
+		OWNER_ITEMS(int idx) { this.idx = idx; }
+		
+		public static OWNER_ITEMS from_index(int idx)
+		{
+			return switch (idx)
+					       {
+						       case 0 -> OWNER_ITEMS.ANNIHILATOR;
+						       case 1 -> OWNER_ITEMS.LIGHTNING_AXE;
+						       case 2 -> OWNER_ITEMS.BOW_L;
+						       case 3 -> OWNER_ITEMS.AUTO_AIM_BOW;
+						       case 4 -> OWNER_ITEMS.SPRAY_ARROW;
+						       case 5 -> OWNER_ITEMS.FLYING_TRIDENT;
+						       case 6 -> OWNER_ITEMS.ELITE_GUARDIANS;
+						       case 7 -> OWNER_ITEMS.BOOTS;
+						       case 8 -> OWNER_ITEMS.LEGGINGS;
+						       case 9 -> OWNER_ITEMS.WINGS;
+						       case 10 -> OWNER_ITEMS.HELMET;
+						       default -> null;
+					       };
+		}
+		
+		public int index() { return idx; }
 	}
 }

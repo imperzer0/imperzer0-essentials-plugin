@@ -1,15 +1,17 @@
 package com.imperzer0.essentials.commands;
 
 import com.imperzer0.essentials.Main;
+import com.imperzer0.essentials.utils.CommandUtils;
 import com.imperzer0.essentials.utils.Loger;
 import com.imperzer0.essentials.utils.MaterialUtils;
 import com.imperzer0.essentials.utils.PlayerUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,17 +35,13 @@ public class Give implements CommandExecutor, TabCompleter
 	}
 	
 	@Override
-	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args)
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args)
 	{
-		if (!sender.hasPermission(PERMISSION))
-		{
-			loger.no_permissions(sender);
-			return false;
-		}
+		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE, loger)) return false;
 		
 		if (args.length == 1)
 		{
-			if (!(sender instanceof InventoryHolder holder))
+			if (!(sender instanceof Player player))
 			{
 				loger.invalid_entity(sender);
 				return false;
@@ -52,35 +50,40 @@ public class Give implements CommandExecutor, TabCompleter
 			Material material = Material.matchMaterial(args[0]);
 			if (material == null)
 			{
-				loger.error(sender, "Can't match material '" + args[0] + "'");
+				loger.error(sender, "Can't match material '" + args[0] + "'.");
 				return false;
 			}
 			
-			holder.getInventory().addItem(new ItemStack(material));
+			player.getInventory().addItem(new ItemStack(material));
+			
+			loger.message(sender, ChatColor.GREEN + "Gave " + ChatColor.LIGHT_PURPLE + material + ChatColor.GREEN +
+			                      " to player '" + ChatColor.RED + player.getName() + ChatColor.GREEN + "'.");
+			
+			return true;
 		}
 		else if (args.length == 2)
 		{
-			InventoryHolder holder = PlayerUtils.Bukkit_getPlayer(args[0]);
+			Player player = PlayerUtils.Bukkit_getPlayer(args[0]);
 			int shift = 1;
 			int amount = 1;
 			
-			if (holder == null)
+			if (player == null)
 			{
 				shift = 0;
 				
-				if (!(sender instanceof InventoryHolder invholder))
+				if (!(sender instanceof Player player1))
 				{
 					loger.invalid_entity(sender);
 					return false;
 				}
 				
-				holder = invholder;
+				player = player1;
 			}
 			
 			Material material = Material.matchMaterial(args[shift]);
 			if (material == null)
 			{
-				loger.error(sender, "Can't match material '" + args[shift] + "'");
+				loger.error(sender, "Can't match material '" + args[shift] + "'.");
 				return false;
 			}
 			
@@ -90,28 +93,35 @@ public class Give implements CommandExecutor, TabCompleter
 				amount = getAmount(sender, args, amount, material, amount_str);
 			}
 			
-			holder.getInventory().addItem(new ItemStack(material, amount));
+			player.getInventory().addItem(new ItemStack(material, amount));
+			
+			loger.message(sender, ChatColor.GREEN + "Gave " + ChatColor.LIGHT_PURPLE + material + ChatColor.GREEN +
+			                      " to player '" + ChatColor.RED + player.getName() + ChatColor.GREEN + "'.");
 			
 			return true;
 		}
 		else if (args.length == 3)
 		{
-			InventoryHolder holder = PlayerUtils.Bukkit_getPlayer(args[0], loger, sender);
+			Player player = PlayerUtils.Bukkit_getPlayer(args[0], loger, sender);
 			int amount = 1;
 			
-			if (holder == null) return false;
+			if (player == null) return false;
 			
 			Material material = Material.matchMaterial(args[1]);
 			if (material == null)
 			{
-				loger.error(sender, "Can't match material '" + args[1] + "'");
+				loger.error(sender, "Can't match material '" + args[1] + "'.");
 				return false;
 			}
 			
 			String amount_str = args[2];
 			amount = getAmount(sender, args, amount, material, amount_str);
 			
-			holder.getInventory().addItem(new ItemStack(material, amount));
+			player.getInventory().addItem(new ItemStack(material, amount));
+			
+			loger.message(sender, ChatColor.GREEN + "Gave " + ChatColor.LIGHT_PURPLE + material +
+			                      ChatColor.GREEN + " to player '" + ChatColor.RED + player.getName() + ChatColor.GREEN + "'.");
+			
 			return true;
 		}
 		else loger.help(sender, cmd, USAGE);
@@ -134,16 +144,16 @@ public class Give implements CommandExecutor, TabCompleter
 				}
 				catch (NumberFormatException ex)
 				{
-					loger.error(sender, "Invalid amount '" + args[1] + "'");
+					loger.error(sender, "Invalid amount '" + args[1] + "'.");
 				}
-			else loger.error(sender, "Invalid amount '" + args[1] + "'");
+			else loger.error(sender, "Invalid amount '" + args[1] + "'.");
 		}
 		return amount;
 	}
 	
 	@Override
 	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-	                                  String[] args)
+	                                  @NotNull String[] args)
 	{
 		ArrayList<String> list = new ArrayList<>();
 		
