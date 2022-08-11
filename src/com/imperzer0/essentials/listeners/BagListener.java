@@ -2,12 +2,19 @@ package com.imperzer0.essentials.listeners;
 
 import com.imperzer0.essentials.Main;
 import com.imperzer0.essentials.utils.BagUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.*;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
+
+import static com.imperzer0.essentials.commands.Bag.PERMISSION_CLEAR;
 
 public class BagListener implements Listener
 {
@@ -15,10 +22,21 @@ public class BagListener implements Listener
 	
 	public BagListener(Main plugin) { this.plugin = plugin; }
 	
-	void process_inventory(Inventory inventory)
+	void process_inventory(@NotNull Inventory inventory)
 	{
 		if (inventory.getHolder() instanceof BagUtils.BagInventoryHolder holder)
 			BagUtils.save_inventory(plugin, holder.getUuid(), inventory.getContents());
+	}
+	
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void on_new_player_login(@NotNull PlayerLoginEvent event)
+	{
+		Permission permission = new Permission(
+				PERMISSION_CLEAR + event.getPlayer().getUniqueId(),
+				"Clear specific user's bag", PermissionDefault.FALSE
+		);
+		if (!Bukkit.getServer().getPluginManager().getPermissions().contains(permission))
+			Bukkit.getServer().getPluginManager().addPermission(permission);
 	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)
