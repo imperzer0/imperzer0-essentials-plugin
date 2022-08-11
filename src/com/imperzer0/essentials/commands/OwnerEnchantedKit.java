@@ -28,7 +28,7 @@ public class OwnerEnchantedKit implements CommandExecutor, TabCompleter
 {
 	
 	private static final String NAME = "owner_kit";
-	private static final String USAGE = "[ menu <amount> ]";
+	private static final String USAGE = "[ menu <amount> ] / [ apply ]";
 	private static final String PERMISSION = "imperzer0-essentials.command.owner_kit";
 	
 	public final Main plugin;
@@ -54,6 +54,18 @@ public class OwnerEnchantedKit implements CommandExecutor, TabCompleter
 				OwnerConstants.apply_owner_effects(human);
 				loger.message(sender, ChatColor.BOLD + "" + ChatColor.DARK_AQUA + "Gave owner kit to '" +
 				                      ChatColor.GOLD + human.getName() + ChatColor.DARK_AQUA + "'.");
+				return true;
+			}
+			else loger.invalid_entity(sender);
+		else if (args.length == 1 && args[0].equals("apply"))
+			if (sender instanceof HumanEntity human)
+			{
+				ItemStack item = human.getInventory().getItemInMainHand();
+				item.addUnsafeEnchantments(OwnerConstants.ENCHANTMENTS);
+				
+				loger.message(sender, ChatColor.BOLD + "" + ChatColor.DARK_AQUA + "Applied owner kit enchantments to \"" +
+				                      ChatColor.GOLD + human.getName() + ChatColor.DARK_AQUA + "\"'s " +
+				                      ChatColor.LIGHT_PURPLE + item.getType().name().toLowerCase() + ChatColor.DARK_AQUA + ".");
 				return true;
 			}
 			else loger.invalid_entity(sender);
@@ -87,6 +99,7 @@ public class OwnerEnchantedKit implements CommandExecutor, TabCompleter
 				
 				loger.message(sender, ChatColor.BOLD + "" + ChatColor.DARK_AQUA + "Opening inventory for '" +
 				                      ChatColor.GOLD + human.getName() + ChatColor.DARK_AQUA + "'...");
+				
 				human.openInventory(inventory);
 				
 				return true;
@@ -103,7 +116,11 @@ public class OwnerEnchantedKit implements CommandExecutor, TabCompleter
 	                                  @NotNull String[] args)
 	{
 		ArrayList<String> list = new ArrayList<>();
-		if (args.length <= 1) list.add("menu");
+		if (args.length <= 1)
+		{
+			list.add("menu");
+			list.add("apply");
+		}
 		else if (args.length >= 3) list.addAll(MaterialUtils.Material_getAllMaterialsNames(args[args.length - 1]));
 		return list;
 	}

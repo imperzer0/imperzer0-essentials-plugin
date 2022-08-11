@@ -43,9 +43,8 @@ public class MkStack implements CommandExecutor, TabCompleter
 		HumanEntity human = null;
 		
 		if (args.length == 0)
-		{
 			if (sender instanceof HumanEntity) human = (HumanEntity)sender;
-		}
+			else loger.invalid_entity(sender);
 		else if (args.length == 1)
 		{
 			human = PlayerUtils.Bukkit_getPlayer(args[0]);
