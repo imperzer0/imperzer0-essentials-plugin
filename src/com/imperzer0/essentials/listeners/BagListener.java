@@ -32,11 +32,11 @@ public class BagListener implements Listener
 	public void on_new_player_login(@NotNull PlayerLoginEvent event)
 	{
 		Permission permission = new Permission(
-				PERMISSION_CLEAR + event.getPlayer().getUniqueId(),
+				PERMISSION_CLEAR + event.getPlayer().getUniqueId().toString().toLowerCase(),
 				"Clear specific user's bag", PermissionDefault.FALSE
 		);
-		if (!Bukkit.getServer().getPluginManager().getPermissions().contains(permission))
-			Bukkit.getServer().getPluginManager().addPermission(permission);
+		try { Bukkit.getServer().getPluginManager().addPermission(permission); }
+		catch (Exception ignored) { }
 	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)
