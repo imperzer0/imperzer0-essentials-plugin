@@ -26,10 +26,9 @@ import java.util.Objects;
 
 public class OwnerEnchantedKit implements CommandExecutor, TabCompleter
 {
-	
-	private static final String NAME = "owner_kit";
-	private static final String USAGE = "[ menu <amount> ] / [ apply ]";
-	private static final String PERMISSION = "imperzer0-essentials.command.owner_kit";
+	public static final String NAME = "owner_kit";
+	public static final String USAGE = "[ menu <amount> ] / [ apply ]";
+	public static final String PERMISSION = "imperzer0-essentials.command.owner_kit";
 	
 	public final Main plugin;
 	private final Loger loger;

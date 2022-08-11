@@ -1,6 +1,6 @@
 main: com.imperzer0.essentials.Main
 name: imperzer0-essentials
-version: 1.4.0
+version: 1.5.0
 author: imperzer0
 api-version: 1.19
 load: POSTWORLD
@@ -41,5 +41,15 @@ commands:
     aliases: [ ms, dupe ]
     description: Refills stack of items in main hand
     permission: imperzer0-essentials.command.mkstack
+    permission-message: Permission denied. Please contact administrator.
+
+  bag:
+    description: Opens your bag
+    permission: imperzer0-essentials.command.bag
+    permission-message: Permission denied. Please contact administrator.
+
+  uuid:
+    description: Gets player's UUID
+    permission: imperzer0-essentials.command.uuid
     permission-message: Permission denied. Please contact administrator.
 

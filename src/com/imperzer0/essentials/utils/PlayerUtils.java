@@ -23,9 +23,39 @@ public class PlayerUtils
 		return player;
 	}
 	
+	public static @Nullable OfflinePlayer Bukkit_getOfflinePlayer(String identifier)
+	{
+		OfflinePlayer player = null;
+		for (OfflinePlayer p : Bukkit.getOfflinePlayers())
+			if (p.getUniqueId().toString().equals(identifier))
+				player = p;
+		
+		try { if (player == null) player = Bukkit.getOfflinePlayer(UUID.fromString(identifier)); }
+		catch (IllegalArgumentException e) { return null; }
+		
+		return player;
+	}
+	
 	public static @Nullable Player Bukkit_getPlayer(String identifier, Loger loger, CommandSender sender)
 	{
 		Player player = Bukkit.getPlayer(identifier);
+		
+		try { if (player == null) player = Bukkit.getPlayer(UUID.fromString(identifier)); }
+		catch (IllegalArgumentException e)
+		{
+			loger.error(sender, "Player identifier '" + identifier + "' is invalid.");
+			return null;
+		}
+		
+		return player;
+	}
+	
+	public static @Nullable OfflinePlayer Bukkit_getOfflinePlayer(String identifier, Loger loger, CommandSender sender)
+	{
+		OfflinePlayer player = null;
+		for (OfflinePlayer p : Bukkit.getOfflinePlayers())
+			if (Objects.equals(p.getName(), identifier))
+				player = p;
 		
 		try { if (player == null) player = Bukkit.getPlayer(UUID.fromString(identifier)); }
 		catch (IllegalArgumentException e)
@@ -62,6 +92,17 @@ public class PlayerUtils
 				identifiers.add(player.getUniqueId().toString());
 			else if (player.getUniqueId().toString().contains(filter))
 				identifiers.add(player.getUniqueId().toString());
+		return identifiers;
+	}
+	
+	public static @NotNull ArrayList<String> Bukkit_getAllPlayersNames(String filter)
+	{
+		ArrayList<String> identifiers = new ArrayList<>();
+		for (OfflinePlayer player : Bukkit.getOfflinePlayers())
+			if (filter == null)
+				identifiers.add(player.getName());
+			else if (Objects.requireNonNull(player.getName()).contains(filter))
+				identifiers.add(player.getName());
 		return identifiers;
 	}
 }

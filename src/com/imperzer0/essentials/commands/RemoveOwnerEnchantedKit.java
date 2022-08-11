@@ -17,10 +17,9 @@ import java.util.Objects;
 
 public class RemoveOwnerEnchantedKit implements CommandExecutor
 {
-	
-	private static final String NAME = "rm_owner_kit";
-	private static final String USAGE = "";
-	private static final String PERMISSION = "imperzer0-essentials.command.rm_owner_kit";
+	public static final String NAME = "rm_owner_kit";
+	public static final String USAGE = "";
+	public static final String PERMISSION = "imperzer0-essentials.command.rm_owner_kit";
 	
 	public final Main plugin;
 	private final Loger loger;

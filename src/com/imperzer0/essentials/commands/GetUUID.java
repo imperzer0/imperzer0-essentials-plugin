@@ -9,8 +9,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.HumanEntity;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,16 +16,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MkStack implements CommandExecutor, TabCompleter
+public class GetUUID implements CommandExecutor, TabCompleter
 {
-	public static final String NAME = "mkstack";
-	public static final String USAGE = "[ <user> ]";
-	public static final String PERMISSION = "imperzer0-essentials.command.mkstack";
+	public static final String NAME = "uuid";
+	public static final String USAGE = "<user>";
+	public static final String PERMISSION = "imperzer0-essentials.command.uuid";
 	
 	public final Main plugin;
 	private final Loger loger;
 	
-	public MkStack(@NotNull Loger loger)
+	public GetUUID(@NotNull Loger loger)
 	{
 		this.loger = loger;
 		plugin = loger.plugin;
@@ -39,33 +37,11 @@ public class MkStack implements CommandExecutor, TabCompleter
 	{
 		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE, loger)) return false;
 		
-		HumanEntity human = null;
-		
-		if (args.length == 0)
-			if (sender instanceof HumanEntity) human = (HumanEntity)sender;
-			else loger.invalid_entity(sender);
-		else if (args.length == 1)
-		{
-			human = PlayerUtils.Bukkit_getPlayer(args[0]);
-		}
-		else
-		{
-			loger.help(sender, cmd, USAGE);
-			return false;
-		}
-		
-		if (human == null)
-		{
-			loger.error(sender, "Invalid player name: '" + args[0] + "'.");
-			return false;
-		}
-		
-		ItemStack stack = human.getInventory().getItemInMainHand();
-		stack.setAmount(stack.getMaxStackSize());
-		
-		loger.message(sender, ChatColor.GRAY + "Refilled \"" + ChatColor.YELLOW + human.getName() +
-		                      ChatColor.GRAY + "\"'s stack of '" +
-		                      ChatColor.LIGHT_PURPLE + stack.getType().name().toLowerCase() + ChatColor.GRAY + "'.");
+		if (args.length == 1)
+			loger.message(sender, "" + ChatColor.DARK_PURPLE + ChatColor.BOLD + ChatColor.ITALIC +
+			                      Objects.requireNonNull(PlayerUtils.Bukkit_getOfflinePlayer(args[0], loger, sender))
+			                             .getUniqueId());
+		else loger.help(sender, cmd, USAGE);
 		
 		return true;
 	}
@@ -77,9 +53,9 @@ public class MkStack implements CommandExecutor, TabCompleter
 	{
 		ArrayList<String> list = new ArrayList<>();
 		if (args.length == 0)
-			list.addAll(PlayerUtils.Bukkit_getAllPlayersIdentifiers(null));
+			list.addAll(PlayerUtils.Bukkit_getAllPlayersNames(null));
 		else if (args.length == 1)
-			list.addAll(PlayerUtils.Bukkit_getAllPlayersIdentifiers(args[0]));
+			list.addAll(PlayerUtils.Bukkit_getAllPlayersNames(args[0]));
 		return list;
 	}
 }

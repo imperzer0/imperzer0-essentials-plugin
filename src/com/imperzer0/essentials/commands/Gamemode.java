@@ -6,6 +6,7 @@ import com.imperzer0.essentials.utils.GameModeUtils;
 import com.imperzer0.essentials.utils.Loger;
 import com.imperzer0.essentials.utils.PlayerUtils;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,17 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class GameMode implements CommandExecutor, TabCompleter
+public class Gamemode implements CommandExecutor, TabCompleter
 {
-	
-	private static final String NAME = "gamemode";
-	private static final String USAGE = "<gamemode> [ <user> ]";
-	private static final String PERMISSION = "imperzer0-essentials.command.gamemode";
+	public static final String NAME = "gamemode";
+	public static final String USAGE = "<gamemode> [ <user> ]";
+	public static final String PERMISSION = "imperzer0-essentials.command.gamemode";
 	
 	public final Main plugin;
 	private final Loger loger;
 	
-	public GameMode(@NotNull Loger loger)
+	public Gamemode(@NotNull Loger loger)
 	{
 		this.loger = loger;
 		plugin = loger.plugin;
@@ -59,10 +59,10 @@ public class GameMode implements CommandExecutor, TabCompleter
 		
 		if (human == null) return false;
 		
-		org.bukkit.GameMode gm;
+		GameMode gm;
 		try
 		{
-			gm = org.bukkit.GameMode.valueOf(args[0]);
+			gm = GameMode.valueOf(args[0]);
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -74,7 +74,7 @@ public class GameMode implements CommandExecutor, TabCompleter
 				return false;
 			}
 			
-			gm = org.bukkit.GameMode.getByValue(val);
+			gm = GameMode.getByValue(val);
 		}
 		
 		if (gm == null)
