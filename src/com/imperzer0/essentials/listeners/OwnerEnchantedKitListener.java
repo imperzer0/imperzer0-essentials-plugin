@@ -106,20 +106,16 @@ public class OwnerEnchantedKitListener implements Listener
 	{
 		if (event.getEntity().getShooter() instanceof Player player)
 		{
-			if (!player.hasPermission(PERMISSION_USE + "ore")) return;
+			if (!player.hasPermission(PERMISSION_USE + "bow")) return;
+			
+			if (player.getInventory().getItemInMainHand().isSimilar(
+					OwnerConstants.owner_items[OwnerConstants.OWNER_ITEMS.AUTO_AIM_BOW.index()]))
 			{
-				if (player.getInventory().getItemInMainHand().isSimilar(
-						OwnerConstants.owner_items[OwnerConstants.OWNER_ITEMS.AUTO_AIM_BOW.index()]))
-				{
-					Projectile projectile = event.getEntity();
-					Entity target = Bukkit.getEntity(player_target.getOrDefault(player.getUniqueId(), player.getUniqueId()));
-					if (target == null)
-					{
-						target = player;
-					}
-					AutoAimRunnable runnable = new AutoAimRunnable(projectile, target.getLocation(), player);
-					runnable.runTaskLater(plugin, 20L);
-				}
+				Projectile projectile = event.getEntity();
+				Entity target = Bukkit.getEntity(player_target.getOrDefault(player.getUniqueId(), player.getUniqueId()));
+				if (target == null) target = player;
+				AutoAimRunnable runnable = new AutoAimRunnable(projectile, target.getLocation(), player);
+				runnable.runTaskLater(plugin, 20L);
 			}
 		}
 	}
@@ -223,7 +219,7 @@ public class OwnerEnchantedKitListener implements Listener
 	
 	private void bow_click(@NotNull PlayerInteractEvent event, @NotNull Player player)
 	{
-		if (!player.hasPermission(PERMISSION_USE + "axe")) return;
+		if (!player.hasPermission(PERMISSION_USE + "bow")) return;
 		switch (event.getAction())
 		{
 			case LEFT_CLICK_BLOCK, LEFT_CLICK_AIR ->
