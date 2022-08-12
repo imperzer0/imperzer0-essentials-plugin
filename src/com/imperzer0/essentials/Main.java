@@ -32,7 +32,7 @@ public class Main extends JavaPlugin
 		// Listeners
 		PluginManager manager = getServer().getPluginManager();
 		manager.registerEvents(new BagListener(this), this);
-		manager.registerEvents(new OwnerEnchantedKitListener(this), this);
+		manager.registerEvents(new OwnerEnchantedKitListener(loger), this);
 		
 		
 		// Commands

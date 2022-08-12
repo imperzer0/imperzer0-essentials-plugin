@@ -12,7 +12,8 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
@@ -20,6 +21,7 @@ import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,14 +33,17 @@ import static com.imperzer0.essentials.constants.OwnerConstants.ENCHANTMENTS;
 public class OwnerEnchantedKitListener implements Listener
 {
 	public final Main plugin;
+	private final Loger loger;
 	public static final int DISTANCE = 10000;
+	public static final int R = 30;
 	
 	public static final String PERMISSION_USE = "imperzer0-essentials.command.owner_kit.use.";
 	private Map<UUID, UUID> player_target = new HashMap<>();
 	
-	public OwnerEnchantedKitListener(Main plugin)
+	public OwnerEnchantedKitListener(@NotNull Loger loger)
 	{
-		this.plugin = plugin;
+		this.loger = loger;
+		this.plugin = loger.plugin;
 		
 		load_permissions();
 	}
@@ -52,7 +57,7 @@ public class OwnerEnchantedKitListener implements Listener
 		manager.addPermission(new Permission(PERMISSION_USE + "head", "owner kit spawner", PermissionDefault.FALSE));
 		manager.addPermission(new Permission(PERMISSION_USE + "bowl", "owner kit bowl", PermissionDefault.FALSE));
 		manager.addPermission(new Permission(PERMISSION_USE + "arrow", "owner kit arrow", PermissionDefault.FALSE));
-		manager.addPermission(new Permission(PERMISSION_USE + "farm", "owner kit ore tips", PermissionDefault.FALSE));
+		manager.addPermission(new Permission(PERMISSION_USE + "ore", "owner kit ore tips", PermissionDefault.FALSE));
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -72,16 +77,51 @@ public class OwnerEnchantedKitListener implements Listener
 			case BOW -> bow_click(event, player);
 			case ARROW -> arrow_click(event, player, item);
 			case ZOMBIE_HEAD -> zombie_head_click(event, player, item);
-			default -> { }
+			case IRON_NUGGET ->
+			{
+				if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+					iron_nugget_click(event, player);
+			}
+			case GOLD_NUGGET ->
+			{
+				if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+					gold_nugget_click(event, player);
+			}
+			case GOLD_BLOCK ->
+			{
+				if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+					gold_block_click(event, player);
+			}
+			case DIAMOND ->
+			{
+				if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+					diamond_click(event, player);
+			}
 		}
 	}
 	
-	/// Prevent player from placing enchanted blocks
+	
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void on_block_placed(@NotNull BlockPlaceEvent event)
+	public void on_shoot(@NotNull ProjectileLaunchEvent event)
 	{
-		if (OwnerConstants.is_from_kit(event.getItemInHand()))
-			event.setCancelled(true);
+		if (event.getEntity().getShooter() instanceof Player player)
+		{
+			if (!player.hasPermission(PERMISSION_USE + "ore")) return;
+			{
+				if (player.getInventory().getItemInMainHand().isSimilar(
+						OwnerConstants.owner_items[OwnerConstants.OWNER_ITEMS.AUTO_AIM_BOW.index()]))
+				{
+					Projectile projectile = event.getEntity();
+					Entity target = Bukkit.getEntity(player_target.getOrDefault(player.getUniqueId(), player.getUniqueId()));
+					if (target == null)
+					{
+						target = player;
+					}
+					AutoAimRunnable runnable = new AutoAimRunnable(projectile, target.getLocation(), player);
+					runnable.runTaskLater(plugin, 20L);
+				}
+			}
+		}
 	}
 	
 	private void rod_click(@NotNull PlayerInteractEvent event, @NotNull Player player, @NotNull ItemStack rod)
@@ -89,7 +129,7 @@ public class OwnerEnchantedKitListener implements Listener
 		if (!player.hasPermission(PERMISSION_USE + "rod")) return;
 		switch (event.getAction())
 		{
-			case LEFT_CLICK_BLOCK, LEFT_CLICK_AIR ->
+			case RIGHT_CLICK_BLOCK, RIGHT_CLICK_AIR ->
 			{
 				Block block = event.getClickedBlock();
 				if (block == null || block.getType().equals(Material.AIR))
@@ -106,8 +146,10 @@ public class OwnerEnchantedKitListener implements Listener
 						tnt.setYield(100.f);
 					}
 				}
+				
+				event.setCancelled(true);
 			}
-			case RIGHT_CLICK_BLOCK, RIGHT_CLICK_AIR ->
+			case LEFT_CLICK_BLOCK, LEFT_CLICK_AIR ->
 			{
 				player.getInventory().setArmorContents(OwnerConstants.filter_owner_items_for_armor());
 				OwnerConstants.apply_owner_effects(player);
@@ -133,6 +175,8 @@ public class OwnerEnchantedKitListener implements Listener
 					for (int i = 0; i < n; i++)
 						player.getWorld().strikeLightning(block.getLocation());
 				}
+				
+				event.setCancelled(true);
 			}
 		}
 	}
@@ -148,6 +192,18 @@ public class OwnerEnchantedKitListener implements Listener
 			{
 				case LEFT_CLICK_BLOCK, LEFT_CLICK_AIR ->
 				{
+					Fireball fireball = player.getWorld().spawn(location, Fireball.class);
+					fireball.setGravity(true);
+					fireball.setDirection(location.getDirection().multiply(1000));
+					fireball.setBounce(false);
+					fireball.setIsIncendiary(true);
+					fireball.setYield(100.f);
+					fireball.setCustomName(Ghast.class.getName());
+					
+					event.setCancelled(true);
+				}
+				case RIGHT_CLICK_BLOCK, RIGHT_CLICK_AIR ->
+				{
 					Vector vel = location.getDirection().multiply(1000);
 					Arrow arrow = player.getWorld().spawnArrow(location, vel, 100.f, 0.f, Arrow.class);
 					arrow.setGravity(true);
@@ -157,16 +213,8 @@ public class OwnerEnchantedKitListener implements Listener
 					arrow.addCustomEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1000000, 255), true);
 					arrow.setPickupStatus(AbstractArrow.PickupStatus.ALLOWED);
 					arrow.setCustomName(Skeleton.class.getName());
-				}
-				case RIGHT_CLICK_BLOCK, RIGHT_CLICK_AIR ->
-				{
-					Fireball fireball = player.getWorld().spawn(location, Fireball.class);
-					fireball.setGravity(true);
-					fireball.setDirection(location.getDirection().multiply(1000));
-					fireball.setBounce(false);
-					fireball.setIsIncendiary(true);
-					fireball.setYield(100.f);
-					fireball.setCustomName(Ghast.class.getName());
+					
+					event.setCancelled(true);
 				}
 			}
 		}
@@ -175,7 +223,6 @@ public class OwnerEnchantedKitListener implements Listener
 	
 	private void bow_click(@NotNull PlayerInteractEvent event, @NotNull Player player)
 	{
-		
 		if (!player.hasPermission(PERMISSION_USE + "axe")) return;
 		switch (event.getAction())
 		{
@@ -202,8 +249,10 @@ public class OwnerEnchantedKitListener implements Listener
 						msg += ChatColor.BLUE;
 					else msg += ChatColor.LIGHT_PURPLE;
 					msg += most_looking_at.val.getName();
-					new Loger(plugin).message(event.getPlayer(), msg);
+					loger.message(event.getPlayer(), msg);
 				}
+				
+				event.setCancelled(true);
 			}
 		}
 		
@@ -222,7 +271,7 @@ public class OwnerEnchantedKitListener implements Listener
 		return vector.normalize().dot(playerLocation.getDirection());
 	}
 	
-	private void arrow_click(@NotNull PlayerInteractEvent event, @NotNull Player player, @NotNull ItemStack item)
+	private void arrow_click(@NotNull PlayerInteractEvent event, @NotNull Player player, @NotNull ItemStack bow)
 	{
 		if (!player.hasPermission(PERMISSION_USE + "arrow")) return;
 		switch (event.getAction())
@@ -231,7 +280,7 @@ public class OwnerEnchantedKitListener implements Listener
 			{
 				Location location = player.getLocation();
 				location.add(0, 1.63, 0);
-				int n = item.getAmount();
+				int n = bow.getAmount();
 				Random random = new Random(LocalDateTime.now().getNano());
 				for (int i = 0; i < n; ++i)
 				{
@@ -249,9 +298,9 @@ public class OwnerEnchantedKitListener implements Listener
 					arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
 					arrow.setCustomName(Skeleton.class.getName());
 				}
+				event.setCancelled(true);
 			}
 		}
-		event.setCancelled(true);
 	}
 	
 	private void zombie_head_click(@NotNull PlayerInteractEvent event, @NotNull Player player, @NotNull ItemStack head)
@@ -330,10 +379,218 @@ public class OwnerEnchantedKitListener implements Listener
 						vindicator.getActivePotionEffects().clear();
 						vindicator.getActivePotionEffects().addAll(effects1);
 					}
+					
+					event.setCancelled(true);
 				}
-				event.setCancelled(true);
 			}
 		}
+	}
+	
+	private void iron_nugget_click(@NotNull PlayerInteractEvent event, @NotNull Player player)
+	{
+		if (!player.hasPermission(PERMISSION_USE + "ore")) return;
+		loger.message(player, ChatColor.GRAY + "==========================");
+		Location location = player.getLocation();
+		Location loc;
+		ArrayList<Pair<Double, String>> list = new ArrayList<>();
+		for (int i = location.getBlockX() - R; i <= location.getBlockX() + R; ++i)
+		{
+			for (int j = location.getBlockY() - R; j <= location.getBlockY() + R; ++j)
+			{
+				for (int k = location.getBlockZ() - R; k <= location.getBlockZ() + R; ++k)
+				{
+					loc = new Location(player.getWorld(), i, j, k);
+					if (loc.getBlock().getType() == Material.GOLD_ORE ||
+					    loc.getBlock().getType() == Material.NETHER_GOLD_ORE ||
+					    loc.getBlock().getType() == Material.DEEPSLATE_GOLD_ORE ||
+					    loc.getBlock().getType() == Material.GOLD_BLOCK)
+					{
+						double sub_x = location.getBlockX() - loc.getBlockX();
+						double sub_y = location.getBlockY() - loc.getBlockY();
+						double sub_z = location.getBlockZ() - loc.getBlockZ();
+						double dist = Math.sqrt(sub_x * sub_x + sub_y * sub_y + sub_z * sub_z);
+						if (dist <= 15.0)
+						{
+							list.add(new Pair<>(
+									dist,
+									"[x=" + i + ", y=" + j + ", z=" + k + "] " + ChatColor.GREEN + "dist=" + dist
+							));
+						}
+						else
+						{
+							list.add(new Pair<>(dist, "[x=" + i + ", y=" + j + ", z=" + k + "] dist=" + dist));
+						}
+					}
+				}
+			}
+		}
+		list.sort((left, right) ->
+		          {
+			          if (left.key < right.key) return 1;
+			          else if (left.key.equals(right.key)) return 0;
+			          else return -1;
+		          });
+		for (Pair<Double, String> p : list)
+		{
+			loger.message(player, p.getValue());
+		}
+		loger.message(player, ChatColor.GRAY + "==========================");
+		
+		event.setCancelled(true);
+	}
+	
+	private void gold_nugget_click(@NotNull PlayerInteractEvent event, @NotNull Player player)
+	{
+		if (!player.hasPermission(PERMISSION_USE + "ore")) return;
+		loger.message(player, ChatColor.YELLOW + "==========================");
+		Location location = player.getLocation();
+		Location loc;
+		ArrayList<Pair<Double, String>> list = new ArrayList<>();
+		for (int i = location.getBlockX() - R; i <= location.getBlockX() + R; ++i)
+		{
+			for (int j = location.getBlockY() - R; j <= location.getBlockY() + R; ++j)
+			{
+				for (int k = location.getBlockZ() - R; k <= location.getBlockZ() + R; ++k)
+				{
+					loc = new Location(player.getWorld(), i, j, k);
+					if (loc.getBlock().getType() == Material.DIAMOND_ORE ||
+					    loc.getBlock().getType() == Material.DEEPSLATE_DIAMOND_ORE ||
+					    loc.getBlock().getType() == Material.DIAMOND_BLOCK)
+					{
+						double sub_x = location.getBlockX() - loc.getBlockX();
+						double sub_y = location.getBlockY() - loc.getBlockY();
+						double sub_z = location.getBlockZ() - loc.getBlockZ();
+						double dist = Math.sqrt(sub_x * sub_x + sub_y * sub_y + sub_z * sub_z);
+						if (dist <= 15.0)
+						{
+							list.add(new Pair<>(
+									dist,
+									"[x=" + i + ", y=" + j + ", z=" + k + "] " + ChatColor.GREEN + "dist=" + dist
+							));
+						}
+						else
+						{
+							list.add(new Pair<>(dist, "[x=" + i + ", y=" + j + ", z=" + k + "] dist=" + dist));
+						}
+					}
+				}
+			}
+		}
+		list.sort((left, right) ->
+		          {
+			          if (left.key < right.key) return 1;
+			          else if (left.key.equals(right.key)) return 0;
+			          else return -1;
+		          });
+		for (Pair<Double, String> p : list)
+		{
+			player.sendMessage(p.getValue());
+		}
+		loger.message(player, ChatColor.YELLOW + "==========================");
+		
+		event.setCancelled(true);
+	}
+	
+	private void gold_block_click(@NotNull PlayerInteractEvent event, @NotNull Player player)
+	{
+		if (!player.hasPermission(PERMISSION_USE + "ore")) return;
+		loger.message(player, ChatColor.YELLOW + "==========================");
+		Location location = player.getLocation();
+		Location loc;
+		ArrayList<Pair<Double, String>> list = new ArrayList<>();
+		for (int i = location.getBlockX() - R; i <= location.getBlockX() + R; ++i)
+		{
+			for (int j = location.getBlockY() - R; j <= location.getBlockY() + R; ++j)
+			{
+				for (int k = location.getBlockZ() - R; k <= location.getBlockZ() + R; ++k)
+				{
+					loc = new Location(player.getWorld(), i, j, k);
+					if (loc.getBlock().getType() == Material.EMERALD_ORE ||
+					    loc.getBlock().getType() == Material.DEEPSLATE_EMERALD_ORE ||
+					    loc.getBlock().getType() == Material.EMERALD_BLOCK)
+					{
+						double sub_x = location.getBlockX() - loc.getBlockX();
+						double sub_y = location.getBlockY() - loc.getBlockY();
+						double sub_z = location.getBlockZ() - loc.getBlockZ();
+						double dist = Math.sqrt(sub_x * sub_x + sub_y * sub_y + sub_z * sub_z);
+						if (dist <= 15.0)
+						{
+							list.add(new Pair<>(
+									dist,
+									"[x=" + i + ", y=" + j + ", z=" + k + "] " + ChatColor.GREEN + "dist=" + dist
+							));
+						}
+						else
+						{
+							list.add(new Pair<>(dist, "[x=" + i + ", y=" + j + ", z=" + k + "] dist=" + dist));
+						}
+					}
+				}
+			}
+		}
+		list.sort((left, right) ->
+		          {
+			          if (left.key < right.key) return 1;
+			          else if (left.key.equals(right.key)) return 0;
+			          else return -1;
+		          });
+		for (Pair<Double, String> p : list)
+		{
+			player.sendMessage(p.getValue());
+		}
+		loger.message(player, ChatColor.YELLOW + "==========================");
+		
+		event.setCancelled(true);
+	}
+	
+	private void diamond_click(@NotNull PlayerInteractEvent event, @NotNull Player player)
+	{
+		if (!player.hasPermission(PERMISSION_USE + "ore")) return;
+		loger.message(player, ChatColor.AQUA + "==========================");
+		Location location = player.getLocation();
+		Location loc;
+		ArrayList<Pair<Double, String>> list = new ArrayList<>();
+		for (int i = location.getBlockX() - R; i <= location.getBlockX() + R; ++i)
+		{
+			for (int j = location.getBlockY() - R; j <= location.getBlockY() + R; ++j)
+			{
+				for (int k = location.getBlockZ() - R; k <= location.getBlockZ() + R; ++k)
+				{
+					loc = new Location(player.getWorld(), i, j, k);
+					if (loc.getBlock().getType() == Material.EMERALD_ORE ||
+					    loc.getBlock().getType() == Material.DEEPSLATE_EMERALD_ORE ||
+					    loc.getBlock().getType() == Material.EMERALD_BLOCK)
+					{
+						double sub_x = location.getBlockX() - loc.getBlockX();
+						double sub_y = location.getBlockY() - loc.getBlockY();
+						double sub_z = location.getBlockZ() - loc.getBlockZ();
+						double dist = Math.sqrt(sub_x * sub_x + sub_y * sub_y + sub_z * sub_z);
+						if (dist <= 15.0)
+						{
+							list.add(new Pair<>(
+									dist,
+									"[x=" + i + ", y=" + j + ", z=" + k + "] " + ChatColor.GREEN + "dist=" + dist
+							));
+						}
+						else
+						{
+							list.add(new Pair<>(dist, "[x=" + i + ", y=" + j + ", z=" + k + "] dist=" + dist));
+						}
+					}
+				}
+			}
+		}
+		list.sort((left, right) ->
+		          {
+			          if (left.key < right.key) return 1;
+			          else if (left.key.equals(right.key)) return 0;
+			          else return -1;
+		          });
+		for (Pair<Double, String> p : list)
+			player.sendMessage(p.getValue());
+		loger.message(player, ChatColor.AQUA + "==========================");
+		
+		event.setCancelled(true);
 	}
 	
 	private static class Pair<K, V> implements Map.Entry<K, V>
@@ -365,6 +622,32 @@ public class OwnerEnchantedKitListener implements Listener
 			V val = this.val;
 			this.val = value;
 			return val;
+		}
+	}
+	
+	private static class AutoAimRunnable extends BukkitRunnable
+	{
+		private final Projectile projectile;
+		private final Location target;
+		private final Player player;
+		
+		public AutoAimRunnable(Projectile projectile, Location target, Player player)
+		{
+			
+			this.projectile = projectile;
+			this.target = target;
+			this.player = player;
+		}
+		
+		@Override
+		public void run()
+		{
+			Vector vel = target.toVector().subtract(projectile.getLocation().toVector()).normalize().multiply(10.0);
+			projectile.setVelocity(vel);
+			double yaw = Math.atan2(vel.getZ(), vel.getX());
+			double pitch = Math.atan2(Math.sqrt(vel.getZ() * vel.getZ() + vel.getX() * vel.getX()), vel.getY());
+			projectile.setRotation((float)yaw, (float)pitch);
+			player.sendMessage("velocity changed");
 		}
 	}
 }
