@@ -3,6 +3,7 @@ package com.imperzer0.essentials;
 
 import com.imperzer0.essentials.commands.*;
 import com.imperzer0.essentials.listeners.BagListener;
+import com.imperzer0.essentials.listeners.OwnerEnchantedKitListener;
 import com.imperzer0.essentials.utils.Loger;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,6 +32,7 @@ public class Main extends JavaPlugin
 		// Listeners
 		PluginManager manager = getServer().getPluginManager();
 		manager.registerEvents(new BagListener(this), this);
+		manager.registerEvents(new OwnerEnchantedKitListener(this), this);
 		
 		
 		// Commands

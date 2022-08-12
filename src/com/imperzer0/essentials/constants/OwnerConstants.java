@@ -107,8 +107,7 @@ public class OwnerConstants
 			owner.removePotionEffect(effect.getType());
 		owner.addPotionEffects(POTION_EFFECTS);
 		owner.setMaxHealth(999999.0);
-		owner.setHealth(2048.0);
-		owner.setFoodLevel(20);
+		owner.setHealth(owner.getMaxHealth());
 	}
 	
 	public static void clear_owner_effects(@NotNull HumanEntity owner)
@@ -125,7 +124,14 @@ public class OwnerConstants
 		return item != null && item.getEnchantments().equals(ENCHANTMENTS);
 	}
 	
-	enum OWNER_ITEMS
+	public static boolean is_from_kit(ItemStack item)
+	{
+		if (item == null || !item.getEnchantments().equals(ENCHANTMENTS)) return false;
+		for (ItemStack oi : owner_items) if (item.getType().equals(oi.getType())) return true;
+		return false;
+	}
+	
+	public enum OWNER_ITEMS
 	{
 		ANNIHILATOR(0),
 		LIGHTNING_AXE(1),
@@ -162,6 +168,6 @@ public class OwnerConstants
 					       };
 		}
 		
-		public int index() { return idx; }
+		public final int index() { return idx; }
 	}
 }
