@@ -37,8 +37,8 @@ public class Bag implements CommandExecutor, TabCompleter
 	{
 		this.loger = loger;
 		plugin = loger.plugin;
-		Objects.requireNonNull(plugin.getCommand(NAME)).setExecutor(this);
-		Bukkit.getServer().getPluginManager().addPermission(
+		CommandUtils.command_initialization(Objects.requireNonNull(plugin.getCommand(NAME)), PERMISSION, this, plugin);
+		Bukkit.getPluginManager().addPermission(
 				new Permission(PERMISSION_CLEAR + "all", "Clear all users bags", PermissionDefault.FALSE));
 	}
 	

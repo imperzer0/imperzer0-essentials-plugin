@@ -1,6 +1,6 @@
 main: com.imperzer0.essentials.Main
 name: imperzer0-essentials
-version: 1.8.1
+version: 1.9.0
 author: imperzer0
 api-version: 1.19
 load: POSTWORLD
@@ -11,45 +11,41 @@ database: false
 commands:
   give:
     description: Gives stuff
-    permission: imperzer0-essentials.command.give
     permission-message: Permission denied. Please contact administrator.
 
   fly:
     description: Toggle flight
-    permission: imperzer0-essentials.command.fly
     permission-message: Permission denied. Please contact administrator.
 
   owner_kit:
     aliases: [ owk ]
     description: Give owner kit
-    permission: imperzer0-essentials.command.owner_kit
     permission-message: Permission denied. Please contact administrator.
 
   rm_owner_kit:
     aliases: [ rmowk ]
     description: Get rid of owner kit
-    permission: imperzer0-essentials.command.rm_owner_kit
     permission-message: Permission denied. Please contact administrator.
 
   gamemode:
     aliases: [ gm ]
     description: Set player game mode
-    permission: imperzer0-essentials.command.gamemode
     permission-message: Permission denied. Please contact administrator.
 
   mkstack:
     aliases: [ ms, dupe ]
     description: Refills stack of items in main hand
-    permission: imperzer0-essentials.command.mkstack
     permission-message: Permission denied. Please contact administrator.
 
   bag:
     description: Opens your bag
-    permission: imperzer0-essentials.command.bag
     permission-message: Permission denied. Please contact administrator.
 
   uuid:
     description: Gets player's UUID
-    permission: imperzer0-essentials.command.uuid
+    permission-message: Permission denied. Please contact administrator.
+
+  ret:
+    description: Returns player to the death location
     permission-message: Permission denied. Please contact administrator.
 

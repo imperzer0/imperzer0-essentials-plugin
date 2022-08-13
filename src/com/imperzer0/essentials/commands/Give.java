@@ -31,7 +31,7 @@ public class Give implements CommandExecutor, TabCompleter
 	{
 		this.plugin = loger.plugin;
 		this.loger = loger;
-		Objects.requireNonNull(plugin.getCommand(NAME)).setExecutor(this);
+		CommandUtils.command_initialization(Objects.requireNonNull(plugin.getCommand(NAME)), PERMISSION, this, plugin);
 	}
 	
 	@Override

@@ -29,7 +29,7 @@ public class GetUUID implements CommandExecutor, TabCompleter
 	{
 		this.loger = loger;
 		plugin = loger.plugin;
-		Objects.requireNonNull(plugin.getCommand(NAME)).setExecutor(this);
+		CommandUtils.command_initialization(Objects.requireNonNull(plugin.getCommand(NAME)), PERMISSION, this, plugin);
 	}
 	
 	@Override

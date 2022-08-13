@@ -32,13 +32,12 @@ import static com.imperzer0.essentials.constants.OwnerConstants.ENCHANTMENTS;
 
 public class OwnerEnchantedKitListener implements Listener
 {
-	public final Main plugin;
-	private final Loger loger;
 	public static final int DISTANCE = 10000;
 	public static final int R = 30;
-	
 	public static final String PERMISSION_USE = "imperzer0-essentials.command.owner_kit.use.";
-	private Map<UUID, UUID> player_target = new HashMap<>();
+	public final Main plugin;
+	private final Loger loger;
+	private final Map<UUID, UUID> player_target = new HashMap<>();
 	
 	public OwnerEnchantedKitListener(@NotNull Loger loger)
 	{
