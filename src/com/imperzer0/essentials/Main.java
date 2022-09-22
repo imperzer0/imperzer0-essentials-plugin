@@ -2,6 +2,10 @@ package com.imperzer0.essentials;
 
 
 import com.imperzer0.essentials.commands.*;
+import com.imperzer0.essentials.crafts.DebugStickCraft;
+import com.imperzer0.essentials.crafts.EmeraldCrafts;
+import com.imperzer0.essentials.crafts.EnchantedGoldenAppleCraft;
+import com.imperzer0.essentials.crafts.MapCraft;
 import com.imperzer0.essentials.listeners.BagListener;
 import com.imperzer0.essentials.listeners.OwnerEnchantedKitListener;
 import com.imperzer0.essentials.listeners.RetListener;
@@ -47,6 +51,12 @@ public class Main extends JavaPlugin
 		new Bag(loger);
 		new GetUUID(loger);
 		new Ret(loger);
+		
+		// Craft recipes
+		new MapCraft(this);
+		new EnchantedGoldenAppleCraft(this);
+		new EmeraldCrafts(this);
+		new DebugStickCraft(this);
 	}
 	
 	/// When disabled
