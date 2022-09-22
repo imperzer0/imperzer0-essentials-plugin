@@ -78,7 +78,7 @@ public class PlayerUtils
 			}
 			else
 			{
-				if (Objects.requireNonNull(player.getName()).contains(filter)) identifiers.add(player.getName());
+				if (player.getName() != null && player.getName().contains(filter)) identifiers.add(player.getName());
 				if (player.getUniqueId().toString().contains(filter)) identifiers.add(player.getUniqueId().toString());
 			}
 		return identifiers;
@@ -101,7 +101,7 @@ public class PlayerUtils
 		for (OfflinePlayer player : Bukkit.getOfflinePlayers())
 			if (filter == null)
 				identifiers.add(player.getName());
-			else if (Objects.requireNonNull(player.getName()).contains(filter))
+			else if (player.getName() != null && player.getName().contains(filter))
 				identifiers.add(player.getName());
 		return identifiers;
 	}
