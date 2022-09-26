@@ -25,8 +25,8 @@ public class EnchantedGoldenAppleCraft implements Listener
 	public EnchantedGoldenAppleCraft(Main plugin)
 	{
 		this.plugin = plugin;
-		Bukkit.addRecipe(apple_recipe());
 		key = new NamespacedKey(this.plugin, "enchantedgoldenapplecraft");
+		Bukkit.addRecipe(apple_recipe());
 	}
 	
 	public ShapedRecipe apple_recipe()
