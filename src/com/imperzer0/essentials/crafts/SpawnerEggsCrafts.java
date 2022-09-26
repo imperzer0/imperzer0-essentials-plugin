@@ -4,16 +4,36 @@ import com.imperzer0.essentials.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
+import org.jetbrains.annotations.NotNull;
 
-public class SpawnerEggsCrafts
+import java.util.Arrays;
+
+public class SpawnerEggsCrafts implements Listener
 {
 	public final Main plugin;
+	public final NamespacedKey[] keys;
+	
+	@EventHandler
+	void on_login(@NotNull PlayerLoginEvent event)
+	{
+		event.getPlayer().discoverRecipes(Arrays.stream(keys).toList());
+	}
 	
 	public SpawnerEggsCrafts(Main plugin)
 	{
 		this.plugin = plugin;
+		keys = new NamespacedKey[]{
+				new NamespacedKey(this.plugin, "spideregg"),
+				new NamespacedKey(this.plugin, "cavespideregg"),
+				new NamespacedKey(this.plugin, "skeletonegg"),
+				new NamespacedKey(this.plugin, "zombieegg"),
+				new NamespacedKey(this.plugin, "blazeegg")
+		};
 		Bukkit.addRecipe(spider_egg());
 		Bukkit.addRecipe(cave_spider_egg());
 		Bukkit.addRecipe(skeleton_egg());
@@ -24,8 +44,7 @@ public class SpawnerEggsCrafts
 	public ShapedRecipe spider_egg()
 	{
 		ItemStack item = new ItemStack(Material.SPIDER_SPAWN_EGG);
-		NamespacedKey key = new NamespacedKey(this.plugin, "spideregg");
-		ShapedRecipe recipe = new ShapedRecipe(key, item);
+		ShapedRecipe recipe = new ShapedRecipe(keys[0], item);
 		recipe.shape(
 				"EEE",
 				"EPE",
@@ -39,8 +58,7 @@ public class SpawnerEggsCrafts
 	public ShapedRecipe cave_spider_egg()
 	{
 		ItemStack item = new ItemStack(Material.CAVE_SPIDER_SPAWN_EGG);
-		NamespacedKey key = new NamespacedKey(this.plugin, "cavespideregg");
-		ShapedRecipe recipe = new ShapedRecipe(key, item);
+		ShapedRecipe recipe = new ShapedRecipe(keys[1], item);
 		recipe.shape(
 				"EEE",
 				"EPE",
@@ -54,8 +72,7 @@ public class SpawnerEggsCrafts
 	public ShapedRecipe skeleton_egg()
 	{
 		ItemStack item = new ItemStack(Material.SKELETON_SPAWN_EGG);
-		NamespacedKey key = new NamespacedKey(this.plugin, "skeletonegg");
-		ShapedRecipe recipe = new ShapedRecipe(key, item);
+		ShapedRecipe recipe = new ShapedRecipe(keys[2], item);
 		recipe.shape(
 				"EEE",
 				"EPE",
@@ -69,8 +86,7 @@ public class SpawnerEggsCrafts
 	public ShapedRecipe zombie_egg()
 	{
 		ItemStack item = new ItemStack(Material.ZOMBIE_SPAWN_EGG);
-		NamespacedKey key = new NamespacedKey(this.plugin, "zombieegg");
-		ShapedRecipe recipe = new ShapedRecipe(key, item);
+		ShapedRecipe recipe = new ShapedRecipe(keys[3], item);
 		recipe.shape(
 				"EEE",
 				"EPE",
@@ -84,8 +100,7 @@ public class SpawnerEggsCrafts
 	public ShapedRecipe blaze_egg()
 	{
 		ItemStack item = new ItemStack(Material.BLAZE_SPAWN_EGG);
-		NamespacedKey key = new NamespacedKey(this.plugin, "blazeegg");
-		ShapedRecipe recipe = new ShapedRecipe(key, item);
+		ShapedRecipe recipe = new ShapedRecipe(keys[4], item);
 		recipe.shape(
 				"EEE",
 				"EPE",

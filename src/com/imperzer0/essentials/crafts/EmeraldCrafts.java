@@ -6,27 +6,39 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.Objects;
 
-public class EmeraldCrafts
+public class EmeraldCrafts implements Listener
 {
 	public final Main plugin;
-	public static final String[] keys = {
-			"emeraldsword",
-			"emeraldpick",
-			"emeraldaxe",
-			"emeraldshovel",
-			"emeraldhoe",
-			"emeraldbow"
-	};
+	public final NamespacedKey[] keys;
+	
+	@EventHandler
+	void on_login(@NotNull PlayerLoginEvent event)
+	{
+		event.getPlayer().discoverRecipes(Arrays.stream(keys).toList());
+	}
 	
 	public EmeraldCrafts(Main plugin)
 	{
 		this.plugin = plugin;
+		keys = new NamespacedKey[]{
+				new NamespacedKey(plugin, "emeraldswordcraft"),
+				new NamespacedKey(plugin, "emeraldpickcraft"),
+				new NamespacedKey(plugin, "emeraldaxecraft"),
+				new NamespacedKey(plugin, "emeraldshovelcraft"),
+				new NamespacedKey(plugin, "emeraldhoecraft"),
+				new NamespacedKey(plugin, "emeraldbowcraft")
+		};
 		Bukkit.addRecipe(emerald_sword_recipe());
 		Bukkit.addRecipe(emerald_pick_recipe());
 		Bukkit.addRecipe(emerald_axe_recipe());
@@ -51,8 +63,7 @@ public class EmeraldCrafts
 			item.setItemMeta(meta);
 		}
 		catch (Exception ignored) { }
-		NamespacedKey key = new NamespacedKey(this.plugin, keys[0]);
-		ShapedRecipe recipe = new ShapedRecipe(key, item);
+		ShapedRecipe recipe = new ShapedRecipe(keys[0], item);
 		recipe.shape(
 				"E",
 				"E",
@@ -77,8 +88,7 @@ public class EmeraldCrafts
 			item.setItemMeta(meta);
 		}
 		catch (Exception ignored) { }
-		NamespacedKey key = new NamespacedKey(this.plugin, keys[1]);
-		ShapedRecipe recipe = new ShapedRecipe(key, item);
+		ShapedRecipe recipe = new ShapedRecipe(keys[1], item);
 		recipe.shape(
 				"EEE",
 				" S ",
@@ -103,8 +113,7 @@ public class EmeraldCrafts
 			item.setItemMeta(meta);
 		}
 		catch (Exception ignored) { }
-		NamespacedKey key = new NamespacedKey(this.plugin, keys[2]);
-		ShapedRecipe recipe = new ShapedRecipe(key, item);
+		ShapedRecipe recipe = new ShapedRecipe(keys[2], item);
 		recipe.shape(
 				"EE",
 				"ES",
@@ -129,8 +138,7 @@ public class EmeraldCrafts
 			item.setItemMeta(meta);
 		}
 		catch (Exception ignored) { }
-		NamespacedKey key = new NamespacedKey(this.plugin, keys[3]);
-		ShapedRecipe recipe = new ShapedRecipe(key, item);
+		ShapedRecipe recipe = new ShapedRecipe(keys[3], item);
 		recipe.shape(
 				"E",
 				"S",
@@ -155,8 +163,7 @@ public class EmeraldCrafts
 			item.setItemMeta(meta);
 		}
 		catch (Exception ignored) { }
-		NamespacedKey key = new NamespacedKey(this.plugin, keys[4]);
-		ShapedRecipe recipe = new ShapedRecipe(key, item);
+		ShapedRecipe recipe = new ShapedRecipe(keys[4], item);
 		recipe.shape(
 				"EE",
 				" S",
@@ -186,8 +193,7 @@ public class EmeraldCrafts
 			item.setItemMeta(meta);
 		}
 		catch (Exception ignored) { }
-		NamespacedKey key = new NamespacedKey(this.plugin, keys[5]);
-		ShapedRecipe recipe = new ShapedRecipe(key, item);
+		ShapedRecipe recipe = new ShapedRecipe(keys[5], item);
 		recipe.shape(
 				" ES",
 				"E S",
