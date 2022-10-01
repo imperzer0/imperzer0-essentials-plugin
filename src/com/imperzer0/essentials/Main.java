@@ -51,8 +51,8 @@ public class Main extends JavaPlugin
 		
 		// Craft recipes
 		manager.registerEvents(new DebugStickCraft(this), this);
-		manager.registerEvents(new EmeraldCrafts(this), this);
-		manager.registerEvents(new EnchantedGoldenAppleCraft(this), this);
+//		manager.registerEvents(new EmeraldCrafts(this), this);
+//		manager.registerEvents(new EnchantedGoldenAppleCraft(this), this);
 		manager.registerEvents(new SpawnerCraft(this), this);
 		manager.registerEvents(new SpawnerEggsCrafts(this), this);
 	}
