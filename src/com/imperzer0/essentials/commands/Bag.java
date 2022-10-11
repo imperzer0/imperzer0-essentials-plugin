@@ -1,9 +1,7 @@
 package com.imperzer0.essentials.commands;
 
-import com.imperzer0.essentials.Main;
 import com.imperzer0.essentials.utils.BagUtils;
 import com.imperzer0.essentials.utils.CommandUtils;
-import com.imperzer0.essentials.utils.Loger;
 import com.imperzer0.essentials.utils.PlayerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.imperzer0.essentials.Main.plugin;
+import static com.imperzer0.essentials.utils.Loger.loger;
+
 public class Bag implements CommandExecutor, TabCompleter
 {
 	public static final String NAME = "bag";
@@ -30,14 +31,9 @@ public class Bag implements CommandExecutor, TabCompleter
 	public static final String PERMISSION_STEAL = "imperzer0-essentials.command.bag_steal";
 	public static final String PERMISSION_CLEAR = "imperzer0-essentials.command.clear.";
 	
-	public final Main plugin;
-	private final Loger loger;
-	
-	public Bag(@NotNull Loger loger)
+	public Bag()
 	{
-		this.loger = loger;
-		plugin = loger.plugin;
-		CommandUtils.command_initialization(Objects.requireNonNull(plugin.getCommand(NAME)), PERMISSION, this, plugin);
+		CommandUtils.command_initialization(Objects.requireNonNull(plugin.getCommand(NAME)), PERMISSION, this);
 		Bukkit.getPluginManager().addPermission(
 				new Permission(PERMISSION_CLEAR + "all", "Clear all users bags", PermissionDefault.FALSE));
 	}
@@ -45,7 +41,7 @@ public class Bag implements CommandExecutor, TabCompleter
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args)
 	{
-		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE, loger)) return false;
+		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE)) return false;
 		
 		if (!(sender instanceof HumanEntity human))
 		{

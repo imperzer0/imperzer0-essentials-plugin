@@ -1,20 +1,28 @@
 package com.imperzer0.essentials.crafts;
 
-import com.imperzer0.essentials.Main;
-import org.bukkit.Bukkit;
+import com.imperzer0.essentials.utils.Pair;
+import com.imperzer0.essentials.utils.RecipeUtil;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.jetbrains.annotations.NotNull;
 
+import static com.imperzer0.essentials.Main.plugin;
+
 public class EnchantedGoldenAppleCraft implements Listener
 {
-	public final Main plugin;
 	public final NamespacedKey key;
+	
+	public EnchantedGoldenAppleCraft()
+	{
+		key = new NamespacedKey(plugin, "enchantedgoldenapplecraft");
+		RecipeUtil.add_recipe(apple_recipe());
+	}
 	
 	@EventHandler
 	void on_login(@NotNull PlayerLoginEvent event)
@@ -22,16 +30,9 @@ public class EnchantedGoldenAppleCraft implements Listener
 		event.getPlayer().discoverRecipe(key);
 	}
 	
-	public EnchantedGoldenAppleCraft(Main plugin)
+	public Pair<NamespacedKey, Recipe> apple_recipe()
 	{
-		this.plugin = plugin;
-		key = new NamespacedKey(this.plugin, "enchantedgoldenapplecraft");
-		Bukkit.addRecipe(apple_recipe());
-	}
-	
-	public ShapedRecipe apple_recipe()
-	{
-		ItemStack item = new ItemStack(Material.MAP);
+		ItemStack item = new ItemStack(Material.ENCHANTED_GOLDEN_APPLE);
 		ShapedRecipe recipe = new ShapedRecipe(key, item);
 		recipe.shape(
 				"GGG",
@@ -40,6 +41,6 @@ public class EnchantedGoldenAppleCraft implements Listener
 		);
 		recipe.setIngredient('G', Material.GOLD_BLOCK);
 		recipe.setIngredient('A', Material.APPLE);
-		return recipe;
+		return new Pair<>(key, recipe);
 	}
 }

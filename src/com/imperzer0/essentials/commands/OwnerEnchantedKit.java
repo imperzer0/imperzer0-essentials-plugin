@@ -1,10 +1,8 @@
 package com.imperzer0.essentials.commands;
 
-import com.imperzer0.essentials.Main;
 import com.imperzer0.essentials.constants.OwnerConstants;
 import com.imperzer0.essentials.utils.CommandUtils;
 import com.imperzer0.essentials.utils.InventoryUtils;
-import com.imperzer0.essentials.utils.Loger;
 import com.imperzer0.essentials.utils.MaterialUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,26 +22,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.imperzer0.essentials.Main.plugin;
+import static com.imperzer0.essentials.utils.Loger.loger;
+
 public class OwnerEnchantedKit implements CommandExecutor, TabCompleter
 {
 	public static final String NAME = "owner_kit";
 	public static final String USAGE = "[ menu <amount> ] / [ apply ]";
 	public static final String PERMISSION = "imperzer0-essentials.command.owner_kit";
 	
-	public final Main plugin;
-	private final Loger loger;
-	
-	public OwnerEnchantedKit(@NotNull Loger loger)
+	public OwnerEnchantedKit()
 	{
-		this.loger = loger;
-		plugin = loger.plugin;
-		CommandUtils.command_initialization(Objects.requireNonNull(plugin.getCommand(NAME)), PERMISSION, this, plugin);
+		CommandUtils.command_initialization(Objects.requireNonNull(plugin.getCommand(NAME)), PERMISSION, this);
 	}
 	
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args)
 	{
-		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE, loger)) return false;
+		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE)) return false;
 		
 		if (args.length == 0)
 			if (sender instanceof HumanEntity human)

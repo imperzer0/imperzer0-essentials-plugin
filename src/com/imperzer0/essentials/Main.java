@@ -6,15 +6,18 @@ import com.imperzer0.essentials.crafts.*;
 import com.imperzer0.essentials.listeners.BagListener;
 import com.imperzer0.essentials.listeners.OwnerEnchantedKitListener;
 import com.imperzer0.essentials.listeners.RetListener;
-import com.imperzer0.essentials.utils.Loger;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin
 {
-	private final Loger loger;
+	public static Main plugin;
 	
-	public Main() { this.loger = new Loger(this); }
+	public Main()
+	{
+		plugin = this;
+	}
 	
 	/// Before enabled
 	@Override
@@ -22,6 +25,7 @@ public class Main extends JavaPlugin
 	{
 		getLogger().info("====================== Loading plugin " + getName() + " v" + getDescription().getVersion() +
 		                 " ... ======================");
+		saveDefaultConfig();
 	}
 	
 	/// When enabled
@@ -31,30 +35,44 @@ public class Main extends JavaPlugin
 		getLogger().info("======================== Enabled plugin " + getName() + " v" + getDescription().getVersion() +
 		                 " ========================");
 		
-		// Listeners
+		FileConfiguration config = super.getConfig();
 		PluginManager manager = getServer().getPluginManager();
-		manager.registerEvents(new BagListener(this), this);
-		manager.registerEvents(new OwnerEnchantedKitListener(loger), this);
-		manager.registerEvents(new RetListener(this), this);
 		
 		
-		// Commands
-		new Give(loger);
-		new Fly(loger);
-		new OwnerEnchantedKit(loger);
-		new RemoveOwnerEnchantedKit(loger);
-		new Gamemode(loger);
-		new MkStack(loger);
-		new Bag(loger);
-		new GetUUID(loger);
-		new Ret(loger);
+		/// Listeners
+		if (config.getBoolean("commands.owner-kit", false)) manager.registerEvents(new OwnerEnchantedKitListener(), this);
+		if (config.getBoolean("commands.bag", false)) manager.registerEvents(new BagListener(), this);
+		if (config.getBoolean("commands.ret", false)) manager.registerEvents(new RetListener(), this);
 		
-		// Craft recipes
-		manager.registerEvents(new DebugStickCraft(this), this);
-//		manager.registerEvents(new EmeraldCrafts(this), this);
-//		manager.registerEvents(new EnchantedGoldenAppleCraft(this), this);
-		manager.registerEvents(new SpawnerCraft(this), this);
-		manager.registerEvents(new SpawnerEggsCrafts(this), this);
+		
+		/// Commands
+		if (config.getBoolean("commands.give", false)) new Give();
+		if (config.getBoolean("commands.fly", false)) new Fly();
+		if (config.getBoolean("commands.owner-kit", false)) new OwnerEnchantedKit();
+		if (config.getBoolean("commands.remove-owner-kit", false)) new RemoveOwnerEnchantedKit();
+		if (config.getBoolean("commands.gamemode", false)) new Gamemode();
+		if (config.getBoolean("commands.mkstack", false)) new MkStack();
+		if (config.getBoolean("commands.bag", false)) new Bag();
+		if (config.getBoolean("commands.uuid", false)) new GetUUID();
+		if (config.getBoolean("commands.ret", false)) new Ret();
+		
+		
+		/// Craft recipes
+		
+		if (config.getBoolean("crafts.debug-stick", false))
+			manager.registerEvents(new DebugStickCraft(), this);
+		
+		if (config.getBoolean("crafts.emerald", false))
+			manager.registerEvents(new EmeraldCrafts(), this);
+		
+		if (config.getBoolean("crafts.enchanted-golden-apple", false))
+			manager.registerEvents(new EnchantedGoldenAppleCraft(), this);
+		
+		if (config.getBoolean("crafts.spawner", false))
+			manager.registerEvents(new SpawnerCraft(), this);
+		
+		if (config.getBoolean("crafts.spawner-eggs", false))
+			manager.registerEvents(new SpawnerEggsCrafts(), this);
 	}
 	
 	/// When disabled

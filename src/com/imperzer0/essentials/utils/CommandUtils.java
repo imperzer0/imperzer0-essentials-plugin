@@ -1,6 +1,5 @@
 package com.imperzer0.essentials.utils;
 
-import com.imperzer0.essentials.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,11 +9,13 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.jetbrains.annotations.NotNull;
 
+import static com.imperzer0.essentials.Main.plugin;
+import static com.imperzer0.essentials.utils.Loger.loger;
+
 public class CommandUtils
 {
 	public static boolean initial_command_assertion(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String[] args,
-	                                                @NotNull final String PERMISSION, @NotNull final String USAGE,
-	                                                @NotNull Loger loger)
+	                                                @NotNull final String PERMISSION, @NotNull final String USAGE)
 	{
 		if (!sender.hasPermission(PERMISSION))
 		{
@@ -32,7 +33,7 @@ public class CommandUtils
 	}
 	
 	public static void command_initialization(@NotNull PluginCommand command, @NotNull String PERMISSION,
-	                                          @NotNull CommandExecutor executor, @NotNull Main plugin)
+	                                          @NotNull CommandExecutor executor)
 	{
 		command.setExecutor(executor);
 		Bukkit.getPluginManager().addPermission(new Permission(PERMISSION, command.getDescription(), PermissionDefault.FALSE));

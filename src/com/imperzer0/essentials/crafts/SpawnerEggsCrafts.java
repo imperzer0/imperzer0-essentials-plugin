@@ -1,22 +1,40 @@
 package com.imperzer0.essentials.crafts;
 
-import com.imperzer0.essentials.Main;
-import org.bukkit.Bukkit;
+import com.imperzer0.essentials.utils.Pair;
+import com.imperzer0.essentials.utils.RecipeUtil;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
+import static com.imperzer0.essentials.Main.plugin;
+
 public class SpawnerEggsCrafts implements Listener
 {
-	public final Main plugin;
 	public final NamespacedKey[] keys;
+	
+	public SpawnerEggsCrafts()
+	{
+		keys = new NamespacedKey[]{
+				new NamespacedKey(plugin, "spideregg"),
+				new NamespacedKey(plugin, "cavespideregg"),
+				new NamespacedKey(plugin, "skeletonegg"),
+				new NamespacedKey(plugin, "zombieegg"),
+				new NamespacedKey(plugin, "blazeegg")
+		};
+		RecipeUtil.add_recipe(spider_egg());
+		RecipeUtil.add_recipe(cave_spider_egg());
+		RecipeUtil.add_recipe(skeleton_egg());
+		RecipeUtil.add_recipe(zombie_egg());
+		RecipeUtil.add_recipe(blaze_egg());
+	}
 	
 	@EventHandler
 	void on_login(@NotNull PlayerLoginEvent event)
@@ -24,24 +42,7 @@ public class SpawnerEggsCrafts implements Listener
 		event.getPlayer().discoverRecipes(Arrays.stream(keys).toList());
 	}
 	
-	public SpawnerEggsCrafts(Main plugin)
-	{
-		this.plugin = plugin;
-		keys = new NamespacedKey[]{
-				new NamespacedKey(this.plugin, "spideregg"),
-				new NamespacedKey(this.plugin, "cavespideregg"),
-				new NamespacedKey(this.plugin, "skeletonegg"),
-				new NamespacedKey(this.plugin, "zombieegg"),
-				new NamespacedKey(this.plugin, "blazeegg")
-		};
-		Bukkit.addRecipe(spider_egg());
-		Bukkit.addRecipe(cave_spider_egg());
-		Bukkit.addRecipe(skeleton_egg());
-		Bukkit.addRecipe(zombie_egg());
-		Bukkit.addRecipe(blaze_egg());
-	}
-	
-	public ShapedRecipe spider_egg()
+	public Pair<NamespacedKey, Recipe> spider_egg()
 	{
 		ItemStack item = new ItemStack(Material.SPIDER_SPAWN_EGG);
 		ShapedRecipe recipe = new ShapedRecipe(keys[0], item);
@@ -52,10 +53,10 @@ public class SpawnerEggsCrafts implements Listener
 		);
 		recipe.setIngredient('E', Material.EGG);
 		recipe.setIngredient('P', Material.STRING);
-		return recipe;
+		return new Pair<>(keys[0], recipe);
 	}
 	
-	public ShapedRecipe cave_spider_egg()
+	public Pair<NamespacedKey, Recipe> cave_spider_egg()
 	{
 		ItemStack item = new ItemStack(Material.CAVE_SPIDER_SPAWN_EGG);
 		ShapedRecipe recipe = new ShapedRecipe(keys[1], item);
@@ -66,10 +67,10 @@ public class SpawnerEggsCrafts implements Listener
 		);
 		recipe.setIngredient('E', Material.EGG);
 		recipe.setIngredient('P', Material.SPIDER_EYE);
-		return recipe;
+		return new Pair<>(keys[1], recipe);
 	}
 	
-	public ShapedRecipe skeleton_egg()
+	public Pair<NamespacedKey, Recipe> skeleton_egg()
 	{
 		ItemStack item = new ItemStack(Material.SKELETON_SPAWN_EGG);
 		ShapedRecipe recipe = new ShapedRecipe(keys[2], item);
@@ -80,10 +81,10 @@ public class SpawnerEggsCrafts implements Listener
 		);
 		recipe.setIngredient('E', Material.EGG);
 		recipe.setIngredient('P', Material.BONE);
-		return recipe;
+		return new Pair<>(keys[2], recipe);
 	}
 	
-	public ShapedRecipe zombie_egg()
+	public Pair<NamespacedKey, Recipe> zombie_egg()
 	{
 		ItemStack item = new ItemStack(Material.ZOMBIE_SPAWN_EGG);
 		ShapedRecipe recipe = new ShapedRecipe(keys[3], item);
@@ -94,10 +95,10 @@ public class SpawnerEggsCrafts implements Listener
 		);
 		recipe.setIngredient('E', Material.EGG);
 		recipe.setIngredient('P', Material.ROTTEN_FLESH);
-		return recipe;
+		return new Pair<>(keys[3], recipe);
 	}
 	
-	public ShapedRecipe blaze_egg()
+	public Pair<NamespacedKey, Recipe> blaze_egg()
 	{
 		ItemStack item = new ItemStack(Material.BLAZE_SPAWN_EGG);
 		ShapedRecipe recipe = new ShapedRecipe(keys[4], item);
@@ -108,6 +109,6 @@ public class SpawnerEggsCrafts implements Listener
 		);
 		recipe.setIngredient('E', Material.EGG);
 		recipe.setIngredient('P', Material.BLAZE_ROD);
-		return recipe;
+		return new Pair<>(keys[4], recipe);
 	}
 }

@@ -1,6 +1,5 @@
 package com.imperzer0.essentials.listeners;
 
-import com.imperzer0.essentials.Main;
 import com.imperzer0.essentials.commands.Ret;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
@@ -16,9 +15,8 @@ import java.util.UUID;
 public class RetListener implements Listener
 {
 	private static final Map<UUID, Location> death_location = new HashMap<>();
-	public final Main plugin;
 	
-	public RetListener(Main plugin) { this.plugin = plugin; }
+	public RetListener() { }
 	
 	public static Location get_death_location(UUID uuid) { return death_location.get(uuid); }
 	

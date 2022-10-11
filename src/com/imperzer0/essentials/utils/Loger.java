@@ -1,6 +1,5 @@
 package com.imperzer0.essentials.utils;
 
-import com.imperzer0.essentials.Main;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
@@ -10,14 +9,15 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.logging.Logger;
 
+import static com.imperzer0.essentials.Main.plugin;
+
 public class Loger
 {
-	public final Main plugin;
+	public static final Loger loger = new Loger();
 	private final Logger logger;
 	
-	public Loger(@NotNull Main plugin)
+	private Loger()
 	{
-		this.plugin = plugin;
 		this.logger = plugin.getLogger();
 	}
 	

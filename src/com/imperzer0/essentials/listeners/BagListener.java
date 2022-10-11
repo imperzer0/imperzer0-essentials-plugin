@@ -1,12 +1,14 @@
 package com.imperzer0.essentials.listeners;
 
-import com.imperzer0.essentials.Main;
 import com.imperzer0.essentials.utils.BagUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.permissions.Permission;
@@ -14,13 +16,12 @@ import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
+import static com.imperzer0.essentials.Main.plugin;
 import static com.imperzer0.essentials.commands.Bag.PERMISSION_CLEAR;
 
 public class BagListener implements Listener
 {
-	public final Main plugin;
-	
-	public BagListener(Main plugin) { this.plugin = plugin; }
+	public BagListener() { }
 	
 	void process_inventory(@NotNull Inventory inventory)
 	{

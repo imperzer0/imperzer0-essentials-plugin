@@ -1,7 +1,7 @@
 package com.imperzer0.essentials.crafts;
 
-import com.imperzer0.essentials.Main;
-import org.bukkit.Bukkit;
+import com.imperzer0.essentials.utils.Pair;
+import com.imperzer0.essentials.utils.RecipeUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
@@ -17,20 +18,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.Objects;
 
+import static com.imperzer0.essentials.Main.plugin;
+
 public class EmeraldCrafts implements Listener
 {
-	public final Main plugin;
 	public final NamespacedKey[] keys;
 	
-	@EventHandler
-	void on_login(@NotNull PlayerLoginEvent event)
+	public EmeraldCrafts()
 	{
-		event.getPlayer().discoverRecipes(Arrays.stream(keys).toList());
-	}
-	
-	public EmeraldCrafts(Main plugin)
-	{
-		this.plugin = plugin;
 		keys = new NamespacedKey[]{
 				new NamespacedKey(plugin, "emeraldswordcraft"),
 				new NamespacedKey(plugin, "emeraldpickcraft"),
@@ -39,15 +34,21 @@ public class EmeraldCrafts implements Listener
 				new NamespacedKey(plugin, "emeraldhoecraft"),
 				new NamespacedKey(plugin, "emeraldbowcraft")
 		};
-		Bukkit.addRecipe(emerald_sword_recipe());
-		Bukkit.addRecipe(emerald_pick_recipe());
-		Bukkit.addRecipe(emerald_axe_recipe());
-		Bukkit.addRecipe(emerald_shovel_recipe());
-		Bukkit.addRecipe(emerald_hoe_recipe());
-		Bukkit.addRecipe(emerald_bow_recipe());
+		RecipeUtil.add_recipe(emerald_sword_recipe());
+		RecipeUtil.add_recipe(emerald_pick_recipe());
+		RecipeUtil.add_recipe(emerald_axe_recipe());
+		RecipeUtil.add_recipe(emerald_shovel_recipe());
+		RecipeUtil.add_recipe(emerald_hoe_recipe());
+		RecipeUtil.add_recipe(emerald_bow_recipe());
 	}
 	
-	public ShapedRecipe emerald_sword_recipe()
+	@EventHandler
+	void on_login(@NotNull PlayerLoginEvent event)
+	{
+		event.getPlayer().discoverRecipes(Arrays.stream(keys).toList());
+	}
+	
+	public Pair<NamespacedKey, Recipe> emerald_sword_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
 		item.addUnsafeEnchantment(Enchantment.DURABILITY, 2);
@@ -72,10 +73,10 @@ public class EmeraldCrafts implements Listener
 		
 		recipe.setIngredient('E', Material.EMERALD_BLOCK);
 		recipe.setIngredient('S', Material.STICK);
-		return recipe;
+		return new Pair<>(keys[0], recipe);
 	}
 	
-	public ShapedRecipe emerald_pick_recipe()
+	public Pair<NamespacedKey, Recipe> emerald_pick_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DIAMOND_PICKAXE);
 		item.addUnsafeEnchantment(Enchantment.DURABILITY, 2);
@@ -97,10 +98,10 @@ public class EmeraldCrafts implements Listener
 		
 		recipe.setIngredient('E', Material.EMERALD_BLOCK);
 		recipe.setIngredient('S', Material.STICK);
-		return recipe;
+		return new Pair<>(keys[1], recipe);
 	}
 	
-	public ShapedRecipe emerald_axe_recipe()
+	public Pair<NamespacedKey, Recipe> emerald_axe_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DIAMOND_AXE);
 		item.addUnsafeEnchantment(Enchantment.DURABILITY, 2);
@@ -122,10 +123,10 @@ public class EmeraldCrafts implements Listener
 		
 		recipe.setIngredient('E', Material.EMERALD_BLOCK);
 		recipe.setIngredient('S', Material.STICK);
-		return recipe;
+		return new Pair<>(keys[2], recipe);
 	}
 	
-	public ShapedRecipe emerald_shovel_recipe()
+	public Pair<NamespacedKey, Recipe> emerald_shovel_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DIAMOND_SHOVEL);
 		item.addUnsafeEnchantment(Enchantment.DURABILITY, 2);
@@ -147,10 +148,10 @@ public class EmeraldCrafts implements Listener
 		
 		recipe.setIngredient('E', Material.EMERALD_BLOCK);
 		recipe.setIngredient('S', Material.STICK);
-		return recipe;
+		return new Pair<>(keys[3], recipe);
 	}
 	
-	public ShapedRecipe emerald_hoe_recipe()
+	public Pair<NamespacedKey, Recipe> emerald_hoe_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DIAMOND_HOE);
 		item.addUnsafeEnchantment(Enchantment.DURABILITY, 2);
@@ -172,10 +173,10 @@ public class EmeraldCrafts implements Listener
 		
 		recipe.setIngredient('E', Material.EMERALD_BLOCK);
 		recipe.setIngredient('S', Material.STICK);
-		return recipe;
+		return new Pair<>(keys[4], recipe);
 	}
 	
-	public ShapedRecipe emerald_bow_recipe()
+	public Pair<NamespacedKey, Recipe> emerald_bow_recipe()
 	{
 		ItemStack item = new ItemStack(Material.BOW);
 		item.addUnsafeEnchantment(Enchantment.DURABILITY, 10);
@@ -202,6 +203,6 @@ public class EmeraldCrafts implements Listener
 		
 		recipe.setIngredient('E', Material.EMERALD_BLOCK);
 		recipe.setIngredient('S', Material.STRING);
-		return recipe;
+		return new Pair<>(keys[5], recipe);
 	}
 }

@@ -1,8 +1,6 @@
 package com.imperzer0.essentials.commands;
 
-import com.imperzer0.essentials.Main;
 import com.imperzer0.essentials.utils.CommandUtils;
-import com.imperzer0.essentials.utils.Loger;
 import com.imperzer0.essentials.utils.PlayerUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -16,26 +14,24 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 
+import static com.imperzer0.essentials.Main.plugin;
+import static com.imperzer0.essentials.utils.Loger.loger;
+
 public class Fly implements CommandExecutor, TabCompleter
 {
 	public static final String NAME = "fly";
 	public static final String USAGE = "[ <user> ]";
 	public static final String PERMISSION = "imperzer0-essentials.command.fly";
 	
-	public final Main plugin;
-	private final Loger loger;
-	
-	public Fly(@NotNull Loger loger)
+	public Fly()
 	{
-		this.loger = loger;
-		plugin = loger.plugin;
-		CommandUtils.command_initialization(Objects.requireNonNull(plugin.getCommand(NAME)), PERMISSION, this, plugin);
+		CommandUtils.command_initialization(Objects.requireNonNull(plugin.getCommand(NAME)), PERMISSION, this);
 	}
 	
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args)
 	{
-		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE, loger)) return false;
+		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE)) return false;
 		
 		if (args.length > 1)
 		{

@@ -1,8 +1,6 @@
 package com.imperzer0.essentials.listeners;
 
-import com.imperzer0.essentials.Main;
 import com.imperzer0.essentials.constants.OwnerConstants;
-import com.imperzer0.essentials.utils.Loger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -28,22 +26,19 @@ import org.jetbrains.annotations.NotNull;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static com.imperzer0.essentials.Main.plugin;
 import static com.imperzer0.essentials.constants.OwnerConstants.ENCHANTMENTS;
+import static com.imperzer0.essentials.utils.Loger.loger;
 
 public class OwnerEnchantedKitListener implements Listener
 {
 	public static final int DISTANCE = 10000;
 	public static final int R = 30;
 	public static final String PERMISSION_USE = "imperzer0-essentials.command.owner_kit.use.";
-	public final Main plugin;
-	private final Loger loger;
 	private final Map<UUID, UUID> player_target = new HashMap<>();
 	
-	public OwnerEnchantedKitListener(@NotNull Loger loger)
+	public OwnerEnchantedKitListener()
 	{
-		this.loger = loger;
-		this.plugin = loger.plugin;
-		
 		load_permissions();
 	}
 	
