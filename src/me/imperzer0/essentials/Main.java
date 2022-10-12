@@ -6,6 +6,7 @@ import me.imperzer0.essentials.crafts.*;
 import me.imperzer0.essentials.listeners.BagListener;
 import me.imperzer0.essentials.listeners.OwnerEnchantedKitListener;
 import me.imperzer0.essentials.listeners.RetListener;
+import me.imperzer0.essentials.listeners.SkinListener;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -43,6 +44,7 @@ public class Main extends JavaPlugin
 		if (config.getBoolean("commands.owner-kit", false)) manager.registerEvents(new OwnerEnchantedKitListener(), this);
 		if (config.getBoolean("commands.bag", false)) manager.registerEvents(new BagListener(), this);
 		if (config.getBoolean("commands.ret", false)) manager.registerEvents(new RetListener(), this);
+		manager.registerEvents(new SkinListener(), this);
 		
 		
 		/// Commands
