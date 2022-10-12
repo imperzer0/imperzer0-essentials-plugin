@@ -1,6 +1,6 @@
 main: me.imperzer0.essentials.Main
 name: imperzer0-essentials
-version: 1.11.0
+version: 1.12
 author: imperzer0
 api-version: 1.19
 load: POSTWORLD
@@ -49,3 +49,21 @@ commands:
     description: Returns player to the death location
     permission-message: Permission denied. Please contact administrator.
 
+permissions:
+  imperzer0-essentials.*:
+    default: op
+    description: Grant all permissions for operators
+    children:
+      imperzer0-essentials.command.bag: true
+      imperzer0-essentials.bag.bag_steal: true
+      imperzer0-essentials.bag.clear.all: true
+      imperzer0-essentials.bag.clear.*: true
+
+      imperzer0-essentials.command.fly: true
+      imperzer0-essentials.command.gamemode: true
+      imperzer0-essentials.command.uuid: true
+      imperzer0-essentials.command.give: true
+      imperzer0-essentials.command.mkstack: true
+      imperzer0-essentials.command.owner_kit: true
+      imperzer0-essentials.command.rm_owner_kit: true
+      imperzer0-essentials.command.ret: true
