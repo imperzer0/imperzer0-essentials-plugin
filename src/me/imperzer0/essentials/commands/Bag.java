@@ -28,8 +28,8 @@ public class Bag implements CommandExecutor, TabCompleter
 	public static final String NAME = "bag";
 	public static final String USAGE = "";
 	public static final String PERMISSION = "imperzer0-essentials.command.bag";
-	public static final String PERMISSION_STEAL = "imperzer0-essentials.command.bag_steal";
-	public static final String PERMISSION_CLEAR = "imperzer0-essentials.command.clear.";
+	public static final String PERMISSION_STEAL = "imperzer0-essentials.bag.bag_steal";
+	public static final String PERMISSION_CLEAR = "imperzer0-essentials.bag.clear.";
 	
 	public Bag()
 	{
