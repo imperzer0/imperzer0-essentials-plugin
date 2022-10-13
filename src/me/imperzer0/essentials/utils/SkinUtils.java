@@ -61,7 +61,7 @@ public class SkinUtils
 	
 	public static @Nullable Property generate_property(@NotNull UUID uuid)
 	{
-		String val = plugin.getConfig().getString("skins." + uuid + ".value", null);
+		String val = plugin.getConfig().getString("skins." + uuid, null);
 		if (val == null) return null;
 		else return new Property("textures", val);
 	}
