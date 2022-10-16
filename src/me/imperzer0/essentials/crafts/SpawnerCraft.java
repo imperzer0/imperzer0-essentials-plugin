@@ -1,8 +1,8 @@
 package me.imperzer0.essentials.crafts;
 
+import me.imperzer0.essentials.Main;
 import me.imperzer0.essentials.utils.Pair;
 import me.imperzer0.essentials.utils.RecipeUtil;
-import me.imperzer0.essentials.Main;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
@@ -19,7 +19,7 @@ public class SpawnerCraft implements Listener
 	
 	public SpawnerCraft()
 	{
-		key = new NamespacedKey(Main.plugin, "spawnercraft");
+		key = new NamespacedKey(Main.getInstance(), "spawnercraft");
 		RecipeUtil.add_recipe(spawner());
 	}
 	

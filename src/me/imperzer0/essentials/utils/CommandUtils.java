@@ -37,6 +37,6 @@ public class CommandUtils
 	{
 		command.setExecutor(executor);
 		Bukkit.getPluginManager().addPermission(new Permission(PERMISSION, command.getDescription(), PermissionDefault.FALSE));
-		Main.plugin.getLogger().info("Loaded command '" + command.getName() + "'.");
+		Main.getInstance().getLogger().info("Loaded command '" + command.getName() + "'.");
 	}
 }

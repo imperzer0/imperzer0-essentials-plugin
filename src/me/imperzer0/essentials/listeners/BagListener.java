@@ -1,7 +1,8 @@
 package me.imperzer0.essentials.listeners;
 
-import me.imperzer0.essentials.utils.BagUtils;
+import me.imperzer0.essentials.Main;
 import me.imperzer0.essentials.commands.Bag;
+import me.imperzer0.essentials.utils.BagUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -17,8 +18,6 @@ import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
-import static me.imperzer0.essentials.Main.plugin;
-
 public class BagListener implements Listener
 {
 	public BagListener() { }
@@ -26,7 +25,7 @@ public class BagListener implements Listener
 	void process_inventory(@NotNull Inventory inventory)
 	{
 		if (inventory.getHolder() instanceof BagUtils.BagInventoryHolder holder)
-			BagUtils.save_inventory(plugin, holder.getUuid(), inventory.getContents());
+			BagUtils.save_inventory(holder.getUuid(), inventory.getContents());
 	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -50,7 +49,7 @@ public class BagListener implements Listener
 			{
 				@Override
 				public void run() { process_inventory(inventory); }
-			}.runTaskLater(plugin, event.getHandlers().getRegisteredListeners().length + 1);
+			}.runTaskLater(Main.getInstance(), event.getHandlers().getRegisteredListeners().length + 1);
 		}
 		catch (Exception ignored) { }
 	}
@@ -72,7 +71,7 @@ public class BagListener implements Listener
 			{
 				@Override
 				public void run() { process_inventory(inventory); }
-			}.runTaskLater(plugin, event.getHandlers().getRegisteredListeners().length + 1);
+			}.runTaskLater(Main.getInstance(), event.getHandlers().getRegisteredListeners().length + 1);
 		}
 		catch (Exception ignored) { }
 	}
@@ -87,7 +86,7 @@ public class BagListener implements Listener
 			{
 				@Override
 				public void run() { process_inventory(inventory); }
-			}.runTaskLater(plugin, event.getHandlers().getRegisteredListeners().length + 1);
+			}.runTaskLater(Main.getInstance(), event.getHandlers().getRegisteredListeners().length + 1);
 		}
 		catch (Exception ignored) { }
 	}

@@ -2,6 +2,7 @@ package me.imperzer0.essentials.utils;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import me.imperzer0.essentials.Main;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.PacketPlayOutPlayerInfo;
 import net.minecraft.server.level.EntityPlayer;
@@ -13,7 +14,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-import static me.imperzer0.essentials.Main.plugin;
 
 public class SkinUtils
 {
@@ -61,7 +61,7 @@ public class SkinUtils
 	
 	public static @Nullable Property generate_property(@NotNull UUID uuid)
 	{
-		String val = plugin.getConfig().getString("skins." + uuid, null);
+		String val = Main.getInstance().getConfig().getString("skins." + uuid, null);
 		if (val == null) return null;
 		else return new Property("textures", val);
 	}

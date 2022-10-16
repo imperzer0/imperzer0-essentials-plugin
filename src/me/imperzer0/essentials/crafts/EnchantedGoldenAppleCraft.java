@@ -1,8 +1,8 @@
 package me.imperzer0.essentials.crafts;
 
+import me.imperzer0.essentials.Main;
 import me.imperzer0.essentials.utils.Pair;
 import me.imperzer0.essentials.utils.RecipeUtil;
-import me.imperzer0.essentials.Main;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
@@ -19,7 +19,7 @@ public class EnchantedGoldenAppleCraft implements Listener
 	
 	public EnchantedGoldenAppleCraft()
 	{
-		key = new NamespacedKey(Main.plugin, "enchantedgoldenapplecraft");
+		key = new NamespacedKey(Main.getInstance(), "enchantedgoldenapplecraft");
 		RecipeUtil.add_recipe(apple_recipe());
 	}
 	

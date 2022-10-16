@@ -1,5 +1,6 @@
 package me.imperzer0.essentials.commands;
 
+import me.imperzer0.essentials.Main;
 import me.imperzer0.essentials.listeners.RetListener;
 import me.imperzer0.essentials.utils.CommandUtils;
 import me.imperzer0.essentials.utils.PlayerUtils;
@@ -17,7 +18,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-import static me.imperzer0.essentials.Main.plugin;
 import static me.imperzer0.essentials.utils.Loger.loger;
 
 public class Ret implements CommandExecutor, TabCompleter
@@ -28,7 +28,7 @@ public class Ret implements CommandExecutor, TabCompleter
 	
 	public Ret()
 	{
-		CommandUtils.command_initialization(Objects.requireNonNull(plugin.getCommand(NAME)), PERMISSION, this);
+		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
 	}
 	
 	@Override

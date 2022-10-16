@@ -1,5 +1,6 @@
 package me.imperzer0.essentials.commands;
 
+import me.imperzer0.essentials.Main;
 import me.imperzer0.essentials.utils.CommandUtils;
 import me.imperzer0.essentials.utils.PlayerUtils;
 import org.bukkit.ChatColor;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static me.imperzer0.essentials.Main.plugin;
 import static me.imperzer0.essentials.utils.Loger.loger;
 
 public class GetUUID implements CommandExecutor, TabCompleter
@@ -25,7 +25,7 @@ public class GetUUID implements CommandExecutor, TabCompleter
 	
 	public GetUUID()
 	{
-		CommandUtils.command_initialization(Objects.requireNonNull(plugin.getCommand(NAME)), PERMISSION, this);
+		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
 	}
 	
 	@Override

@@ -1,8 +1,8 @@
 package me.imperzer0.essentials.crafts;
 
+import me.imperzer0.essentials.Main;
 import me.imperzer0.essentials.utils.Pair;
 import me.imperzer0.essentials.utils.RecipeUtil;
-import me.imperzer0.essentials.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -26,12 +26,12 @@ public class EmeraldCrafts implements Listener
 	public EmeraldCrafts()
 	{
 		keys = new NamespacedKey[]{
-				new NamespacedKey(Main.plugin, "emeraldswordcraft"),
-				new NamespacedKey(Main.plugin, "emeraldpickcraft"),
-				new NamespacedKey(Main.plugin, "emeraldaxecraft"),
-				new NamespacedKey(Main.plugin, "emeraldshovelcraft"),
-				new NamespacedKey(Main.plugin, "emeraldhoecraft"),
-				new NamespacedKey(Main.plugin, "emeraldbowcraft")
+				new NamespacedKey(Main.getInstance(), "emeraldswordcraft"),
+				new NamespacedKey(Main.getInstance(), "emeraldpickcraft"),
+				new NamespacedKey(Main.getInstance(), "emeraldaxecraft"),
+				new NamespacedKey(Main.getInstance(), "emeraldshovelcraft"),
+				new NamespacedKey(Main.getInstance(), "emeraldhoecraft"),
+				new NamespacedKey(Main.getInstance(), "emeraldbowcraft")
 		};
 		RecipeUtil.add_recipe(emerald_sword_recipe());
 		RecipeUtil.add_recipe(emerald_pick_recipe());

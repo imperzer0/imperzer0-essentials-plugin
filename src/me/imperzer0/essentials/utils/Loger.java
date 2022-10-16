@@ -17,7 +17,7 @@ public class Loger
 	
 	private Loger()
 	{
-		this.logger = Main.plugin.getLogger();
+		this.logger = Main.getInstance().getLogger();
 	}
 	
 	public static @NotNull TextComponent create_component(String str, net.md_5.bungee.api.ChatColor color,

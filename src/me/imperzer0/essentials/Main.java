@@ -13,12 +13,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin
 {
-	public static Main plugin;
+	private static Main instance;
 	
-	public Main()
-	{
-		plugin = this;
-	}
+	public Main() { instance = this; }
+	
+	public static Main getInstance() { return instance; }
 	
 	/// Before enabled
 	@Override

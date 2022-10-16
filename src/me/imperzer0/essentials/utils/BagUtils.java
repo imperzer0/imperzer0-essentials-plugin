@@ -25,25 +25,25 @@ public class BagUtils
 	{
 		try
 		{
-			List<ItemStack> list = (List<ItemStack>)plugin.getConfig().getList(CONFIG_PATH + owner);
+			List<ItemStack> list = (List<ItemStack>)Main.getInstance().getConfig().getList(CONFIG_PATH + owner);
 			assert list != null;
 			return list.toArray(new ItemStack[list.size()]);
 		}
 		catch (Exception e) { return null; }
 	}
 	
-	public static void save_inventory(@NotNull Main plugin, @NotNull UUID owner, ItemStack... items)
+	public static void save_inventory(@NotNull UUID owner, ItemStack... items)
 	{
-		plugin.getConfig().set(CONFIG_PATH + owner, items);
-		plugin.saveConfig();
+		Main.getInstance().getConfig().set(CONFIG_PATH + owner, items);
+		Main.getInstance().saveConfig();
 	}
 	
-	public static Inventory open_bag(@NotNull Main plugin, @NotNull UUID owner)
+	public static Inventory open_bag(@NotNull UUID owner)
 	{
 		if (inventories.containsKey(owner)) return inventories.get(owner);
 		else
 		{
-			ItemStack[] items = load_inventory(plugin, owner);
+			ItemStack[] items = load_inventory(Main.getInstance(), owner);
 			Inventory inventory = new BagInventoryHolder(owner).getInventory();
 			inventory.setMaxStackSize(127);
 			if (items != null) inventory.setContents(items);
@@ -52,13 +52,13 @@ public class BagUtils
 		}
 	}
 	
-	public static void clear_bag(@NotNull Main plugin, @NotNull CommandSender sender, @NotNull UUID owner)
+	public static void clear_bag(@NotNull CommandSender sender, @NotNull UUID owner)
 	{
 		if (sender.hasPermission(Bag.PERMISSION_CLEAR + owner) ||
 		    sender.hasPermission(Bag.PERMISSION_CLEAR + "all"))
 		{
 			inventories.remove(owner);
-			save_inventory(plugin, owner);
+			save_inventory(owner);
 		}
 	}
 	

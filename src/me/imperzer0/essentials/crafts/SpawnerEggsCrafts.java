@@ -1,8 +1,8 @@
 package me.imperzer0.essentials.crafts;
 
+import me.imperzer0.essentials.Main;
 import me.imperzer0.essentials.utils.Pair;
 import me.imperzer0.essentials.utils.RecipeUtil;
-import me.imperzer0.essentials.Main;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
@@ -22,11 +22,11 @@ public class SpawnerEggsCrafts implements Listener
 	public SpawnerEggsCrafts()
 	{
 		keys = new NamespacedKey[]{
-				new NamespacedKey(Main.plugin, "spideregg"),
-				new NamespacedKey(Main.plugin, "cavespideregg"),
-				new NamespacedKey(Main.plugin, "skeletonegg"),
-				new NamespacedKey(Main.plugin, "zombieegg"),
-				new NamespacedKey(Main.plugin, "blazeegg")
+				new NamespacedKey(Main.getInstance(), "spideregg"),
+				new NamespacedKey(Main.getInstance(), "cavespideregg"),
+				new NamespacedKey(Main.getInstance(), "skeletonegg"),
+				new NamespacedKey(Main.getInstance(), "zombieegg"),
+				new NamespacedKey(Main.getInstance(), "blazeegg")
 		};
 		RecipeUtil.add_recipe(spider_egg());
 		RecipeUtil.add_recipe(cave_spider_egg());

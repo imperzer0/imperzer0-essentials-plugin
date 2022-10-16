@@ -1,8 +1,8 @@
 package me.imperzer0.essentials.crafts;
 
+import me.imperzer0.essentials.Main;
 import me.imperzer0.essentials.utils.Pair;
 import me.imperzer0.essentials.utils.RecipeUtil;
-import me.imperzer0.essentials.Main;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
@@ -19,7 +19,7 @@ public class DebugStickCraft implements Listener
 	
 	public DebugStickCraft()
 	{
-		key = new NamespacedKey(Main.plugin, "debugstickcraft");
+		key = new NamespacedKey(Main.getInstance(), "debugstickcraft");
 		RecipeUtil.add_recipe(debug_stick_recipe());
 	}
 	

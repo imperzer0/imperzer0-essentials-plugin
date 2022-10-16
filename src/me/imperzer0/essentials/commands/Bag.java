@@ -1,5 +1,6 @@
 package me.imperzer0.essentials.commands;
 
+import me.imperzer0.essentials.Main;
 import me.imperzer0.essentials.utils.BagUtils;
 import me.imperzer0.essentials.utils.CommandUtils;
 import me.imperzer0.essentials.utils.PlayerUtils;
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static me.imperzer0.essentials.Main.plugin;
 import static me.imperzer0.essentials.utils.Loger.loger;
 
 public class Bag implements CommandExecutor, TabCompleter
@@ -33,7 +33,7 @@ public class Bag implements CommandExecutor, TabCompleter
 	
 	public Bag()
 	{
-		CommandUtils.command_initialization(Objects.requireNonNull(plugin.getCommand(NAME)), PERMISSION, this);
+		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
 		Bukkit.getPluginManager().addPermission(
 				new Permission(PERMISSION_CLEAR + "all", "Clear all users bags", PermissionDefault.FALSE));
 	}
@@ -52,7 +52,7 @@ public class Bag implements CommandExecutor, TabCompleter
 		if (args.length == 0)
 		{
 			loger.message(sender, ChatColor.GRAY + "Opening bag...");
-			human.openInventory(BagUtils.open_bag(plugin, human.getUniqueId()));
+			human.openInventory(BagUtils.open_bag(human.getUniqueId()));
 		}
 		else if (args.length == 1 && sender.hasPermission(PERMISSION_STEAL))
 		{
@@ -60,7 +60,7 @@ public class Bag implements CommandExecutor, TabCompleter
 			if (player == null) return false;
 			loger.message(sender, ChatColor.GRAY + "Opening \"" +
 			                      ChatColor.GOLD + player.getName() + ChatColor.GRAY + "\"'s...");
-			human.openInventory(BagUtils.open_bag(plugin, player.getUniqueId()));
+			human.openInventory(BagUtils.open_bag(player.getUniqueId()));
 		}
 		else if (args.length == 2 && args[0].equals("clear"))
 		{
@@ -70,7 +70,7 @@ public class Bag implements CommandExecutor, TabCompleter
 				{
 					loger.message(sender, ChatColor.GRAY + "Cleaning \"" +
 					                      ChatColor.GOLD + player.getName() + ChatColor.GRAY + "\"'s bag...");
-					BagUtils.clear_bag(plugin, sender, player.getUniqueId());
+					BagUtils.clear_bag(sender, player.getUniqueId());
 				}
 			}
 			else
@@ -79,7 +79,7 @@ public class Bag implements CommandExecutor, TabCompleter
 				if (player == null) return false;
 				loger.message(sender, ChatColor.GRAY + "Cleaning \"" +
 				                      ChatColor.GOLD + player.getName() + ChatColor.GRAY + "\"'s bag...");
-				BagUtils.clear_bag(plugin, sender, player.getUniqueId());
+				BagUtils.clear_bag(sender, player.getUniqueId());
 			}
 		}
 		else loger.help(sender, cmd, USAGE);

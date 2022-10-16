@@ -1,5 +1,6 @@
 package me.imperzer0.essentials.listeners;
 
+import me.imperzer0.essentials.Main;
 import me.imperzer0.essentials.constants.OwnerConstants;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,7 +27,6 @@ import org.jetbrains.annotations.NotNull;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static me.imperzer0.essentials.Main.plugin;
 import static me.imperzer0.essentials.constants.OwnerConstants.ENCHANTMENTS;
 import static me.imperzer0.essentials.utils.Loger.loger;
 
@@ -109,7 +109,7 @@ public class OwnerEnchantedKitListener implements Listener
 				Entity target = Bukkit.getEntity(player_target.getOrDefault(player.getUniqueId(), player.getUniqueId()));
 				if (target == null) target = player;
 				AutoAimRunnable runnable = new AutoAimRunnable(projectile, target.getLocation(), player);
-				runnable.runTaskLater(plugin, 20L);
+				runnable.runTaskLater(Main.getInstance(), 20L);
 			}
 		}
 	}
