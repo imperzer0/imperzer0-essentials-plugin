@@ -6,3 +6,5 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+# Delete testing artifacts linked to home directory
+/artifacts/imperzer0_essentials_jar?.xml

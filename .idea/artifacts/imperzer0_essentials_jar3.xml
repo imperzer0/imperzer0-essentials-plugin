@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="imperzer0-essentials:jar3">
-    <output-path>$USER_HOME$/mcserver/paper/1.19.2-test/plugins</output-path>
-    <root id="archive" name="imperzer0-essentials.jar">
-      <element id="module-output" name="imperzer0-essentials" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/20.1.0/annotations-20.1.0.jar" path-in-jar="/" />
-    </root>
-  </artifact>
-</component>

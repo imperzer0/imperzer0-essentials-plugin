@@ -1,18 +1,18 @@
 commands:
-  give: true
-  fly: true
-  owner-kit: true
-  remove-owner-kit: true
-  gamemode: true
-  mkstack: true
-  bag: true
-  uuid: true
-  ret: true
+  give: on
+  fly: on
+  owner-kit: on
+  remove-owner-kit: on
+  gamemode: on
+  mkstack: on
+  bag: on
+  uuid: on
+  ret: on
 
 crafts:
-  debug-stick: true
-  emerald: false
-  enchanted-golden-apple: false
-  spawner: true
-  spawner-eggs: true
+  debug-stick: on
+  emerald: off
+  enchanted-golden-apple: off
+  spawner: on
+  spawner-eggs: on
 
