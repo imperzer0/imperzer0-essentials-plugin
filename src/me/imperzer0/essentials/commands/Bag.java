@@ -27,28 +27,28 @@ public class Bag implements CommandExecutor, TabCompleter
 {
 	public static final String NAME = "bag";
 	public static final String USAGE = "";
-	public static final String PERMISSION = "imperzer0-essentials.command.bag";
+	public static final String PERMISSION = "imperzer0-essentials.command." + NAME;
 	public static final String PERMISSION_STEAL = "imperzer0-essentials.bag.bag_steal";
 	public static final String PERMISSION_CLEAR = "imperzer0-essentials.bag.clear.";
-	
+
 	public Bag()
 	{
 		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
 		Bukkit.getPluginManager().addPermission(
 				new Permission(PERMISSION_CLEAR + "all", "Clear all users bags", PermissionDefault.FALSE));
 	}
-	
+
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args)
 	{
 		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE)) return false;
-		
+
 		if (!(sender instanceof HumanEntity human))
 		{
 			loger.invalid_entity(sender);
 			return false;
 		}
-		
+
 		if (args.length == 0)
 		{
 			loger.message(sender, ChatColor.GRAY + "Opening bag...");
@@ -59,7 +59,7 @@ public class Bag implements CommandExecutor, TabCompleter
 			OfflinePlayer player = PlayerUtils.Bukkit_getOfflinePlayer(args[0], loger, sender);
 			if (player == null) return false;
 			loger.message(sender, ChatColor.GRAY + "Opening \"" +
-			                      ChatColor.GOLD + player.getName() + ChatColor.GRAY + "\"'s...");
+					ChatColor.GOLD + player.getName() + ChatColor.GRAY + "\"'s...");
 			human.openInventory(BagUtils.open_bag(player.getUniqueId()));
 		}
 		else if (args.length == 2 && args[0].equals("clear"))
@@ -69,7 +69,7 @@ public class Bag implements CommandExecutor, TabCompleter
 				for (OfflinePlayer player : Bukkit.getOfflinePlayers())
 				{
 					loger.message(sender, ChatColor.GRAY + "Cleaning \"" +
-					                      ChatColor.GOLD + player.getName() + ChatColor.GRAY + "\"'s bag...");
+							ChatColor.GOLD + player.getName() + ChatColor.GRAY + "\"'s bag...");
 					BagUtils.clear_bag(sender, player.getUniqueId());
 				}
 			}
@@ -78,19 +78,19 @@ public class Bag implements CommandExecutor, TabCompleter
 				OfflinePlayer player = PlayerUtils.Bukkit_getOfflinePlayer(args[0], loger, sender);
 				if (player == null) return false;
 				loger.message(sender, ChatColor.GRAY + "Cleaning \"" +
-				                      ChatColor.GOLD + player.getName() + ChatColor.GRAY + "\"'s bag...");
+						ChatColor.GOLD + player.getName() + ChatColor.GRAY + "\"'s bag...");
 				BagUtils.clear_bag(sender, player.getUniqueId());
 			}
 		}
 		else loger.help(sender, cmd, USAGE);
-		
+
 		return false;
 	}
-	
+
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label,
-	                                  @NotNull String[] args)
+									  @NotNull String[] args)
 	{
 		ArrayList<String> list = new ArrayList<>();
 		if (args.length == 0)

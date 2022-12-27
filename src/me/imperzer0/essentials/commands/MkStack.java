@@ -23,22 +23,22 @@ public class MkStack implements CommandExecutor, TabCompleter
 {
 	public static final String NAME = "mkstack";
 	public static final String USAGE = "[ <user> ]";
-	public static final String PERMISSION = "imperzer0-essentials.command.mkstack";
-	
+	public static final String PERMISSION = "imperzer0-essentials.command." + NAME;
+
 	public MkStack()
 	{
 		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
 	}
-	
+
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args)
 	{
 		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE)) return false;
-		
+
 		HumanEntity human = null;
-		
+
 		if (args.length == 0)
-			if (sender instanceof HumanEntity) human = (HumanEntity)sender;
+			if (sender instanceof HumanEntity) human = (HumanEntity) sender;
 			else loger.invalid_entity(sender);
 		else if (args.length == 1)
 		{
@@ -49,27 +49,27 @@ public class MkStack implements CommandExecutor, TabCompleter
 			loger.help(sender, cmd, USAGE);
 			return false;
 		}
-		
+
 		if (human == null)
 		{
-			loger.error(sender, "Invalid player name: '" + args[0] + "'.");
+			loger.error(sender, "Invalid player name: \"" + args[0] + "\".");
 			return false;
 		}
-		
+
 		ItemStack stack = human.getInventory().getItemInMainHand();
 		stack.setAmount(stack.getMaxStackSize());
-		
+
 		loger.message(sender, ChatColor.GRAY + "Refilled \"" + ChatColor.YELLOW + human.getName() +
-		                      ChatColor.GRAY + "\"'s stack of '" +
-		                      ChatColor.LIGHT_PURPLE + stack.getType().name().toLowerCase() + ChatColor.GRAY + "'.");
-		
+				ChatColor.GRAY + "\"'s stack of \"" +
+				ChatColor.LIGHT_PURPLE + stack.getType().name().toLowerCase() + ChatColor.GRAY + "\".");
+
 		return true;
 	}
-	
+
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label,
-	                                  @NotNull String[] args)
+									  @NotNull String[] args)
 	{
 		ArrayList<String> list = new ArrayList<>();
 		if (args.length == 0)

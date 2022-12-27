@@ -16,57 +16,75 @@ public class PlayerUtils
 	public static @Nullable Player Bukkit_getPlayer(String identifier)
 	{
 		Player player = Bukkit.getPlayer(identifier);
-		
-		try { if (player == null) player = Bukkit.getPlayer(UUID.fromString(identifier)); }
-		catch (IllegalArgumentException e) { return null; }
-		
+
+		try
+		{
+			if (player == null) player = Bukkit.getPlayer(UUID.fromString(identifier));
+		}
+		catch (IllegalArgumentException e)
+		{
+			return null;
+		}
+
 		return player;
 	}
-	
+
 	public static @Nullable OfflinePlayer Bukkit_getOfflinePlayer(String identifier)
 	{
 		OfflinePlayer player = null;
 		for (OfflinePlayer p : Bukkit.getOfflinePlayers())
-			if (p.getUniqueId().toString().equals(identifier))
+			if (Objects.equals(p.getName(), identifier))
 				player = p;
-		
-		try { if (player == null) player = Bukkit.getOfflinePlayer(UUID.fromString(identifier)); }
-		catch (IllegalArgumentException e) { return null; }
-		
+
+		try
+		{
+			if (player == null) player = Bukkit.getOfflinePlayer(UUID.fromString(identifier));
+		}
+		catch (IllegalArgumentException e)
+		{
+			return null;
+		}
+
 		return player;
 	}
-	
+
 	public static @Nullable Player Bukkit_getPlayer(String identifier, Loger loger, CommandSender sender)
 	{
 		Player player = Bukkit.getPlayer(identifier);
-		
-		try { if (player == null) player = Bukkit.getPlayer(UUID.fromString(identifier)); }
+
+		try
+		{
+			if (player == null) player = Bukkit.getPlayer(UUID.fromString(identifier));
+		}
 		catch (IllegalArgumentException e)
 		{
-			loger.error(sender, "Player identifier '" + identifier + "' is invalid.");
+			loger.error(sender, "Player identifier \"" + identifier + "\" is invalid.");
 			return null;
 		}
-		
+
 		return player;
 	}
-	
+
 	public static @Nullable OfflinePlayer Bukkit_getOfflinePlayer(String identifier, Loger loger, CommandSender sender)
 	{
 		OfflinePlayer player = null;
 		for (OfflinePlayer p : Bukkit.getOfflinePlayers())
 			if (Objects.equals(p.getName(), identifier))
 				player = p;
-		
-		try { if (player == null) player = Bukkit.getPlayer(UUID.fromString(identifier)); }
+
+		try
+		{
+			if (player == null) player = Bukkit.getPlayer(UUID.fromString(identifier));
+		}
 		catch (IllegalArgumentException e)
 		{
-			loger.error(sender, "Player identifier '" + identifier + "' is invalid.");
+			loger.error(sender, "Player identifier \"" + identifier + "\" is invalid.");
 			return null;
 		}
-		
+
 		return player;
 	}
-	
+
 	public static @NotNull ArrayList<String> Bukkit_getAllPlayersIdentifiers(String filter)
 	{
 		ArrayList<String> identifiers = new ArrayList<>();
@@ -83,7 +101,7 @@ public class PlayerUtils
 			}
 		return identifiers;
 	}
-	
+
 	public static @NotNull ArrayList<String> Bukkit_getAllPlayersUUIDs(String filter)
 	{
 		ArrayList<String> identifiers = new ArrayList<>();
@@ -94,7 +112,7 @@ public class PlayerUtils
 				identifiers.add(player.getUniqueId().toString());
 		return identifiers;
 	}
-	
+
 	public static @NotNull ArrayList<String> Bukkit_getAllPlayersNames(String filter)
 	{
 		ArrayList<String> identifiers = new ArrayList<>();

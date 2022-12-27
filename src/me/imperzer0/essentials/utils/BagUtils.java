@@ -20,24 +20,27 @@ public class BagUtils
 {
 	public static final String CONFIG_PATH = "BagOf_";
 	private static final Map<UUID, Inventory> inventories = new HashMap<>();
-	
+
 	private static @Nullable ItemStack[] load_inventory(@NotNull Main plugin, @NotNull UUID owner)
 	{
 		try
 		{
-			List<ItemStack> list = (List<ItemStack>)Main.getInstance().getConfig().getList(CONFIG_PATH + owner);
+			List<ItemStack> list = (List<ItemStack>) Main.getInstance().getConfig().getList(CONFIG_PATH + owner);
 			assert list != null;
 			return list.toArray(new ItemStack[list.size()]);
 		}
-		catch (Exception e) { return null; }
+		catch (Exception e)
+		{
+			return null;
+		}
 	}
-	
+
 	public static void save_inventory(@NotNull UUID owner, ItemStack... items)
 	{
 		Main.getInstance().getConfig().set(CONFIG_PATH + owner, items);
 		Main.getInstance().saveConfig();
 	}
-	
+
 	public static Inventory open_bag(@NotNull UUID owner)
 	{
 		if (inventories.containsKey(owner)) return inventories.get(owner);
@@ -51,34 +54,40 @@ public class BagUtils
 			return inventory;
 		}
 	}
-	
+
 	public static void clear_bag(@NotNull CommandSender sender, @NotNull UUID owner)
 	{
 		if (sender.hasPermission(Bag.PERMISSION_CLEAR + owner) ||
-		    sender.hasPermission(Bag.PERMISSION_CLEAR + "all"))
+				sender.hasPermission(Bag.PERMISSION_CLEAR + "all"))
 		{
 			inventories.remove(owner);
 			save_inventory(owner);
 		}
 	}
-	
+
 	public static class BagInventoryHolder implements InventoryHolder
 	{
 		private final UUID uuid;
 		private final Inventory inventory;
-		
+
 		public BagInventoryHolder(UUID uuid)
 		{
 			this.uuid = uuid;
 			this.inventory = Bukkit.createInventory(
-					this, 54, ChatColor.DARK_GREEN + "Bag of '" +
-					          ChatColor.LIGHT_PURPLE + Bukkit.getOfflinePlayer(uuid).getName() + ChatColor.DARK_GREEN + "'");
+					this, 54, ChatColor.DARK_GREEN + "Bag of \"" +
+							ChatColor.LIGHT_PURPLE + Bukkit.getOfflinePlayer(uuid).getName() + ChatColor.DARK_GREEN + "\"");
 		}
-		
+
 		@NotNull
 		@Override
-		public Inventory getInventory() { return this.inventory; }
-		
-		public UUID getUuid() { return this.uuid; }
+		public Inventory getInventory()
+		{
+			return this.inventory;
+		}
+
+		public UUID getUuid()
+		{
+			return this.uuid;
+		}
 	}
 }

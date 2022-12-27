@@ -21,28 +21,28 @@ public class Fly implements CommandExecutor, TabCompleter
 {
 	public static final String NAME = "fly";
 	public static final String USAGE = "[ <user> ]";
-	public static final String PERMISSION = "imperzer0-essentials.command.fly";
-	
+	public static final String PERMISSION = "imperzer0-essentials.command." + NAME;
+
 	public Fly()
 	{
 		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
 	}
-	
+
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args)
 	{
 		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE)) return false;
-		
+
 		if (args.length > 1)
 		{
 			loger.help(sender, cmd, USAGE);
 			return false;
 		}
-		
+
 		Player target = null;
-		
+
 		if (args.length == 1) target = PlayerUtils.Bukkit_getPlayer(args[0]);
-		
+
 		if (target == null)
 		{
 			if (!(sender instanceof Player player))
@@ -52,19 +52,19 @@ public class Fly implements CommandExecutor, TabCompleter
 			}
 			target = player;
 		}
-		
+
 		boolean allow = !target.getAllowFlight();
 		target.setAllowFlight(allow);
 		loger.message(sender, ChatColor.WHITE + "Flight " + ChatColor.ITALIC +
-		                      (allow ? ChatColor.GREEN + "allowed" : ChatColor.RED + "not allowed"));
-		
+				(allow ? ChatColor.GREEN + "allowed" : ChatColor.RED + "not allowed"));
+
 		return true;
 	}
-	
+
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label,
-	                                  @NotNull String[] args)
+									  @NotNull String[] args)
 	{
 		if (args.length == 0)
 			return PlayerUtils.Bukkit_getAllPlayersIdentifiers(null);

@@ -29,26 +29,26 @@ public class OwnerEnchantedKit implements CommandExecutor, TabCompleter
 {
 	public static final String NAME = "owner_kit";
 	public static final String USAGE = "[ menu <amount> ] / [ apply ]";
-	public static final String PERMISSION = "imperzer0-essentials.command.owner_kit";
-	
+	public static final String PERMISSION = "imperzer0-essentials.command." + NAME;
+
 	public OwnerEnchantedKit()
 	{
 		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
 	}
-	
+
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args)
 	{
 		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE)) return false;
-		
+
 		if (args.length == 0)
 			if (sender instanceof HumanEntity human)
 			{
 				human.getInventory().addItem(OwnerConstants.filter_owner_items_for_inventory());
 				human.getInventory().setArmorContents(OwnerConstants.filter_owner_items_for_armor());
 				OwnerConstants.apply_owner_effects(human);
-				loger.message(sender, ChatColor.BOLD + "" + ChatColor.DARK_AQUA + "Gave owner kit to '" +
-				                      ChatColor.GOLD + human.getName() + ChatColor.DARK_AQUA + "'.");
+				loger.message(sender, ChatColor.BOLD + "" + ChatColor.DARK_AQUA + "Gave owner kit to \"" +
+						ChatColor.GOLD + human.getName() + ChatColor.DARK_AQUA + "\".");
 				return true;
 			}
 			else loger.invalid_entity(sender);
@@ -57,10 +57,10 @@ public class OwnerEnchantedKit implements CommandExecutor, TabCompleter
 			{
 				ItemStack item = human.getInventory().getItemInMainHand();
 				item.addUnsafeEnchantments(OwnerConstants.ENCHANTMENTS);
-				
+
 				loger.message(sender, ChatColor.BOLD + "" + ChatColor.DARK_AQUA + "Applied owner kit enchantments to \"" +
-				                      ChatColor.GOLD + human.getName() + ChatColor.DARK_AQUA + "\"'s " +
-				                      ChatColor.LIGHT_PURPLE + item.getType().name().toLowerCase() + ChatColor.DARK_AQUA + ".");
+						ChatColor.GOLD + human.getName() + ChatColor.DARK_AQUA + "\"'s " +
+						ChatColor.LIGHT_PURPLE + item.getType().name().toLowerCase() + ChatColor.DARK_AQUA + ".");
 				return true;
 			}
 			else loger.invalid_entity(sender);
@@ -68,15 +68,21 @@ public class OwnerEnchantedKit implements CommandExecutor, TabCompleter
 			if (sender instanceof HumanEntity human)
 			{
 				int amount;
-				
-				try { amount = Integer.parseInt(args[1]); }
-				catch (NumberFormatException e) { amount = 1; }
-				
+
+				try
+				{
+					amount = Integer.parseInt(args[1]);
+				}
+				catch (NumberFormatException e)
+				{
+					amount = 1;
+				}
+
 				Inventory inventory = Bukkit.createInventory(
 						human, 18, ChatColor.GOLD + "" + ChatColor.BOLD + "OwnerKitInventory");
-				
+
 				inventory.addItem(InventoryUtils.multiply_items(OwnerConstants.owner_items, amount));
-				
+
 				for (int i = 2; i < args.length; ++i)
 				{
 					Material material = Material.matchMaterial(args[i]);
@@ -91,24 +97,24 @@ public class OwnerEnchantedKit implements CommandExecutor, TabCompleter
 						inventory.addItem(item);
 					}
 				}
-				
-				loger.message(sender, ChatColor.BOLD + "" + ChatColor.DARK_AQUA + "Opening inventory for '" +
-				                      ChatColor.GOLD + human.getName() + ChatColor.DARK_AQUA + "'...");
-				
+
+				loger.message(sender, ChatColor.BOLD + "" + ChatColor.DARK_AQUA + "Opening inventory for \"" +
+						ChatColor.GOLD + human.getName() + ChatColor.DARK_AQUA + "\"...");
+
 				human.openInventory(inventory);
-				
+
 				return true;
 			}
 			else loger.invalid_entity(sender);
 		else loger.help(sender, cmd, USAGE);
-		
+
 		return false;
 	}
-	
+
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label,
-	                                  @NotNull String[] args)
+									  @NotNull String[] args)
 	{
 		ArrayList<String> list = new ArrayList<>();
 		if (args.length <= 1)

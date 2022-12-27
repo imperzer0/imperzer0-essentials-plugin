@@ -24,51 +24,46 @@ public class Ret implements CommandExecutor, TabCompleter
 {
 	public static final String NAME = "ret";
 	public static final String USAGE = "";
-	public static final String PERMISSION = "imperzer0-essentials.command.ret";
-	
+	public static final String PERMISSION = "imperzer0-essentials.command." + NAME;
+
 	public Ret()
 	{
 		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
 	}
-	
+
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args)
 	{
 		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE)) return false;
-		
-		if (args.length == 0)
-		{
-			if (!(sender instanceof Player player))
-			{
-				loger.invalid_entity(sender);
-				return false;
-			}
-			
-			Location location = RetListener.get_death_location(player.getUniqueId());
-			if (location != null)
-			{
-				player.teleport(location, PlayerTeleportEvent.TeleportCause.COMMAND);
-				loger.message(sender, ChatColor.GRAY + "Teleported to " +
-				                      ChatColor.ITALIC + ChatColor.LIGHT_PURPLE + location);
-				return true;
-			}
-			else
-			{
-				loger.error(sender, ChatColor.ITALIC + "Die first!!!");
-				return false;
-			}
-		}
-		else
+
+		if (args.length != 0)
 		{
 			loger.help(sender, cmd, USAGE);
 			return false;
 		}
+
+		if (!(sender instanceof Player player))
+		{
+			loger.invalid_entity(sender);
+			return false;
+		}
+
+		Location location = RetListener.get_death_location(player.getUniqueId());
+		if (location == null)
+		{
+			loger.error(sender, ChatColor.ITALIC + "Die first!!!");
+			return false;
+		}
+
+		player.teleport(location, PlayerTeleportEvent.TeleportCause.COMMAND);
+		loger.message(sender, ChatColor.GRAY + "Teleported to " + ChatColor.ITALIC + ChatColor.LIGHT_PURPLE + location);
+		return true;
 	}
-	
+
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label,
-	                                  @NotNull String[] args)
+									  @NotNull String[] args)
 	{
 		if (args.length == 0)
 			return PlayerUtils.Bukkit_getAllPlayersIdentifiers(null);

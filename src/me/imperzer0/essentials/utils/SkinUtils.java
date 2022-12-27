@@ -23,13 +23,13 @@ public class SkinUtils
 		{
 			for (Packet packet : packets)
 			{
-				EntityPlayer nmsPlayer = ((CraftPlayer)p).getHandle();
-				
+				EntityPlayer nmsPlayer = ((CraftPlayer) p).getHandle();
+
 				nmsPlayer.b.a(packet);
 			}
 		}
 	}
-	
+
 	private static void sendPacketsNotFor(String notFor, Packet... packets)
 	{
 		for (Player p : Bukkit.getOnlinePlayers())
@@ -38,34 +38,34 @@ public class SkinUtils
 			{
 				for (Packet packet : packets)
 				{
-					EntityPlayer nmsPlayer = ((CraftPlayer)p).getHandle();
+					EntityPlayer nmsPlayer = ((CraftPlayer) p).getHandle();
 					nmsPlayer.b.a(packet);
 				}
 			}
 		}
 	}
-	
+
 	public static void change_skin(@NotNull Player player, @NotNull Property skin)
 	{
-		CraftPlayer cp = (CraftPlayer)player;
-		
+		CraftPlayer cp = (CraftPlayer) player;
+
 		GameProfile profile = cp.getProfile();
-		
+
 		sendPackets(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.e, cp.getHandle()));
-		
+
 		profile.getProperties().removeAll("textures");
 		profile.getProperties().put("textures", skin);
-		
+
 		sendPackets(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.a, cp.getHandle()));
 	}
-	
+
 	public static @Nullable Property generate_property(@NotNull UUID uuid)
 	{
-		String val = Main.getInstance().getConfig().getString("skins." + uuid, null);
+		String val = Main.getInstance().get_skins_config().getString(uuid.toString(), null);
 		if (val == null) return null;
 		else return new Property("textures", val);
 	}
-	
+
 	public static void apply_skin(@NotNull Player player)
 	{
 		{
@@ -73,7 +73,7 @@ public class SkinUtils
 			if (prop != null)
 				change_skin(player, prop);
 		}
-		
+
 		for (Player p : Bukkit.getOnlinePlayers())
 		{
 			if (!player.getUniqueId().equals(p.getUniqueId()))

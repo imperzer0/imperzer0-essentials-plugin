@@ -20,14 +20,16 @@ import org.jetbrains.annotations.NotNull;
 
 public class BagListener implements Listener
 {
-	public BagListener() { }
-	
+	public BagListener()
+	{
+	}
+
 	void process_inventory(@NotNull Inventory inventory)
 	{
 		if (inventory.getHolder() instanceof BagUtils.BagInventoryHolder holder)
 			BagUtils.save_inventory(holder.getUuid(), inventory.getContents());
 	}
-	
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void on_new_player_login(@NotNull PlayerLoginEvent event)
 	{
@@ -35,10 +37,15 @@ public class BagListener implements Listener
 				Bag.PERMISSION_CLEAR + event.getPlayer().getUniqueId().toString().toLowerCase(),
 				"Clear specific user's bag", PermissionDefault.FALSE
 		);
-		try { Bukkit.getServer().getPluginManager().addPermission(permission); }
-		catch (Exception ignored) { }
+		try
+		{
+			Bukkit.getServer().getPluginManager().addPermission(permission);
+		}
+		catch (Exception ignored)
+		{
+		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void on_player_clicks_inventory(InventoryClickEvent event)
 	{
@@ -48,19 +55,29 @@ public class BagListener implements Listener
 			new BukkitRunnable()
 			{
 				@Override
-				public void run() { process_inventory(inventory); }
+				public void run()
+				{
+					process_inventory(inventory);
+				}
 			}.runTaskLater(Main.getInstance(), event.getHandlers().getRegisteredListeners().length + 1);
 		}
-		catch (Exception ignored) { }
+		catch (Exception ignored)
+		{
+		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void on_player_closes_inventory(InventoryCloseEvent event)
 	{
-		try { process_inventory(event.getView().getTopInventory()); }
-		catch (Exception ignored) { }
+		try
+		{
+			process_inventory(event.getView().getTopInventory());
+		}
+		catch (Exception ignored)
+		{
+		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void on_player_drags_inventory(InventoryDragEvent event)
 	{
@@ -70,12 +87,17 @@ public class BagListener implements Listener
 			new BukkitRunnable()
 			{
 				@Override
-				public void run() { process_inventory(inventory); }
+				public void run()
+				{
+					process_inventory(inventory);
+				}
 			}.runTaskLater(Main.getInstance(), event.getHandlers().getRegisteredListeners().length + 1);
 		}
-		catch (Exception ignored) { }
+		catch (Exception ignored)
+		{
+		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void on_player_pickups_inventory_item(InventoryPickupItemEvent event)
 	{
@@ -85,9 +107,14 @@ public class BagListener implements Listener
 			new BukkitRunnable()
 			{
 				@Override
-				public void run() { process_inventory(inventory); }
+				public void run()
+				{
+					process_inventory(inventory);
+				}
 			}.runTaskLater(Main.getInstance(), event.getHandlers().getRegisteredListeners().length + 1);
 		}
-		catch (Exception ignored) { }
+		catch (Exception ignored)
+		{
+		}
 	}
 }

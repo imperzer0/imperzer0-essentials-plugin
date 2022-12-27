@@ -15,11 +15,16 @@ import java.util.UUID;
 public class RetListener implements Listener
 {
 	private static final Map<UUID, Location> death_location = new HashMap<>();
-	
-	public RetListener() { }
-	
-	public static Location get_death_location(UUID uuid) { return death_location.get(uuid); }
-	
+
+	public RetListener()
+	{
+	}
+
+	public static Location get_death_location(UUID uuid)
+	{
+		return death_location.get(uuid);
+	}
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	void on_player_dies(@NotNull PlayerDeathEvent event)
 	{

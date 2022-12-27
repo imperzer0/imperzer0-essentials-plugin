@@ -18,4 +18,29 @@ public class GameModeUtils
 		}
 		return result;
 	}
+
+	public static GameMode parse_gamemode(String gamemode)
+	{
+		GameMode gm;
+		try
+		{
+			gm = GameMode.valueOf(gamemode);
+		}
+		catch (IllegalArgumentException e)
+		{
+			int val;
+			try
+			{
+				val = Integer.parseInt(gamemode);
+			}
+			catch (NumberFormatException ex)
+			{
+				return null;
+			}
+
+			gm = GameMode.getByValue(val);
+		}
+
+		return gm;
+	}
 }

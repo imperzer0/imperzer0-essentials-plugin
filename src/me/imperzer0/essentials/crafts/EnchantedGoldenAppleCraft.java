@@ -16,19 +16,19 @@ import org.jetbrains.annotations.NotNull;
 public class EnchantedGoldenAppleCraft implements Listener
 {
 	public final NamespacedKey key;
-	
+
 	public EnchantedGoldenAppleCraft()
 	{
 		key = new NamespacedKey(Main.getInstance(), "enchantedgoldenapplecraft");
 		RecipeUtil.add_recipe(apple_recipe());
 	}
-	
+
 	@EventHandler
 	void on_login(@NotNull PlayerLoginEvent event)
 	{
 		event.getPlayer().discoverRecipe(key);
 	}
-	
+
 	public Pair<NamespacedKey, Recipe> apple_recipe()
 	{
 		ItemStack item = new ItemStack(Material.ENCHANTED_GOLDEN_APPLE);

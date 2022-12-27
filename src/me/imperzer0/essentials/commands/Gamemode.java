@@ -24,74 +24,58 @@ public class Gamemode implements CommandExecutor, TabCompleter
 {
 	public static final String NAME = "gamemode";
 	public static final String USAGE = "<gamemode> [ <user> ]";
-	public static final String PERMISSION = "imperzer0-essentials.command.gamemode";
-	
+	public static final String PERMISSION = "imperzer0-essentials.command." + NAME;
+
 	public Gamemode()
 	{
 		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
 	}
-	
+
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args)
 	{
 		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE)) return false;
-		
+
 		if (args.length > 2 || args.length == 0)
 		{
 			loger.help(sender, cmd, USAGE);
 			return false;
 		}
-		
+
 		HumanEntity human;
 		if (args.length == 2)
 			human = PlayerUtils.Bukkit_getPlayer(args[1], loger, sender);
 		else if (sender instanceof HumanEntity)
-			human = (HumanEntity)sender;
+			human = (HumanEntity) sender;
 		else
 		{
 			loger.invalid_entity(sender);
 			return false;
 		}
-		
+
 		if (human == null) return false;
-		
-		GameMode gm;
-		try
-		{
-			gm = GameMode.valueOf(args[0]);
-		}
-		catch (IllegalArgumentException e)
-		{
-			int val;
-			try { val = Integer.parseInt(args[0]); }
-			catch (NumberFormatException ex)
-			{
-				loger.error(sender, "Invalid GameMode value: '" + args[0] + "'.");
-				return false;
-			}
-			
-			gm = GameMode.getByValue(val);
-		}
-		
+
+		GameMode gm = GameModeUtils.parse_gamemode(args[0]);
+
 		if (gm == null)
 		{
-			loger.error(sender, "Invalid GameMode value: '" + args[0] + "'.");
+			loger.error(sender, "Invalid GameMode value: \"" + args[0] + "\".");
 			return false;
 		}
-		
+
 		human.setGameMode(gm);
-		
+
 		loger.message(sender, ChatColor.GRAY + "Changed \"" + ChatColor.YELLOW + human.getName() +
-		                      ChatColor.GRAY + "\"'s GameMode to '" +
-		                      ChatColor.LIGHT_PURPLE + human.getGameMode().toString().toLowerCase() + ChatColor.GRAY + "'.");
-		
+				ChatColor.GRAY + "\"'s GameMode to \"" +
+				ChatColor.LIGHT_PURPLE + human.getGameMode().toString().toLowerCase() + ChatColor.GRAY + "\".");
+
 		return true;
 	}
-	
+
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label,
-	                                  @NotNull String[] args)
+									  @NotNull String[] args)
 	{
 		ArrayList<String> list = new ArrayList<>();
 		if (args.length == 0 || args.length == 1)

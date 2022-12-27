@@ -22,7 +22,7 @@ import java.util.Objects;
 public class EmeraldCrafts implements Listener
 {
 	public final NamespacedKey[] keys;
-	
+
 	public EmeraldCrafts()
 	{
 		keys = new NamespacedKey[]{
@@ -40,13 +40,13 @@ public class EmeraldCrafts implements Listener
 		RecipeUtil.add_recipe(emerald_hoe_recipe());
 		RecipeUtil.add_recipe(emerald_bow_recipe());
 	}
-	
+
 	@EventHandler
 	void on_login(@NotNull PlayerLoginEvent event)
 	{
 		event.getPlayer().discoverRecipes(Arrays.stream(keys).toList());
 	}
-	
+
 	public Pair<NamespacedKey, Recipe> emerald_sword_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
@@ -62,19 +62,21 @@ public class EmeraldCrafts implements Listener
 			meta.setDisplayName(ChatColor.GREEN + "" + ChatColor.ITALIC + "Emerald Sword");
 			item.setItemMeta(meta);
 		}
-		catch (Exception ignored) { }
+		catch (Exception ignored)
+		{
+		}
 		ShapedRecipe recipe = new ShapedRecipe(keys[0], item);
 		recipe.shape(
 				"E",
 				"E",
 				"S"
 		);
-		
+
 		recipe.setIngredient('E', Material.EMERALD_BLOCK);
 		recipe.setIngredient('S', Material.STICK);
 		return new Pair<>(keys[0], recipe);
 	}
-	
+
 	public Pair<NamespacedKey, Recipe> emerald_pick_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DIAMOND_PICKAXE);
@@ -87,19 +89,21 @@ public class EmeraldCrafts implements Listener
 			meta.setDisplayName(ChatColor.GREEN + "" + ChatColor.ITALIC + "Emerald Pickaxe");
 			item.setItemMeta(meta);
 		}
-		catch (Exception ignored) { }
+		catch (Exception ignored)
+		{
+		}
 		ShapedRecipe recipe = new ShapedRecipe(keys[1], item);
 		recipe.shape(
 				"EEE",
 				" S ",
 				" S "
 		);
-		
+
 		recipe.setIngredient('E', Material.EMERALD_BLOCK);
 		recipe.setIngredient('S', Material.STICK);
 		return new Pair<>(keys[1], recipe);
 	}
-	
+
 	public Pair<NamespacedKey, Recipe> emerald_axe_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DIAMOND_AXE);
@@ -112,19 +116,21 @@ public class EmeraldCrafts implements Listener
 			meta.setDisplayName(ChatColor.GREEN + "" + ChatColor.ITALIC + "Emerald Axe");
 			item.setItemMeta(meta);
 		}
-		catch (Exception ignored) { }
+		catch (Exception ignored)
+		{
+		}
 		ShapedRecipe recipe = new ShapedRecipe(keys[2], item);
 		recipe.shape(
 				"EE",
 				"ES",
 				" S"
 		);
-		
+
 		recipe.setIngredient('E', Material.EMERALD_BLOCK);
 		recipe.setIngredient('S', Material.STICK);
 		return new Pair<>(keys[2], recipe);
 	}
-	
+
 	public Pair<NamespacedKey, Recipe> emerald_shovel_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DIAMOND_SHOVEL);
@@ -137,19 +143,21 @@ public class EmeraldCrafts implements Listener
 			meta.setDisplayName(ChatColor.GREEN + "" + ChatColor.ITALIC + "Emerald Shovel");
 			item.setItemMeta(meta);
 		}
-		catch (Exception ignored) { }
+		catch (Exception ignored)
+		{
+		}
 		ShapedRecipe recipe = new ShapedRecipe(keys[3], item);
 		recipe.shape(
 				"E",
 				"S",
 				"S"
 		);
-		
+
 		recipe.setIngredient('E', Material.EMERALD_BLOCK);
 		recipe.setIngredient('S', Material.STICK);
 		return new Pair<>(keys[3], recipe);
 	}
-	
+
 	public Pair<NamespacedKey, Recipe> emerald_hoe_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DIAMOND_HOE);
@@ -162,19 +170,21 @@ public class EmeraldCrafts implements Listener
 			meta.setDisplayName(ChatColor.GREEN + "" + ChatColor.ITALIC + "Emerald Hoe");
 			item.setItemMeta(meta);
 		}
-		catch (Exception ignored) { }
+		catch (Exception ignored)
+		{
+		}
 		ShapedRecipe recipe = new ShapedRecipe(keys[4], item);
 		recipe.shape(
 				"EE",
 				" S",
 				" S"
 		);
-		
+
 		recipe.setIngredient('E', Material.EMERALD_BLOCK);
 		recipe.setIngredient('S', Material.STICK);
 		return new Pair<>(keys[4], recipe);
 	}
-	
+
 	public Pair<NamespacedKey, Recipe> emerald_bow_recipe()
 	{
 		ItemStack item = new ItemStack(Material.BOW);
@@ -192,14 +202,16 @@ public class EmeraldCrafts implements Listener
 			meta.setDisplayName(ChatColor.GREEN + "" + ChatColor.ITALIC + "Emerald Bow");
 			item.setItemMeta(meta);
 		}
-		catch (Exception ignored) { }
+		catch (Exception ignored)
+		{
+		}
 		ShapedRecipe recipe = new ShapedRecipe(keys[5], item);
 		recipe.shape(
 				" ES",
 				"E S",
 				" ES"
 		);
-		
+
 		recipe.setIngredient('E', Material.EMERALD_BLOCK);
 		recipe.setIngredient('S', Material.STRING);
 		return new Pair<>(keys[5], recipe);

@@ -20,35 +20,39 @@ public class RemoveOwnerEnchantedKit implements CommandExecutor
 {
 	public static final String NAME = "rm_owner_kit";
 	public static final String USAGE = "";
-	public static final String PERMISSION = "imperzer0-essentials.command.rm_owner_kit";
-	
+	public static final String PERMISSION = "imperzer0-essentials.command." + NAME;
+
 	public RemoveOwnerEnchantedKit()
 	{
 		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
 	}
-	
+
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args)
 	{
 		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE)) return false;
-		
-		if (args.length == 0)
-			if (sender instanceof HumanEntity human)
-			{
-				PlayerInventory human_inventory = human.getInventory();
-				for (ItemStack stack : human_inventory.getContents())
-					if (OwnerConstants.is_owner_item(stack))
-						human_inventory.remove(stack);
-				human_inventory.setArmorContents(null);
-				OwnerConstants.clear_owner_effects(human);
-				
-				loger.message(sender, ChatColor.GRAY + "Removed owner kit items from '" + ChatColor.GOLD + human.getName() +
-				                      ChatColor.GRAY + "'.");
-				return true;
-			}
-			else loger.invalid_entity(sender);
-		else loger.help(sender, cmd, USAGE);
-		
-		return false;
+
+		if (args.length != 0)
+		{
+			loger.help(sender, cmd, USAGE);
+			return false;
+		}
+
+		if (!(sender instanceof HumanEntity human))
+		{
+			loger.invalid_entity(sender);
+			return false;
+		}
+
+		PlayerInventory human_inventory = human.getInventory();
+		for (ItemStack stack : human_inventory.getContents())
+			if (OwnerConstants.is_owner_item(stack))
+				human_inventory.remove(stack);
+		human_inventory.setArmorContents(null);
+		OwnerConstants.clear_owner_effects(human);
+
+		loger.message(sender, ChatColor.GRAY + "Removed owner kit items from \"" + ChatColor.GOLD + human.getName() +
+				ChatColor.GRAY + "\".");
+		return true;
 	}
 }

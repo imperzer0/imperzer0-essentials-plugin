@@ -10,7 +10,7 @@ public class RecipeUtil
 {
 	public static void add_recipe(@NotNull Pair<NamespacedKey, Recipe> recipe)
 	{
-		Main.getInstance().getLogger().info("Loaded recipe '" + recipe.getKey().getKey() + "'.");
+		Main.getInstance().getLogger().info("Loaded recipe \"" + recipe.getKey().getKey() + "\".");
 		Bukkit.addRecipe(recipe.getValue());
 	}
 }

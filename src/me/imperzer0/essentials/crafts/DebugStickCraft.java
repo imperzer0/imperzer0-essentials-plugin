@@ -16,19 +16,19 @@ import org.jetbrains.annotations.NotNull;
 public class DebugStickCraft implements Listener
 {
 	public final NamespacedKey key;
-	
+
 	public DebugStickCraft()
 	{
 		key = new NamespacedKey(Main.getInstance(), "debugstickcraft");
 		RecipeUtil.add_recipe(debug_stick_recipe());
 	}
-	
+
 	@EventHandler
 	void on_login(@NotNull PlayerLoginEvent event)
 	{
 		event.getPlayer().discoverRecipe(key);
 	}
-	
+
 	public Pair<NamespacedKey, Recipe> debug_stick_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DEBUG_STICK);
@@ -38,7 +38,7 @@ public class DebugStickCraft implements Listener
 				"I",
 				"I"
 		);
-		
+
 		recipe.setIngredient('I', Material.IRON_INGOT);
 		recipe.setIngredient('G', Material.GOLD_INGOT);
 		return new Pair<>(key, recipe);

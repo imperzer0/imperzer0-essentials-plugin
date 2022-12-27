@@ -21,31 +21,30 @@ public class GetUUID implements CommandExecutor, TabCompleter
 {
 	public static final String NAME = "uuid";
 	public static final String USAGE = "<user>";
-	public static final String PERMISSION = "imperzer0-essentials.command.uuid";
-	
+	public static final String PERMISSION = "imperzer0-essentials.command." + NAME;
+
 	public GetUUID()
 	{
 		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
 	}
-	
+
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args)
 	{
 		if (CommandUtils.initial_command_assertion(sender, cmd, args, PERMISSION, USAGE)) return false;
-		
+
 		if (args.length == 1)
 			loger.message(sender, "" + ChatColor.DARK_PURPLE + ChatColor.BOLD + ChatColor.ITALIC +
-			                      Objects.requireNonNull(PlayerUtils.Bukkit_getOfflinePlayer(args[0], loger, sender))
-			                             .getUniqueId());
+					Objects.requireNonNull(PlayerUtils.Bukkit_getOfflinePlayer(args[0], loger, sender)).getUniqueId());
 		else loger.help(sender, cmd, USAGE);
-		
+
 		return true;
 	}
-	
+
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label,
-	                                  @NotNull String[] args)
+									  @NotNull String[] args)
 	{
 		ArrayList<String> list = new ArrayList<>();
 		if (args.length == 0)

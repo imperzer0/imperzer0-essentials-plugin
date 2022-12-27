@@ -16,19 +16,19 @@ import org.jetbrains.annotations.NotNull;
 public class SpawnerCraft implements Listener
 {
 	public final NamespacedKey key;
-	
+
 	public SpawnerCraft()
 	{
 		key = new NamespacedKey(Main.getInstance(), "spawnercraft");
 		RecipeUtil.add_recipe(spawner());
 	}
-	
+
 	@EventHandler
 	void on_login(@NotNull PlayerLoginEvent event)
 	{
 		event.getPlayer().discoverRecipe(key);
 	}
-	
+
 	public Pair<NamespacedKey, Recipe> spawner()
 	{
 		ItemStack item = new ItemStack(Material.SPAWNER);

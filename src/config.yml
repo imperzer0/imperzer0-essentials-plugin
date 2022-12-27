@@ -8,6 +8,8 @@ commands:
   bag: on
   uuid: on
   ret: on
+  invsee: on
+  offlinegm: on
 
 crafts:
   debug-stick: on
