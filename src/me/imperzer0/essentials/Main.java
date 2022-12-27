@@ -8,10 +8,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main extends JavaPlugin
 {
@@ -31,6 +33,19 @@ public class Main extends JavaPlugin
 	public static Main getInstance()
 	{
 		return instance;
+	}
+
+	private static void save_config_to_file(@NotNull FileConfiguration config, File file, Logger logger)
+	{
+		config.options().copyDefaults(true);
+		try
+		{
+			config.save(file);
+		}
+		catch (IOException var2)
+		{
+			logger.log(Level.SEVERE, "Could not save config to " + file, var2);
+		}
 	}
 
 	private void create_inventories_config()
@@ -73,8 +88,7 @@ public class Main extends JavaPlugin
 	@Override
 	public void onLoad()
 	{
-		getLogger().info("====================== Loading plugin " + getName() + " v" + getDescription().getVersion() +
-				" ... ======================");
+		getLogger().info("====================== Loading plugin " + getName() + " v" + getDescription().getVersion() + " ... ======================");
 		save_default_configs();
 	}
 
@@ -82,8 +96,7 @@ public class Main extends JavaPlugin
 	@Override
 	public void onEnable()
 	{
-		getLogger().info("======================== Enabled plugin " + getName() + " v" + getDescription().getVersion() +
-				" ========================");
+		getLogger().info("======================== Enabled plugin " + getName() + " v" + getDescription().getVersion() + " ========================");
 
 		FileConfiguration config = super.getConfig();
 		PluginManager manager = getServer().getPluginManager();
@@ -135,9 +148,8 @@ public class Main extends JavaPlugin
 	@Override
 	public void onDisable()
 	{
-		getLogger().info(
-				"========================= Disabled plugin " + getName() + " v" + getDescription().getVersion() +
-						" =======================");
+		getLogger().info("========================= Disabled plugin " + getName() + " v" + getDescription().getVersion() + " =======================");
+		InvseeListener.server_reload();
 	}
 
 	@Override
@@ -146,13 +158,7 @@ public class Main extends JavaPlugin
 		this.getConfig().options().copyDefaults(true);
 		super.saveConfig();
 
-		try
-		{
-			this.inventories_config.save(this.inventories_file);
-		}
-		catch (IOException var2)
-		{
-			getLogger().log(Level.SEVERE, "Could not save config to " + this.inventories_file, var2);
-		}
+		save_config_to_file(inventories_config, inventories_file, getLogger());
+		save_config_to_file(skins_config, skins_file, getLogger());
 	}
 }

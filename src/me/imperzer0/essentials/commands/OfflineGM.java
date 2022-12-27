@@ -28,6 +28,12 @@ public class OfflineGM implements CommandExecutor, TabCompleter
 
 	public static Map<UUID, String> gamemodes = new HashMap<>();
 
+	public OfflineGM()
+	{
+		load_config_vals();
+		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
+	}
+
 	private static void load_config_vals()
 	{
 		for (OfflinePlayer p : Bukkit.getOfflinePlayers())
@@ -45,12 +51,6 @@ public class OfflineGM implements CommandExecutor, TabCompleter
 			Main.getInstance().getConfig().set("gamemode." + p.getUniqueId(), gm);
 		}
 		Main.getInstance().saveConfig();
-	}
-
-	public OfflineGM()
-	{
-		load_config_vals();
-		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
 	}
 
 	@Override

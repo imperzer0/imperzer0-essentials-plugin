@@ -28,6 +28,17 @@ public class Invsee implements CommandExecutor, TabCompleter
 	public static final String USAGE = "<user_uuid>";
 	public static final String PERMISSION = "imperzer0-essentials.command." + NAME;
 
+	/// All users who opened archived inventory of specific player
+	public static final Map<UUID, ArrayList<UUID>> opened_archive = new HashMap<>();
+	/// Loaded inventories
+	public static final Map<UUID, Inventory> archive = new HashMap<>();
+
+
+	public Invsee()
+	{
+		load_archive();
+		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
+	}
 
 	void load_archive()
 	{
@@ -43,7 +54,7 @@ public class Invsee implements CommandExecutor, TabCompleter
 						ChatColor.BLUE + "(archive) " + ChatColor.RESET + "Player");
 				for (int i = 0; i < InventoryType.PLAYER.getDefaultSize(); ++i)
 					inventory.setItem(i, inv_serial.get(i));
-				InvseeListener.archive.put(owner, inventory);
+				archive.put(owner, inventory);
 			}
 		}
 		catch (Exception ignored)
@@ -63,12 +74,6 @@ public class Invsee implements CommandExecutor, TabCompleter
 		}
 
 		return inventory;
-	}
-
-	public Invsee()
-	{
-		load_archive();
-		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
 	}
 
 	@Override
@@ -153,10 +158,10 @@ public class Invsee implements CommandExecutor, TabCompleter
 					+ ChatColor.GREEN + "Opening archive...");
 			try
 			{
-				sender_p.openInventory(InvseeListener.archive.getOrDefault(player.getUniqueId(), null));
-				ArrayList<UUID> opened = InvseeListener.opened_archive.getOrDefault(player.getUniqueId(), new ArrayList<>());
+				sender_p.openInventory(archive.getOrDefault(player.getUniqueId(), null));
+				ArrayList<UUID> opened = opened_archive.getOrDefault(player.getUniqueId(), new ArrayList<>());
 				opened.add(sender_p.getUniqueId());
-				InvseeListener.opened_archive.put(player.getUniqueId(), opened);
+				opened_archive.put(player.getUniqueId(), opened);
 			}
 			catch (Exception e)
 			{
