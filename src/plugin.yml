@@ -74,8 +74,18 @@ permissions:
       imperzer0-essentials.command.uuid: true
       imperzer0-essentials.command.give: true
       imperzer0-essentials.command.mkstack: true
+
       imperzer0-essentials.command.owner_kit: true
+      imperzer0-essentials.command.owner_kit.use.bow: true
+      imperzer0-essentials.command.owner_kit.use.rod: true
+      imperzer0-essentials.command.owner_kit.use.axe: true
+      imperzer0-essentials.command.owner_kit.use.head: true
+      imperzer0-essentials.command.owner_kit.use.bowl: true
+      imperzer0-essentials.command.owner_kit.use.arrow: true
+      imperzer0-essentials.command.owner_kit.use.ore: true
+
       imperzer0-essentials.command.rm_owner_kit: true
+
       imperzer0-essentials.command.ret: true
       imperzer0-essentials.command.invsee: true
       imperzer0-essentials.command.offlinegm: true

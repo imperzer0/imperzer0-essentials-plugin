@@ -128,13 +128,6 @@ public class OwnerConstants
 		return item != null && item.getEnchantments().equals(ENCHANTMENTS);
 	}
 
-	public static boolean is_from_kit(ItemStack item)
-	{
-		if (item == null || !item.getEnchantments().equals(ENCHANTMENTS)) return false;
-		for (ItemStack oi : owner_items) if (item.getType().equals(oi.getType())) return true;
-		return false;
-	}
-
 	public enum OWNER_ITEMS
 	{
 		ANNIHILATOR(0),
