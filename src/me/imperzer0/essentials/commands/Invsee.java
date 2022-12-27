@@ -111,11 +111,11 @@ public class Invsee implements CommandExecutor, TabCompleter
 					if (args[1].equalsIgnoreCase("armor"))
 					{
 						Inventory inventory = load_armor(player);
-						player.openInventory(inventory);
+						sender_p.openInventory(inventory);
 					}
 					else if (args[1].equalsIgnoreCase("inv"))
 					{
-						player.openInventory(player.getInventory());
+						sender_p.openInventory(player.getInventory());
 					}
 					else
 					{
