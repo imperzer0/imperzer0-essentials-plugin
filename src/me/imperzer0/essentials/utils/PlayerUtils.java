@@ -15,7 +15,7 @@ public class PlayerUtils
 {
 	public static @Nullable Player Bukkit_getPlayer(String identifier)
 	{
-		Player player = Bukkit.getPlayer(identifier);
+		Player player = Bukkit.getPlayerExact(identifier);
 
 		try
 		{
@@ -50,7 +50,7 @@ public class PlayerUtils
 
 	public static @Nullable Player Bukkit_getPlayer(String identifier, Loger loger, CommandSender sender)
 	{
-		Player player = Bukkit.getPlayer(identifier);
+		Player player = Bukkit.getPlayerExact(identifier);
 
 		try
 		{

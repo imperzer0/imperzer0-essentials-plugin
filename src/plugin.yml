@@ -1,6 +1,6 @@
 main: me.imperzer0.essentials.Main
 name: imperzer0-essentials
-version: 1.14.2
+version: 1.15
 author: imperzer0
 api-version: 1.19
 load: POSTWORLD
@@ -59,6 +59,10 @@ commands:
     description: Set other player's gamemode while he's offline
     permission-message: Permission denied. Please contact administrator.
 
+  ench:
+    description: Enchant item in player's main hand
+    permission-message: Permission denied. Please contact administrator.
+
 permissions:
   imperzer0-essentials.*:
     default: op
@@ -89,3 +93,4 @@ permissions:
       imperzer0-essentials.command.ret: true
       imperzer0-essentials.command.invsee: true
       imperzer0-essentials.command.offlinegm: true
+      imperzer0-essentials.command.ench: true

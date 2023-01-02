@@ -124,6 +124,7 @@ public class Main extends JavaPlugin
 		if (config.getBoolean("commands.ret", false)) new Ret();
 		if (config.getBoolean("commands.offlinegm", false)) new OfflineGM();
 		if (config.getBoolean("commands.invsee", false)) new Invsee();
+		if (config.getBoolean("commands.ench", false)) new Ench();
 
 
 		/// Craft recipes

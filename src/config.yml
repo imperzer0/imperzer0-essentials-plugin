@@ -10,6 +10,7 @@ commands:
   ret: on
   invsee: on
   offlinegm: on
+  ench: on
 
 crafts:
   debug-stick: on
