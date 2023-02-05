@@ -165,7 +165,7 @@ public class Give implements CommandExecutor, TabCompleter
 		else if (args.length == 2)
 		{
 			if (Material.matchMaterial(args[0]) == null)
-				list.addAll(MaterialUtils.Material_getAllMaterialsNames(args[0]));
+				list.addAll(MaterialUtils.Material_getAllMaterialsNames(args[1]));
 			else list.add("stack");
 
 			try
@@ -182,8 +182,8 @@ public class Give implements CommandExecutor, TabCompleter
 
 			try
 			{
-				Integer.parseInt(args[1]);
-				list.add(args[1] + "s");
+				Integer.parseInt(args[2]);
+				list.add(args[2] + "s");
 			}
 			catch (NumberFormatException e)
 			{ /* ignore */ }
