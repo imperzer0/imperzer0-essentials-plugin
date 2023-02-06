@@ -25,6 +25,11 @@ public class Main extends JavaPlugin
 	private File skins_file;
 	private FileConfiguration skins_config;
 
+	private File bags_file;
+	private FileConfiguration bags_config;
+	private File dead_inventories_file;
+	private FileConfiguration dead_inventories_config;
+
 	public Main()
 	{
 		instance = this;
@@ -76,12 +81,42 @@ public class Main extends JavaPlugin
 		return this.skins_config;
 	}
 
+	private void create_bags_config()
+	{
+		bags_file = new File(getDataFolder(), "bags.yml");
+		if (!this.bags_file.exists())
+			this.saveResource("bags.yml", false);
+
+		bags_config = YamlConfiguration.loadConfiguration(bags_file);
+	}
+
+	public FileConfiguration get_bags_config()
+	{
+		return this.bags_config;
+	}
+
+	private void create_dead_inventories_config()
+	{
+		dead_inventories_file = new File(getDataFolder(), "dead_inventories.yml");
+		if (!this.dead_inventories_file.exists())
+			this.saveResource("dead_inventories.yml", false);
+
+		dead_inventories_config = YamlConfiguration.loadConfiguration(dead_inventories_file);
+	}
+
+	public FileConfiguration get_dead_inventories_config()
+	{
+		return this.dead_inventories_config;
+	}
+
 	/// Extract default configs
 	public void save_default_configs()
 	{
 		saveDefaultConfig();
 		create_inventories_config();
 		create_skins_config();
+		create_bags_config();
+		create_dead_inventories_config();
 	}
 
 	/// Before enabled
@@ -103,13 +138,14 @@ public class Main extends JavaPlugin
 
 
 		/// Listeners
+		manager.registerEvents(new SkinListener(), this);
 		if (config.getBoolean("commands.owner-kit", false)) manager.registerEvents(
 				new OwnerEnchantedKitListener(), this);
 		if (config.getBoolean("commands.bag", false)) manager.registerEvents(new BagListener(), this);
 		if (config.getBoolean("commands.ret", false)) manager.registerEvents(new RetListener(), this);
 		if (config.getBoolean("commands.offlinegm", false)) manager.registerEvents(new OfflineGMListener(), this);
 		if (config.getBoolean("commands.invsee", false)) manager.registerEvents(new InvseeListener(), this);
-		manager.registerEvents(new SkinListener(), this);
+		if (config.getBoolean("commands.dead_inventory", false)) manager.registerEvents(new DeadInventoryListener(), this);
 
 
 		/// Commands
@@ -125,6 +161,7 @@ public class Main extends JavaPlugin
 		if (config.getBoolean("commands.offlinegm", false)) new OfflineGM();
 		if (config.getBoolean("commands.invsee", false)) new Invsee();
 		if (config.getBoolean("commands.ench", false)) new Ench();
+		if (config.getBoolean("commands.dead_inventory", false)) new DeadInventory();
 
 
 		/// Craft recipes
@@ -161,5 +198,7 @@ public class Main extends JavaPlugin
 
 		save_config_to_file(inventories_config, inventories_file, getLogger());
 		save_config_to_file(skins_config, skins_file, getLogger());
+		save_config_to_file(bags_config, bags_file, getLogger());
+		save_config_to_file(dead_inventories_config, dead_inventories_file, getLogger());
 	}
 }

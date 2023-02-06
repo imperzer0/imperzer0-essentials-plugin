@@ -26,7 +26,7 @@ import static me.imperzer0.essentials.utils.Loger.loger;
 public class Bag implements CommandExecutor, TabCompleter
 {
 	public static final String NAME = "bag";
-	public static final String USAGE = "";
+	public static final String USAGE = "[ <player> ] / [ clear <player> ]";
 	public static final String PERMISSION = "imperzer0-essentials.command." + NAME;
 	public static final String PERMISSION_STEAL = "imperzer0-essentials.bag.bag_steal";
 	public static final String PERMISSION_CLEAR = "imperzer0-essentials.bag.clear.";
@@ -75,7 +75,7 @@ public class Bag implements CommandExecutor, TabCompleter
 			}
 			else
 			{
-				OfflinePlayer player = PlayerUtils.Bukkit_getOfflinePlayer(args[0], loger, sender);
+				OfflinePlayer player = PlayerUtils.Bukkit_getOfflinePlayer(args[1], loger, sender);
 				if (player == null) return false;
 				loger.message(sender, ChatColor.GRAY + "Cleaning \"" +
 						ChatColor.GOLD + player.getName() + ChatColor.GRAY + "\"'s bag...");

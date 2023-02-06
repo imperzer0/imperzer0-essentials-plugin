@@ -11,6 +11,7 @@ commands:
   invsee: on
   offlinegm: on
   ench: on
+  dead_inventory: on
 
 crafts:
   debug-stick: on

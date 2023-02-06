@@ -1,10 +1,9 @@
 package me.imperzer0.essentials.utils;
 
 import me.imperzer0.essentials.Main;
-import me.imperzer0.essentials.commands.Bag;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -16,15 +15,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class BagUtils
+public class DeadInventoryUtils
 {
-	private static final Map<UUID, Inventory> inventories = new HashMap<>();
+	static private final Map<UUID, Inventory> inventories = new HashMap<>();
 
 	private static @Nullable ItemStack[] load_inventory(@NotNull UUID owner)
 	{
 		try
 		{
-			List<ItemStack> list = (List<ItemStack>) Main.getInstance().get_bags_config().getList(owner.toString());
+			List<ItemStack> list = (List<ItemStack>) Main.getInstance().get_dead_inventories_config().getList(owner.toString());
 			assert list != null;
 			return list.toArray(new ItemStack[list.size()]);
 		}
@@ -34,45 +33,44 @@ public class BagUtils
 		}
 	}
 
-	public static void save_inventory(@NotNull UUID owner, ItemStack... items)
+	public static void save_inventory(@NotNull UUID owner, @NotNull Inventory inventory)
 	{
-		Main.getInstance().get_bags_config().set(owner.toString(), items);
+		inventories.put(owner, inventory);
+		Main.getInstance().get_dead_inventories_config().set(owner.toString(), inventory.getContents());
 		Main.getInstance().saveConfig();
 	}
 
-	public static Inventory open_bag(@NotNull UUID owner)
+	public static Inventory open_dead_inventory(@NotNull UUID owner)
 	{
 		if (inventories.containsKey(owner)) return inventories.get(owner);
 		else
 		{
 			ItemStack[] items = load_inventory(owner);
-			Inventory inventory = new BagInventoryHolder(owner).getInventory();
+			Inventory inventory = new DeadInventoryHolder(owner).getInventory();
 			if (items != null) inventory.setContents(items);
 			inventories.put(owner, inventory);
 			return inventory;
 		}
 	}
 
-	public static void clear_bag(@NotNull CommandSender sender, @NotNull UUID owner)
+	public static Inventory preserve_inventory(@NotNull Player player, @NotNull List<ItemStack> drops)
 	{
-		if (sender.hasPermission(Bag.PERMISSION_CLEAR + owner) ||
-				sender.hasPermission(Bag.PERMISSION_CLEAR + "all"))
-		{
-			inventories.remove(owner);
-			save_inventory(owner);
-		}
+		DeadInventoryHolder holder = new DeadInventoryHolder(player.getUniqueId());
+		ItemStack[] inv_contents = new ItemStack[drops.size()];
+		holder.inventory.setContents(drops.toArray(inv_contents));
+		return holder.inventory;
 	}
 
-	public static class BagInventoryHolder implements InventoryHolder
+	public static class DeadInventoryHolder implements InventoryHolder
 	{
 		private final UUID uuid;
 		private final Inventory inventory;
 
-		public BagInventoryHolder(UUID uuid)
+		public DeadInventoryHolder(UUID uuid)
 		{
 			this.uuid = uuid;
 			this.inventory = Bukkit.createInventory(
-					this, 54, ChatColor.DARK_GREEN + "Bag of \"" +
+					this, 54, ChatColor.DARK_GREEN + "Dead inventory of \"" +
 							ChatColor.LIGHT_PURPLE + Bukkit.getOfflinePlayer(uuid).getName() + ChatColor.DARK_GREEN + "\"");
 			this.inventory.setMaxStackSize(127);
 		}
