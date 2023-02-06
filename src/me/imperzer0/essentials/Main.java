@@ -166,8 +166,7 @@ public class Main extends JavaPlugin
 
 		/// Listeners
 		manager.registerEvents(new SkinListener(), this);
-		if (config.getBoolean("commands.owner-kit", false)) manager.registerEvents(
-				new OwnerEnchantedKitListener(), this);
+		if (config.getBoolean("commands.owner-kit", false)) manager.registerEvents(new OwnerEnchantedKitListener(), this);
 		if (config.getBoolean("commands.bag", false)) manager.registerEvents(new BagListener(), this);
 		if (config.getBoolean("commands.ret", false)) manager.registerEvents(new RetListener(), this);
 		if (config.getBoolean("commands.offlinegm", false)) manager.registerEvents(new OfflineGMListener(), this);
