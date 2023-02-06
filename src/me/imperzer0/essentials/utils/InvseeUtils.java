@@ -3,18 +3,17 @@ package me.imperzer0.essentials.utils;
 import me.imperzer0.essentials.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class InvseeUtils
 {
@@ -27,7 +26,7 @@ public class InvseeUtils
 	{
 		try
 		{
-			Map<String, Object> serialized_archive = Main.getInstance().get_inventories_config().getConfigurationSection("").getValues(false);
+			Map<String, Object> serialized_archive = Objects.requireNonNull(Main.getInstance().get_inventories_config().getConfigurationSection("")).getValues(false);
 			for (Map.Entry<String, Object> inv : serialized_archive.entrySet())
 			{
 				UUID owner = UUID.fromString(inv.getKey());
@@ -53,6 +52,7 @@ public class InvseeUtils
 		{
 			inventory.setItem(i, armor[i]);
 		}
+		inventory.setItem(4, player.getInventory().getItemInOffHand());
 
 		return inventory;
 	}
@@ -113,6 +113,7 @@ public class InvseeUtils
 			armor[i] = inventory.getItem(i);
 		}
 		player.getInventory().setArmorContents(armor);
+		player.getInventory().setItemInOffHand(inventory.getItem(4));
 	}
 
 	public static class InvHolder implements InventoryHolder
@@ -124,6 +125,20 @@ public class InvseeUtils
 		{
 			this.owner = owner;
 			this.inventory = Bukkit.createInventory(this, 45, ChatColor.BLUE + "(archive) " + ChatColor.RESET + "Player");
+
+			ItemStack item = new ItemStack(Material.RED_STAINED_GLASS_PANE);
+			ItemMeta itemMeta = item.getItemMeta();
+			if (itemMeta != null)
+			{
+				itemMeta.setDisplayName(ChatColor.RED + "Inactive slot");
+				itemMeta.setCustomModelData(-255);
+				item.setItemMeta(itemMeta);
+			}
+
+			this.inventory.setItem(41, item);
+			this.inventory.setItem(42, item);
+			this.inventory.setItem(43, item);
+			this.inventory.setItem(44, item);
 		}
 
 		@NotNull
@@ -143,6 +158,20 @@ public class InvseeUtils
 		{
 			this.owner = player.getUniqueId();
 			this.inventory = Bukkit.createInventory(this, 9, player.getDisplayName() + "'s armor");
+
+			ItemStack item = new ItemStack(Material.RED_STAINED_GLASS_PANE);
+			ItemMeta itemMeta = item.getItemMeta();
+			if (itemMeta != null)
+			{
+				itemMeta.setDisplayName(ChatColor.RED + "Inactive slot");
+				itemMeta.setCustomModelData(-255);
+				item.setItemMeta(itemMeta);
+			}
+
+			this.inventory.setItem(5, item);
+			this.inventory.setItem(6, item);
+			this.inventory.setItem(7, item);
+			this.inventory.setItem(8, item);
 		}
 
 		@NotNull

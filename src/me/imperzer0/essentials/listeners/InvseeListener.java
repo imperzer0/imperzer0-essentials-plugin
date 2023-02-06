@@ -50,13 +50,19 @@ public class InvseeListener implements Listener
 	}
 
 	@EventHandler
-	public void on_player_interact_inv(InventoryClickEvent event)
+	public void on_player_interact_inv(@NotNull InventoryClickEvent event)
 	{
 		try
 		{
 			Inventory inventory = event.getView().getTopInventory();
 			if (inventory.getHolder() instanceof InvseeUtils.InvHolder)
 			{
+				if (event.getSlot() >= 41 && event.getSlot() < 45)
+				{
+					event.setCancelled(true);
+					return;
+				}
+
 				new BukkitRunnable()
 				{
 					@Override
@@ -68,6 +74,12 @@ public class InvseeListener implements Listener
 			}
 			else if (inventory.getHolder() instanceof InvseeUtils.InvArmorHolder)
 			{
+				if (event.getSlot() >= 5 && event.getSlot() < 9)
+				{
+					event.setCancelled(true);
+					return;
+				}
+
 				new BukkitRunnable()
 				{
 					@Override
@@ -84,7 +96,7 @@ public class InvseeListener implements Listener
 	}
 
 	@EventHandler
-	public void on_player_interact_inv(InventoryCloseEvent event)
+	public void on_player_interact_inv(@NotNull InventoryCloseEvent event)
 	{
 		try
 		{
@@ -104,13 +116,21 @@ public class InvseeListener implements Listener
 	}
 
 	@EventHandler
-	public void on_player_interact_inv(InventoryDragEvent event)
+	public void on_player_interact_inv(@NotNull InventoryDragEvent event)
 	{
+
 		try
 		{
 			Inventory inventory = event.getView().getTopInventory();
 			if (inventory.getHolder() instanceof InvseeUtils.InvHolder)
 			{
+				for (Integer s : event.getRawSlots())
+					if (s >= 41 && s < 45)
+					{
+						event.setCancelled(true);
+						return;
+					}
+
 				new BukkitRunnable()
 				{
 					@Override
@@ -122,6 +142,13 @@ public class InvseeListener implements Listener
 			}
 			else if (inventory.getHolder() instanceof InvseeUtils.InvArmorHolder)
 			{
+				for (Integer s : event.getRawSlots())
+					if (s >= 5 && s < 9)
+					{
+						event.setCancelled(true);
+						return;
+					}
+
 				new BukkitRunnable()
 				{
 					@Override
@@ -138,7 +165,7 @@ public class InvseeListener implements Listener
 	}
 
 	@EventHandler
-	public void on_player_interact_inv(InventoryPickupItemEvent event)
+	public void on_player_interact_inv(@NotNull InventoryPickupItemEvent event)
 	{
 		try
 		{

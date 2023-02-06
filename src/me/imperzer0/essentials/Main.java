@@ -20,6 +20,7 @@ public class Main extends JavaPlugin
 {
 	private static Main instance;
 
+
 	private File inventories_file;
 	private FileConfiguration inventories_config;
 
@@ -28,10 +29,13 @@ public class Main extends JavaPlugin
 
 	private File bags_file;
 	private FileConfiguration bags_config;
+
 	private File dead_inventories_file;
 	private FileConfiguration dead_inventories_config;
+
 	private File offline_gamemodes_file;
 	private FileConfiguration offline_gamemodes_config;
+
 
 	public Main()
 	{
@@ -42,6 +46,7 @@ public class Main extends JavaPlugin
 	{
 		return instance;
 	}
+
 
 	private static void save_config_to_file(@NotNull FileConfiguration config, File file, Logger logger)
 	{
@@ -56,6 +61,7 @@ public class Main extends JavaPlugin
 		}
 	}
 
+
 	private void create_inventories_config()
 	{
 		inventories_file = new File(getDataFolder(), "inventories.yml");
@@ -63,11 +69,6 @@ public class Main extends JavaPlugin
 			this.saveResource("inventories.yml", false);
 
 		inventories_config = YamlConfiguration.loadConfiguration(inventories_file);
-	}
-
-	public FileConfiguration get_inventories_config()
-	{
-		return this.inventories_config;
 	}
 
 	private void create_skins_config()
@@ -79,11 +80,6 @@ public class Main extends JavaPlugin
 		skins_config = YamlConfiguration.loadConfiguration(skins_file);
 	}
 
-	public FileConfiguration get_skins_config()
-	{
-		return this.skins_config;
-	}
-
 	private void create_bags_config()
 	{
 		bags_file = new File(getDataFolder(), "bags.yml");
@@ -91,11 +87,6 @@ public class Main extends JavaPlugin
 			this.saveResource("bags.yml", false);
 
 		bags_config = YamlConfiguration.loadConfiguration(bags_file);
-	}
-
-	public FileConfiguration get_bags_config()
-	{
-		return this.bags_config;
 	}
 
 	private void create_dead_inventories_config()
@@ -107,11 +98,6 @@ public class Main extends JavaPlugin
 		dead_inventories_config = YamlConfiguration.loadConfiguration(dead_inventories_file);
 	}
 
-	public FileConfiguration get_dead_inventories_config()
-	{
-		return this.dead_inventories_config;
-	}
-
 	private void create_offline_gamemodes_config()
 	{
 		offline_gamemodes_file = new File(getDataFolder(), "offline_gamemodes.yml");
@@ -121,21 +107,44 @@ public class Main extends JavaPlugin
 		offline_gamemodes_config = YamlConfiguration.loadConfiguration(offline_gamemodes_file);
 	}
 
+	public FileConfiguration get_inventories_config()
+	{
+		return this.inventories_config;
+	}
+
+	public FileConfiguration get_skins_config()
+	{
+		return this.skins_config;
+	}
+
+	public FileConfiguration get_bags_config()
+	{
+		return this.bags_config;
+	}
+
+	public FileConfiguration get_dead_inventories_config()
+	{
+		return this.dead_inventories_config;
+	}
+
 	public FileConfiguration get_offline_gamemodes_config()
 	{
 		return this.offline_gamemodes_config;
 	}
 
+
 	/// Extract default configs
 	public void save_default_configs()
 	{
 		saveDefaultConfig();
+
 		create_inventories_config();
 		create_skins_config();
 		create_bags_config();
 		create_dead_inventories_config();
 		create_offline_gamemodes_config();
 	}
+
 
 	/// Before enabled
 	@Override
