@@ -4,6 +4,7 @@ package me.imperzer0.essentials;
 import me.imperzer0.essentials.commands.*;
 import me.imperzer0.essentials.crafts.*;
 import me.imperzer0.essentials.listeners.*;
+import me.imperzer0.essentials.utils.InvseeUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
@@ -29,6 +30,8 @@ public class Main extends JavaPlugin
 	private FileConfiguration bags_config;
 	private File dead_inventories_file;
 	private FileConfiguration dead_inventories_config;
+	private File offline_gamemodes_file;
+	private FileConfiguration offline_gamemodes_config;
 
 	public Main()
 	{
@@ -109,6 +112,20 @@ public class Main extends JavaPlugin
 		return this.dead_inventories_config;
 	}
 
+	private void create_offline_gamemodes_config()
+	{
+		offline_gamemodes_file = new File(getDataFolder(), "offline_gamemodes.yml");
+		if (!this.offline_gamemodes_file.exists())
+			this.saveResource("offline_gamemodes.yml", false);
+
+		offline_gamemodes_config = YamlConfiguration.loadConfiguration(offline_gamemodes_file);
+	}
+
+	public FileConfiguration get_offline_gamemodes_config()
+	{
+		return this.offline_gamemodes_config;
+	}
+
 	/// Extract default configs
 	public void save_default_configs()
 	{
@@ -117,6 +134,7 @@ public class Main extends JavaPlugin
 		create_skins_config();
 		create_bags_config();
 		create_dead_inventories_config();
+		create_offline_gamemodes_config();
 	}
 
 	/// Before enabled
@@ -187,7 +205,7 @@ public class Main extends JavaPlugin
 	public void onDisable()
 	{
 		getLogger().info("========================= Disabled plugin " + getName() + " v" + getDescription().getVersion() + " =======================");
-		InvseeListener.server_reload();
+		InvseeUtils.server_reload();
 	}
 
 	@Override
@@ -200,5 +218,6 @@ public class Main extends JavaPlugin
 		save_config_to_file(skins_config, skins_file, getLogger());
 		save_config_to_file(bags_config, bags_file, getLogger());
 		save_config_to_file(dead_inventories_config, dead_inventories_file, getLogger());
+		save_config_to_file(offline_gamemodes_config, offline_gamemodes_file, getLogger());
 	}
 }

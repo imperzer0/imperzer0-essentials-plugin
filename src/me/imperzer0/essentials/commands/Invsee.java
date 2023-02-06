@@ -1,10 +1,9 @@
 package me.imperzer0.essentials.commands;
 
 import me.imperzer0.essentials.Main;
-import me.imperzer0.essentials.listeners.InvseeListener;
 import me.imperzer0.essentials.utils.CommandUtils;
+import me.imperzer0.essentials.utils.InvseeUtils;
 import me.imperzer0.essentials.utils.PlayerUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -12,13 +11,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import static me.imperzer0.essentials.utils.Loger.loger;
 
@@ -28,52 +27,11 @@ public class Invsee implements CommandExecutor, TabCompleter
 	public static final String USAGE = "<user_uuid>";
 	public static final String PERMISSION = "imperzer0-essentials.command." + NAME;
 
-	/// All users who opened archived inventory of specific player
-	public static final Map<UUID, ArrayList<UUID>> opened_archive = new HashMap<>();
-	/// Loaded inventories
-	public static final Map<UUID, Inventory> archive = new HashMap<>();
-
 
 	public Invsee()
 	{
-		load_archive();
+		InvseeUtils.load_archive();
 		CommandUtils.command_initialization(Objects.requireNonNull(Main.getInstance().getCommand(NAME)), PERMISSION, this);
-	}
-
-	void load_archive()
-	{
-		try
-		{
-			Map<String, Object> serialized_archive = Main.getInstance().get_inventories_config().getConfigurationSection("").getValues(false);
-			for (Map.Entry<String, Object> inv : serialized_archive.entrySet())
-			{
-				UUID owner = UUID.fromString(inv.getKey());
-				ArrayList<ItemStack> inv_serial = (ArrayList<ItemStack>) inv.getValue();
-
-				Inventory inventory = Bukkit.createInventory(new InvseeListener.InvHolder(owner), inv_serial.size(),
-						ChatColor.BLUE + "(archive) " + ChatColor.RESET + "Player");
-				for (int i = 0; i < InventoryType.PLAYER.getDefaultSize(); ++i)
-					inventory.setItem(i, inv_serial.get(i));
-				archive.put(owner, inventory);
-			}
-		}
-		catch (Exception ignored)
-		{
-		}
-	}
-
-	Inventory load_armor(@NotNull Player player)
-	{
-		Inventory inventory = Bukkit.createInventory(new InvseeListener.InvHolderArmor(player.getUniqueId()), 9,
-				player.getDisplayName() + "'s armor");
-
-		ItemStack[] armor = player.getInventory().getArmorContents();
-		for (int i = 0; i < armor.length; ++i)
-		{
-			inventory.setItem(i, armor[i]);
-		}
-
-		return inventory;
 	}
 
 	@Override
@@ -115,7 +73,7 @@ public class Invsee implements CommandExecutor, TabCompleter
 				{
 					if (args[1].equalsIgnoreCase("armor"))
 					{
-						Inventory inventory = load_armor(player);
+						Inventory inventory = InvseeUtils.load_armor(player);
 						sender_p.openInventory(inventory);
 					}
 					else if (args[1].equalsIgnoreCase("inv"))
@@ -158,10 +116,8 @@ public class Invsee implements CommandExecutor, TabCompleter
 					+ ChatColor.GREEN + "Opening archive...");
 			try
 			{
-				sender_p.openInventory(archive.getOrDefault(player.getUniqueId(), null));
-				ArrayList<UUID> opened = opened_archive.getOrDefault(player.getUniqueId(), new ArrayList<>());
-				opened.add(sender_p.getUniqueId());
-				opened_archive.put(player.getUniqueId(), opened);
+				sender_p.openInventory(InvseeUtils.get_archived_inventory(player));
+				InvseeUtils.add_current_archive_viewer(player, sender_p);
 			}
 			catch (Exception e)
 			{

@@ -38,7 +38,7 @@ public class OfflineGM implements CommandExecutor, TabCompleter
 	{
 		for (OfflinePlayer p : Bukkit.getOfflinePlayers())
 		{
-			String gm = Main.getInstance().getConfig().getString("gamemode." + p.getUniqueId(), null);
+			String gm = Main.getInstance().get_offline_gamemodes_config().getString("gamemode." + p.getUniqueId(), null);
 			gamemodes.put(p.getUniqueId(), gm);
 		}
 	}
@@ -48,7 +48,7 @@ public class OfflineGM implements CommandExecutor, TabCompleter
 		for (OfflinePlayer p : Bukkit.getOfflinePlayers())
 		{
 			String gm = gamemodes.get(p.getUniqueId());
-			Main.getInstance().getConfig().set("gamemode." + p.getUniqueId(), gm);
+			Main.getInstance().get_offline_gamemodes_config().set("gamemode." + p.getUniqueId(), gm);
 		}
 		Main.getInstance().saveConfig();
 	}
@@ -92,7 +92,7 @@ public class OfflineGM implements CommandExecutor, TabCompleter
 				return false;
 			}
 
-			Main.getInstance().getConfig().set("gamemode." + offline_player.getUniqueId(), gm.name());
+			Main.getInstance().get_offline_gamemodes_config().set("gamemode." + offline_player.getUniqueId(), gm.name());
 			Main.getInstance().saveConfig();
 			return true;
 		}
