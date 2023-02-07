@@ -12,6 +12,7 @@ commands:
   offlinegm: on
   ench: on
   dead_inventory: on
+  boost_librarian: on
 
 crafts:
   debug-stick: on

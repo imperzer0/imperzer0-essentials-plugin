@@ -172,6 +172,7 @@ public class Main extends JavaPlugin
 		if (config.getBoolean("commands.offlinegm", false)) manager.registerEvents(new OfflineGMListener(), this);
 		if (config.getBoolean("commands.invsee", false)) manager.registerEvents(new InvseeListener(), this);
 		if (config.getBoolean("commands.dead_inventory", false)) manager.registerEvents(new DeadInventoryListener(), this);
+		if (config.getBoolean("commands.boost_librarian", false)) manager.registerEvents(new BoostLibrarianListener(), this);
 
 
 		/// Commands
@@ -188,6 +189,7 @@ public class Main extends JavaPlugin
 		if (config.getBoolean("commands.invsee", false)) new Invsee();
 		if (config.getBoolean("commands.ench", false)) new Ench();
 		if (config.getBoolean("commands.dead_inventory", false)) new DeadInventory();
+		if (config.getBoolean("commands.boost_librarian", false)) new BoostLibrarian();
 
 
 		/// Craft recipes
