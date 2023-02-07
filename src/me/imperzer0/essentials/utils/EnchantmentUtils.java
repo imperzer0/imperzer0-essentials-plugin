@@ -17,7 +17,7 @@ public class EnchantmentUtils
 				names.add(enchantment.getKey().getKey());
 				names.add(enchantment.getKey().getKey().toLowerCase());
 			}
-			else if (enchantment.getKey().getKey().contains(filter.toUpperCase()))
+			else if (enchantment.getKey().getKey().contains(filter.toLowerCase()))
 			{
 				names.add(enchantment.getKey().getKey());
 				names.add(enchantment.getKey().getKey().toLowerCase());

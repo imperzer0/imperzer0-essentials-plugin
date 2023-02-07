@@ -1,6 +1,6 @@
 main: me.imperzer0.essentials.Main
 name: imperzer0-essentials
-version: 1.17
+version: 1.17.1
 author: imperzer0
 api-version: 1.19
 load: POSTWORLD
