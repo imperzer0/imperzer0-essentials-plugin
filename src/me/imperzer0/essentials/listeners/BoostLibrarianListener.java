@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.VillagerAcquireTradeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
 import java.util.List;
 
@@ -40,7 +41,13 @@ public class BoostLibrarianListener implements Listener
 			return;
 
 		ItemStack reward = new ItemStack(Material.ENCHANTED_BOOK);
-		reward.addUnsafeEnchantment(BoostLibrarianUtils.obtain_next_enchantment(), BoostLibrarianUtils.obtain_next_enchantment_level());
+		EnchantmentStorageMeta meta = (EnchantmentStorageMeta) reward.getItemMeta();
+
+		if (meta == null)
+			return;
+
+		meta.addStoredEnchant(BoostLibrarianUtils.obtain_next_enchantment(), BoostLibrarianUtils.obtain_next_enchantment_level(), true);
+		reward.setItemMeta(meta);
 		System.out.println(reward);
 
 		MerchantRecipe new_book_recipe = new MerchantRecipe(reward, old_book_recipe.getUses(), old_book_recipe.getMaxUses(),
