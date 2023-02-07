@@ -2,8 +2,6 @@ package me.imperzer0.essentials.utils;
 
 import org.bukkit.enchantments.Enchantment;
 
-import java.util.Map;
-
 public class BoostLibrarianUtils
 {
 	private static Enchantment next_enchantment = null;
