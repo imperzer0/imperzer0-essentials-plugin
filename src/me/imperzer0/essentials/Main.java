@@ -166,6 +166,7 @@ public class Main extends JavaPlugin
 
 		/// Listeners
 		manager.registerEvents(new SkinListener(), this);
+		manager.registerEvents(new EnchantmentsListener(), this);
 		if (config.getBoolean("commands.owner-kit", false)) manager.registerEvents(new OwnerEnchantedKitListener(), this);
 		if (config.getBoolean("commands.bag", false)) manager.registerEvents(new BagListener(), this);
 		if (config.getBoolean("commands.ret", false)) manager.registerEvents(new RetListener(), this);
@@ -176,6 +177,7 @@ public class Main extends JavaPlugin
 
 
 		/// Commands
+		new me.imperzer0.essentials.commands.Main();
 		if (config.getBoolean("commands.give", false)) new Give();
 		if (config.getBoolean("commands.fly", false)) new Fly();
 		if (config.getBoolean("commands.owner-kit", false)) new OwnerEnchantedKit();

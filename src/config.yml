@@ -21,3 +21,4 @@ crafts:
   spawner: on
   spawner-eggs: on
 
+enchantments.max_level: 900

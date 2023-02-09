@@ -1,6 +1,6 @@
 main: me.imperzer0.essentials.Main
 name: imperzer0-essentials
-version: 1.17.3
+version: 1.17.4
 author: imperzer0
 api-version: 1.19
 load: POSTWORLD
@@ -9,6 +9,10 @@ website: https://github.com/imperzer0/imperzer0-essentials.git
 database: false
 
 commands:
+  essentials:
+    description: Manage imperzer0-essentials plugin
+    permission-message: Permission denied. Please contact administrator.
+
   give:
     description: Gives stuff
     permission-message: Permission denied. Please contact administrator.
@@ -106,3 +110,4 @@ permissions:
       imperzer0-essentials.command.ench: true
       imperzer0-essentials.command.dead_inventory: true
       imperzer0-essentials.command.boost_librarian: true
+      imperzer0-essentials.command.essentials: true
