@@ -1,11 +1,13 @@
 package me.imperzer0.essentials.commands;
 
+import me.imperzer0.essentials.listeners.BoostMinecartListener;
 import me.imperzer0.essentials.utils.CommandUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,8 +35,17 @@ public class Main implements CommandExecutor, TabCompleter
 
 		if (args.length == 1 && args[0].equalsIgnoreCase("reload"))
 		{
+			PluginDescriptionFile pdfFile = me.imperzer0.essentials.Main.getInstance().getDescription();
+			sender.sendMessage("Reloading " + pdfFile.getName() + " version " + pdfFile.getVersion() + " ...");
+
 			me.imperzer0.essentials.Main.getInstance().reloadConfig();
-			loger.message(sender, ChatColor.GREEN + "[imperzer0-essentials] Config reloaded.");
+
+			BoostMinecartListener.load_config();
+			loger.message(sender, "[BoostMinecart] Speed:    " + BoostMinecartListener.get_speed());
+			loger.message(sender, "[BoostMinecart] Momentum: " + BoostMinecartListener.get_momentum());
+			loger.message(sender, "[BoostMinecart] Carts:    " + BoostMinecartListener.get_carts());
+
+			loger.message(sender, ChatColor.GREEN + "[" + pdfFile.getName() + "] Config reloaded.");
 		}
 		else
 		{
