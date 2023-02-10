@@ -3,6 +3,7 @@ package me.imperzer0.essentials.listeners;
 import me.imperzer0.essentials.Main;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Rail;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Vehicle;
@@ -114,7 +115,7 @@ public class BoostMinecartListener implements Listener
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true)
+	@EventHandler
 	public void onVehicleMove(@NotNull VehicleMoveEvent event)
 	{
 		Vehicle vehicle = event.getVehicle();
@@ -129,6 +130,15 @@ public class BoostMinecartListener implements Listener
 		Block block = cart.getLocation().getBlock();
 		if (!(block.getBlockData() instanceof Rail))
 			return;
+
+		Block block_under_rail = block.getRelative(BlockFace.DOWN);
+		if (block_under_rail.getType().equals(Material.OBSIDIAN))
+		{
+			Vector vel = cart.getVelocity();
+			vel.setX(vel.getX() / (speed > 2 ? speed - 1.5 : speed));
+			vel.setZ(vel.getZ() / (speed > 2 ? speed - 1.5 : speed));
+			cart.setVelocity(vel);
+		}
 
 		cart.setMaxSpeed(speed * 0.4D);
 
@@ -156,12 +166,12 @@ public class BoostMinecartListener implements Listener
 			cart.setMaxSpeed(0.4);
 		}
 
-		if (block.getBlockData() instanceof Rail nrl)
+		if (block.getBlockData() instanceof Rail rl)
 		{
-			if (nrl.getShape().equals(Rail.Shape.ASCENDING_EAST) ||
-					nrl.getShape().equals(Rail.Shape.ASCENDING_WEST) ||
-					nrl.getShape().equals(Rail.Shape.ASCENDING_SOUTH) ||
-					nrl.getShape().equals(Rail.Shape.ASCENDING_NORTH))
+			if (rl.getShape().equals(Rail.Shape.ASCENDING_EAST) ||
+					rl.getShape().equals(Rail.Shape.ASCENDING_WEST) ||
+					rl.getShape().equals(Rail.Shape.ASCENDING_SOUTH) ||
+					rl.getShape().equals(Rail.Shape.ASCENDING_NORTH))
 			{
 				Vector vel = cart.getVelocity();
 				if (vel.getX() == 0 && vel.getZ() == 0)
@@ -170,10 +180,10 @@ public class BoostMinecartListener implements Listener
 				}
 				cart.setVelocity(vel.multiply(2));
 			}
-			else if (nrl.getShape().equals(Rail.Shape.NORTH_EAST) ||
-					nrl.getShape().equals(Rail.Shape.NORTH_WEST) ||
-					nrl.getShape().equals(Rail.Shape.SOUTH_EAST) ||
-					nrl.getShape().equals(Rail.Shape.SOUTH_WEST))
+			else if (rl.getShape().equals(Rail.Shape.NORTH_EAST) ||
+					rl.getShape().equals(Rail.Shape.NORTH_WEST) ||
+					rl.getShape().equals(Rail.Shape.SOUTH_EAST) ||
+					rl.getShape().equals(Rail.Shape.SOUTH_WEST))
 			{
 				cart.setMaxSpeed(0.4);
 			}
@@ -182,8 +192,8 @@ public class BoostMinecartListener implements Listener
 		previous_velocities.put(cart.getUniqueId(), cart.getVelocity());
 	}
 
-	@EventHandler(ignoreCancelled = true)
-	public void onVehicleDestory(@NotNull VehicleDestroyEvent v)
+	@EventHandler
+	public void onVehicleDestroy(@NotNull VehicleDestroyEvent v)
 	{
 		Vehicle vehicle = v.getVehicle();
 		if (!(vehicle instanceof Minecart cart)) return;
