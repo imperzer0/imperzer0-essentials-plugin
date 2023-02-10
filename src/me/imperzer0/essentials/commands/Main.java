@@ -42,7 +42,6 @@ public class Main implements CommandExecutor, TabCompleter
 
 			BoostMinecartListener.load_config();
 			loger.message(sender, "[BoostMinecart] Speed:    " + BoostMinecartListener.get_speed());
-			loger.message(sender, "[BoostMinecart] Momentum: " + BoostMinecartListener.get_momentum());
 			loger.message(sender, "[BoostMinecart] Carts:    " + BoostMinecartListener.get_carts());
 
 			loger.message(sender, ChatColor.GREEN + "[" + pdfFile.getName() + "] Config reloaded.");

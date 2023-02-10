@@ -1,5 +1,4 @@
 # Enable or disable command handlers
-
 commands:
   give: on
   fly: on
@@ -24,25 +23,20 @@ crafts:
   spawner: on
   spawner-eggs: on
 
-# Maximum enchantment experience level cost for survival players
+# Maximum enchantment experience level cost for survival players (def: 900)
 enchantments:
   max_level: 900
 
 
-# Momentum: How far a cart will travel (def: 32)
-# Speed: How fast the cart will travel (def: 8)
-# Derail: Allow carts to derail on slopes/corners (def: true)
+# Speed: How fast the cart will travel (max: 6, def: 1)
 # Rideable: Apply properties to passenger carts.
 # Explosive: Apply properties to explosive (tnt) carts.
 # Hopper: Apply properties to hopper carts.
 # Powered: Apply properties to powered (furnace) carts.
 # Storage: Apply properties to storage (chest) carts.
-
 bc:
   properties:
-    momentum: 128
-    speed: 16
-    derail: true
+    speed: 1
   carts:
     rideable: true
     explosive: false

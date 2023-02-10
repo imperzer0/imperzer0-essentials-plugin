@@ -1,9 +1,9 @@
 package me.imperzer0.essentials.listeners;
 
 import me.imperzer0.essentials.Main;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.Rail;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.entity.minecart.*;
@@ -11,21 +11,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
-import org.bukkit.material.Rails;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.logging.Level;
 
 public class BoostMinecartListener implements Listener
 {
-	private static final ArrayList<Cart> CL = new ArrayList<>();
-	private static int speed;
-	private static int momentum;
-	private static boolean derail;
+	private static double speed;
 	private static boolean rideable;
 	private static boolean explosive;
 	private static boolean hopper;
@@ -33,19 +29,16 @@ public class BoostMinecartListener implements Listener
 	private static boolean storage;
 	private static String carts;
 
+	private static final HashMap<UUID, Vector> previous_velocities = new HashMap<>();
+
 	public BoostMinecartListener()
 	{
 		load_config();
 	}
 
-	public static int get_speed()
+	public static double get_speed()
 	{
 		return speed;
-	}
-
-	public static int get_momentum()
-	{
-		return momentum;
 	}
 
 	public static String get_carts()
@@ -57,18 +50,17 @@ public class BoostMinecartListener implements Listener
 	{
 		try
 		{
-			speed = Integer.parseInt(Objects.requireNonNull(Main.getInstance().getConfig().getString("bc.properties.speed")));
-			momentum = Integer.parseInt(Objects.requireNonNull(Main.getInstance().getConfig().getString("bc.properties.momentum")));
+			speed = Double.parseDouble(Objects.requireNonNull(Main.getInstance().getConfig().getString("bc.properties.speed")));
 		}
 		catch (NumberFormatException var2)
 		{
-			Main.getInstance().getLogger().log(Level.SEVERE, "Configuration contains INVALID Integer(s), using Defaults!");
-			speed = 8;
-			momentum = 32;
+			Main.getInstance().getLogger().log(Level.SEVERE, "Configuration contains INVALID Double(s), using Defaults!");
+			speed = 1;
 			return;
 		}
 
-		derail = Main.getInstance().getConfig().getBoolean("bc.properties.derail");
+		if (speed > 6) speed = 6;
+		if (speed <= 0) speed = 1;
 
 		carts = "";
 		if (Main.getInstance().getConfig().getBoolean("bc.carts.rideable"))
@@ -135,10 +127,10 @@ public class BoostMinecartListener implements Listener
 			return;
 
 		Block block = cart.getLocation().getBlock();
-		if (!(block.getState().getData() instanceof Rails rail))
+		if (!(block.getBlockData() instanceof Rail))
 			return;
 
-		cart.setMaxSpeed(speed);
+		cart.setMaxSpeed(speed * 0.4D);
 
 		if (block.getType() == Material.POWERED_RAIL)
 		{
@@ -146,9 +138,7 @@ public class BoostMinecartListener implements Listener
 			Vector v;
 			if (powered)
 			{
-				v = cart.getVelocity();
-				v.normalize();
-				v.multiply((double) momentum / 100.0);
+				v = cart.getVelocity().multiply(1.5);
 			}
 			else
 			{
@@ -159,109 +149,45 @@ public class BoostMinecartListener implements Listener
 		}
 		else if (block.getType() == Material.ACTIVATOR_RAIL)
 		{
-			cart.setMaxSpeed((double) speed / 20.0);
+			cart.setMaxSpeed(0.8);
 		}
 		else if (block.getType() == Material.DETECTOR_RAIL)
 		{
 			cart.setMaxSpeed(0.4);
 		}
 
-		if (derail) return;
-
-		int cnt;
-		Cart CR;
-		if (!rail.isCurve() && !rail.isOnSlope())
+		if (block.getBlockData() instanceof Rail nrl)
 		{
-			cnt = 0;
-
-			while (true)
+			if (nrl.getShape().equals(Rail.Shape.ASCENDING_EAST) ||
+					nrl.getShape().equals(Rail.Shape.ASCENDING_WEST) ||
+					nrl.getShape().equals(Rail.Shape.ASCENDING_SOUTH) ||
+					nrl.getShape().equals(Rail.Shape.ASCENDING_NORTH))
 			{
-				if (cnt >= CL.size())
+				Vector vel = cart.getVelocity();
+				if (vel.getX() == 0 && vel.getZ() == 0)
 				{
-					CL.add(new Cart(cart.getUniqueId(), Math.max(Math.max(Math.abs(cart.getVelocity().getX()), Math.abs(cart.getVelocity().getY())), Math.abs(cart.getVelocity().getZ())), cart.getMaxSpeed(), rail));
-					break;
+					vel = previous_velocities.getOrDefault(cart.getUniqueId(), new Vector(0, 0, 0));
 				}
-
-				CR = CL.get(cnt);
-				if (cart.getUniqueId() == CR.cart && (CR.rail.isCurve() || CR.rail.isOnSlope()))
-				{
-					cart.setMaxSpeed(CR.maxspeed);
-					Vector v = cart.getVelocity();
-					v.normalize();
-					v.multiply(CR.vel);
-					cart.setVelocity(v);
-					CL.get(cnt).rail = rail;
-					return;
-				}
-
-				if (cart.getUniqueId() == CR.cart)
-				{
-					Location nb = cart.getLocation().add(cart.getVelocity().normalize());
-					if (nb.getBlock().getState().getData() instanceof Rails nrl)
-					{
-						if (nrl.isCurve() || nrl.isOnSlope())
-						{
-							cart.setMaxSpeed(0.4);
-							return;
-						}
-					}
-
-					CL.get(cnt).maxspeed = cart.getMaxSpeed();
-					CL.get(cnt).vel = Math.max(Math.max(Math.abs(cart.getVelocity().getX()), Math.abs(cart.getVelocity().getY())), Math.abs(cart.getVelocity().getZ()));
-					CL.get(cnt).rail = rail;
-					return;
-				}
-
-				++cnt;
+				cart.setVelocity(vel.multiply(2));
+			}
+			else if (nrl.getShape().equals(Rail.Shape.NORTH_EAST) ||
+					nrl.getShape().equals(Rail.Shape.NORTH_WEST) ||
+					nrl.getShape().equals(Rail.Shape.SOUTH_EAST) ||
+					nrl.getShape().equals(Rail.Shape.SOUTH_WEST))
+			{
+				cart.setMaxSpeed(0.4);
 			}
 		}
-		else
-		{
-			cart.setMaxSpeed(0.4);
 
-			for (cnt = 0; cnt < CL.size(); ++cnt)
-			{
-				CR = CL.get(cnt);
-				if (cart.getUniqueId() == CR.cart)
-				{
-					CL.get(cnt).rail = rail;
-				}
-			}
-		}
+		previous_velocities.put(cart.getUniqueId(), cart.getVelocity());
 	}
 
 	@EventHandler(ignoreCancelled = true)
 	public void onVehicleDestory(@NotNull VehicleDestroyEvent v)
 	{
-		if (derail) return;
-
 		Vehicle vehicle = v.getVehicle();
 		if (!(vehicle instanceof Minecart cart)) return;
 
-		for (int cnt = 0; cnt < CL.size(); ++cnt)
-		{
-			Cart CR = CL.get(cnt);
-			if (cart.getUniqueId() == CR.cart)
-			{
-				CL.remove(cnt);
-				return;
-			}
-		}
-	}
-
-	public static final class Cart
-	{
-		public UUID cart;
-		public double vel;
-		public double maxspeed;
-		public Rails rail;
-
-		public Cart(UUID c, double v, double ms, Rails r)
-		{
-			this.cart = c;
-			this.vel = v;
-			this.maxspeed = ms;
-			this.rail = r;
-		}
+		previous_velocities.remove(cart.getUniqueId());
 	}
 }
