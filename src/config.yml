@@ -1,3 +1,5 @@
+# Enable or disable command handlers
+
 commands:
   give: on
   fly: on
@@ -14,6 +16,7 @@ commands:
   dead_inventory: on
   boost_librarian: on
 
+# Enable or disable crafts
 crafts:
   debug-stick: on
   emerald: off
@@ -21,7 +24,7 @@ crafts:
   spawner: on
   spawner-eggs: on
 
-
+# Maximum enchantment experience level cost for survival players
 enchantments:
   max_level: 900
 
