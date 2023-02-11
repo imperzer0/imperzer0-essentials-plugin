@@ -207,7 +207,6 @@ public class BoostMinecartListener implements Listener
 
 	private static void process_cart_move(@NotNull Minecart cart)
 	{
-		System.out.println("move");
 		Block block = cart.getLocation().getBlock();
 		if (!(block.getBlockData() instanceof Rail))
 			return;
