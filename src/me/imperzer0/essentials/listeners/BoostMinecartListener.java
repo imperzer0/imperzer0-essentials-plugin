@@ -5,7 +5,9 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Rail;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.entity.minecart.*;
 import org.bukkit.event.EventHandler;
@@ -16,6 +18,7 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -23,11 +26,14 @@ import java.util.logging.Level;
 public class BoostMinecartListener implements Listener
 {
 	private static double speed;
-	private static boolean rideable;
+	private static boolean rideable_empty;
+	private static boolean rideable_player;
+	private static boolean rideable_entity;
 	private static boolean explosive;
 	private static boolean hopper;
 	private static boolean powered;
 	private static boolean storage;
+	private static boolean command;
 	private static String carts;
 
 	private static final HashMap<UUID, Vector> previous_velocities = new HashMap<>();
@@ -64,14 +70,35 @@ public class BoostMinecartListener implements Listener
 		if (speed <= 0) speed = 1;
 
 		carts = "";
-		if (Main.getInstance().getConfig().getBoolean("bc.carts.rideable"))
+
+		if (Main.getInstance().getConfig().getBoolean("bc.carts.rideable.empty"))
 		{
-			rideable = true;
-			carts = carts + "[Rideable]";
+			rideable_empty = true;
+			carts = carts + "[Rideable (empty)]";
 		}
 		else
 		{
-			rideable = false;
+			rideable_empty = false;
+		}
+
+		if (Main.getInstance().getConfig().getBoolean("bc.carts.rideable.player"))
+		{
+			rideable_player = true;
+			carts = carts + "[Rideable (player)]";
+		}
+		else
+		{
+			rideable_player = false;
+		}
+
+		if (Main.getInstance().getConfig().getBoolean("bc.carts.rideable.entity"))
+		{
+			rideable_entity = true;
+			carts = carts + "[Rideable (entity)]";
+		}
+		else
+		{
+			rideable_entity = false;
 		}
 
 		if (Main.getInstance().getConfig().getBoolean("bc.carts.explosive"))
@@ -113,20 +140,73 @@ public class BoostMinecartListener implements Listener
 		{
 			storage = false;
 		}
+
+		if (Main.getInstance().getConfig().getBoolean("bc.carts.command"))
+		{
+			command = true;
+			carts = carts + "[Command]";
+		}
+		else
+		{
+			command = false;
+		}
 	}
 
 	@EventHandler
 	public void onVehicleMove(@NotNull VehicleMoveEvent event)
 	{
 		Vehicle vehicle = event.getVehicle();
-		if (!((vehicle instanceof Minecart cart) &&
-				(!(cart instanceof RideableMinecart) || rideable) &&
-				(!(cart instanceof PoweredMinecart) || powered) &&
-				(!(cart instanceof ExplosiveMinecart) || explosive) &&
-				(!(cart instanceof HopperMinecart) || hopper) &&
-				(!(cart instanceof StorageMinecart) || storage)))
+		if (!(vehicle instanceof Minecart cart))
 			return;
 
+		if (!((!(cart instanceof PoweredMinecart) || !powered) &&
+				(!(cart instanceof ExplosiveMinecart) || !explosive) &&
+				(!(cart instanceof HopperMinecart) || !hopper) &&
+				(!(cart instanceof StorageMinecart) || !storage) &&
+				(!(cart instanceof CommandMinecart) || !command)))
+		{
+			return;
+		}
+		else if (cart instanceof RideableMinecart rc)
+		{
+			List<Entity> passengers = rc.getPassengers();
+
+			if (passengers.isEmpty() && rideable_empty)
+			{
+				process_cart_move(cart);
+				return;
+			}
+
+			boolean is_any_player = false;
+			for (Entity entity : passengers)
+			{
+				if (entity instanceof Player)
+				{
+					is_any_player = true;
+					break;
+				}
+			}
+
+			if (is_any_player && rideable_player)
+			{
+				process_cart_move(cart);
+				return;
+			}
+
+			if (!is_any_player && rideable_entity)
+			{
+				process_cart_move(cart);
+				return;
+			}
+
+			return;
+		}
+
+		process_cart_move(cart);
+	}
+
+	private static void process_cart_move(@NotNull Minecart cart)
+	{
 		Block block = cart.getLocation().getBlock();
 		if (!(block.getBlockData() instanceof Rail))
 			return;

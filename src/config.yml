@@ -30,16 +30,24 @@ enchantments:
 
 # Speed: How fast the cart will travel (max: 6, def: 1)
 # Rideable: Apply properties to passenger carts.
+#  Empty: Empty cart
+#  Player: Cart with player passenger
+#  Entity: Cart with non player passenger
 # Explosive: Apply properties to explosive (tnt) carts.
 # Hopper: Apply properties to hopper carts.
 # Powered: Apply properties to powered (furnace) carts.
 # Storage: Apply properties to storage (chest) carts.
+# Storage: Apply properties to command (command_block) carts.
 bc:
   properties:
     speed: 2
   carts:
-    rideable: true
+    rideable:
+      empty: false
+      player: true
+      entity: false
     explosive: false
     hopper: false
     powered: false
     storage: true
+    command: false
