@@ -36,7 +36,7 @@ enchantments:
 # Storage: Apply properties to storage (chest) carts.
 bc:
   properties:
-    speed: 1
+    speed: 2
   carts:
     rideable: true
     explosive: false

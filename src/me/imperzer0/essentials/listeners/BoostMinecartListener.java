@@ -178,14 +178,11 @@ public class BoostMinecartListener implements Listener
 				{
 					vel = previous_velocities.getOrDefault(cart.getUniqueId(), new Vector(0, 0, 0));
 				}
-				cart.setVelocity(vel.multiply(2));
-			}
-			else if (rl.getShape().equals(Rail.Shape.NORTH_EAST) ||
-					rl.getShape().equals(Rail.Shape.NORTH_WEST) ||
-					rl.getShape().equals(Rail.Shape.SOUTH_EAST) ||
-					rl.getShape().equals(Rail.Shape.SOUTH_WEST))
-			{
-				cart.setMaxSpeed(0.4);
+
+				if ((block.getData() & 8) != 0)
+				{
+					cart.setVelocity(vel.multiply(1.5));
+				}
 			}
 		}
 
