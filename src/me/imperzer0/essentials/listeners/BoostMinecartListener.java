@@ -159,11 +159,11 @@ public class BoostMinecartListener implements Listener
 		if (!(vehicle instanceof Minecart cart))
 			return;
 
-		if (!((!(cart instanceof PoweredMinecart) || !powered) &&
-				(!(cart instanceof ExplosiveMinecart) || !explosive) &&
-				(!(cart instanceof HopperMinecart) || !hopper) &&
-				(!(cart instanceof StorageMinecart) || !storage) &&
-				(!(cart instanceof CommandMinecart) || !command)))
+		if (!((!(cart instanceof PoweredMinecart) || powered) &&
+				(!(cart instanceof ExplosiveMinecart) || explosive) &&
+				(!(cart instanceof HopperMinecart) || hopper) &&
+				(!(cart instanceof StorageMinecart) || storage) &&
+				(!(cart instanceof CommandMinecart) || command)))
 		{
 			return;
 		}
@@ -207,6 +207,7 @@ public class BoostMinecartListener implements Listener
 
 	private static void process_cart_move(@NotNull Minecart cart)
 	{
+		System.out.println("move");
 		Block block = cart.getLocation().getBlock();
 		if (!(block.getBlockData() instanceof Rail))
 			return;
