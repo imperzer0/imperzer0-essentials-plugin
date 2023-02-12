@@ -25,6 +25,7 @@ import java.util.logging.Level;
 
 public class BoostMinecartListener implements Listener
 {
+	private static final HashMap<UUID, Vector> previous_velocities = new HashMap<>();
 	private static double speed;
 	private static boolean rideable_empty;
 	private static boolean rideable_player;
@@ -35,8 +36,6 @@ public class BoostMinecartListener implements Listener
 	private static boolean storage;
 	private static boolean command;
 	private static String carts;
-
-	private static final HashMap<UUID, Vector> previous_velocities = new HashMap<>();
 
 	public BoostMinecartListener()
 	{
@@ -152,59 +151,6 @@ public class BoostMinecartListener implements Listener
 		}
 	}
 
-	@EventHandler
-	public void onVehicleMove(@NotNull VehicleMoveEvent event)
-	{
-		Vehicle vehicle = event.getVehicle();
-		if (!(vehicle instanceof Minecart cart))
-			return;
-
-		if (!((!(cart instanceof PoweredMinecart) || powered) &&
-				(!(cart instanceof ExplosiveMinecart) || explosive) &&
-				(!(cart instanceof HopperMinecart) || hopper) &&
-				(!(cart instanceof StorageMinecart) || storage) &&
-				(!(cart instanceof CommandMinecart) || command)))
-		{
-			return;
-		}
-		else if (cart instanceof RideableMinecart rc)
-		{
-			List<Entity> passengers = rc.getPassengers();
-
-			if (passengers.isEmpty() && rideable_empty)
-			{
-				process_cart_move(cart);
-				return;
-			}
-
-			boolean is_any_player = false;
-			for (Entity entity : passengers)
-			{
-				if (entity instanceof Player)
-				{
-					is_any_player = true;
-					break;
-				}
-			}
-
-			if (is_any_player && rideable_player)
-			{
-				process_cart_move(cart);
-				return;
-			}
-
-			if (!is_any_player && rideable_entity)
-			{
-				process_cart_move(cart);
-				return;
-			}
-
-			return;
-		}
-
-		process_cart_move(cart);
-	}
-
 	private static void process_cart_move(@NotNull Minecart cart)
 	{
 		Block block = cart.getLocation().getBlock();
@@ -267,6 +213,59 @@ public class BoostMinecartListener implements Listener
 		}
 
 		previous_velocities.put(cart.getUniqueId(), cart.getVelocity());
+	}
+
+	@EventHandler
+	public void onVehicleMove(@NotNull VehicleMoveEvent event)
+	{
+		Vehicle vehicle = event.getVehicle();
+		if (!(vehicle instanceof Minecart cart))
+			return;
+
+		if (!((!(cart instanceof PoweredMinecart) || powered) &&
+				(!(cart instanceof ExplosiveMinecart) || explosive) &&
+				(!(cart instanceof HopperMinecart) || hopper) &&
+				(!(cart instanceof StorageMinecart) || storage) &&
+				(!(cart instanceof CommandMinecart) || command)))
+		{
+			return;
+		}
+		else if (cart instanceof RideableMinecart rc)
+		{
+			List<Entity> passengers = rc.getPassengers();
+
+			if (passengers.isEmpty() && rideable_empty)
+			{
+				process_cart_move(cart);
+				return;
+			}
+
+			boolean is_any_player = false;
+			for (Entity entity : passengers)
+			{
+				if (entity instanceof Player)
+				{
+					is_any_player = true;
+					break;
+				}
+			}
+
+			if (is_any_player && rideable_player)
+			{
+				process_cart_move(cart);
+				return;
+			}
+
+			if (!is_any_player && rideable_entity)
+			{
+				process_cart_move(cart);
+				return;
+			}
+
+			return;
+		}
+
+		process_cart_move(cart);
 	}
 
 	@EventHandler
