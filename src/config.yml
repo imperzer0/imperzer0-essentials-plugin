@@ -1,5 +1,5 @@
-# Enable or disable command handlers
-commands:
+# Enable or disable modules
+modules:
   give: on
   fly: on
   owner-kit: on
@@ -14,6 +14,8 @@ commands:
   ench: on
   dead_inventory: on
   boost_librarian: on
+  boost_minecart: on
+  better_looting: on
 
 # Enable or disable crafts
 crafts:

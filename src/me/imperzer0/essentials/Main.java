@@ -167,32 +167,33 @@ public class Main extends JavaPlugin
 		/// Listeners
 		manager.registerEvents(new SkinListener(), this);
 		manager.registerEvents(new EnchantmentsListener(), this);
-		manager.registerEvents(new BoostMinecartListener(), this);
-		if (config.getBoolean("commands.owner-kit", false)) manager.registerEvents(new OwnerEnchantedKitListener(), this);
-		if (config.getBoolean("commands.bag", false)) manager.registerEvents(new BagListener(), this);
-		if (config.getBoolean("commands.ret", false)) manager.registerEvents(new RetListener(), this);
-		if (config.getBoolean("commands.offlinegm", false)) manager.registerEvents(new OfflineGMListener(), this);
-		if (config.getBoolean("commands.invsee", false)) manager.registerEvents(new InvseeListener(), this);
-		if (config.getBoolean("commands.dead_inventory", false)) manager.registerEvents(new DeadInventoryListener(), this);
-		if (config.getBoolean("commands.boost_librarian", false)) manager.registerEvents(new BoostLibrarianListener(), this);
+		if (config.getBoolean("modules.owner-kit", false)) manager.registerEvents(new OwnerEnchantedKitListener(), this);
+		if (config.getBoolean("modules.bag", false)) manager.registerEvents(new BagListener(), this);
+		if (config.getBoolean("modules.ret", false)) manager.registerEvents(new RetListener(), this);
+		if (config.getBoolean("modules.offlinegm", false)) manager.registerEvents(new OfflineGMListener(), this);
+		if (config.getBoolean("modules.invsee", false)) manager.registerEvents(new InvseeListener(), this);
+		if (config.getBoolean("modules.dead_inventory", false)) manager.registerEvents(new DeadInventoryListener(), this);
+		if (config.getBoolean("modules.boost_librarian", false)) manager.registerEvents(new BoostLibrarianListener(), this);
+		if (config.getBoolean("modules.boost_minecart", false)) manager.registerEvents(new BoostMinecartListener(), this);
+		if (config.getBoolean("modules.better_looting", false)) manager.registerEvents(new BetterLootingListener(), this);
 
 
 		/// Commands
 		new me.imperzer0.essentials.commands.Main();
-		if (config.getBoolean("commands.give", false)) new Give();
-		if (config.getBoolean("commands.fly", false)) new Fly();
-		if (config.getBoolean("commands.owner-kit", false)) new OwnerEnchantedKit();
-		if (config.getBoolean("commands.remove-owner-kit", false)) new RemoveOwnerEnchantedKit();
-		if (config.getBoolean("commands.gamemode", false)) new Gamemode();
-		if (config.getBoolean("commands.mkstack", false)) new MkStack();
-		if (config.getBoolean("commands.bag", false)) new Bag();
-		if (config.getBoolean("commands.uuid", false)) new GetUUID();
-		if (config.getBoolean("commands.ret", false)) new Ret();
-		if (config.getBoolean("commands.offlinegm", false)) new OfflineGM();
-		if (config.getBoolean("commands.invsee", false)) new Invsee();
-		if (config.getBoolean("commands.ench", false)) new Ench();
-		if (config.getBoolean("commands.dead_inventory", false)) new DeadInventory();
-		if (config.getBoolean("commands.boost_librarian", false)) new BoostLibrarian();
+		if (config.getBoolean("modules.give", false)) new Give();
+		if (config.getBoolean("modules.fly", false)) new Fly();
+		if (config.getBoolean("modules.owner-kit", false)) new OwnerEnchantedKit();
+		if (config.getBoolean("modules.remove-owner-kit", false)) new RemoveOwnerEnchantedKit();
+		if (config.getBoolean("modules.gamemode", false)) new Gamemode();
+		if (config.getBoolean("modules.mkstack", false)) new MkStack();
+		if (config.getBoolean("modules.bag", false)) new Bag();
+		if (config.getBoolean("modules.uuid", false)) new GetUUID();
+		if (config.getBoolean("modules.ret", false)) new Ret();
+		if (config.getBoolean("modules.offlinegm", false)) new OfflineGM();
+		if (config.getBoolean("modules.invsee", false)) new Invsee();
+		if (config.getBoolean("modules.ench", false)) new Ench();
+		if (config.getBoolean("modules.dead_inventory", false)) new DeadInventory();
+		if (config.getBoolean("modules.boost_librarian", false)) new BoostLibrarian();
 
 
 		/// Craft recipes
