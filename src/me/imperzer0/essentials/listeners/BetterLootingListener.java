@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class BetterLootingListener implements Listener
@@ -31,7 +31,6 @@ public class BetterLootingListener implements Listener
 			return;
 
 		int multiplier = damager.getInventory().getItemInMainHand().getEnchantments().getOrDefault(Enchantment.LOOT_BONUS_MOBS, 0);
-		++multiplier;
 
 		if (multiplier <= 0)
 			return;
@@ -39,8 +38,9 @@ public class BetterLootingListener implements Listener
 		if (random.nextInt() % multiplier == 0)
 			return;
 
-		List<ItemStack> drops = event.getDrops();
-		for (int i = 0; i < multiplier; ++i)
-			event.getDrops().addAll(drops);
+		ArrayList<ItemStack> drops = new ArrayList<>(event.getDrops());
+		for (ItemStack drop : drops)
+			for (int i = 0; i < multiplier; ++i)
+				event.getDrops().add(new ItemStack(drop));
 	}
 }
