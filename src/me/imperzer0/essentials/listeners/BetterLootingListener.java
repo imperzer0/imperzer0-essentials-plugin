@@ -1,7 +1,7 @@
 package me.imperzer0.essentials.listeners;
 
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -26,6 +26,12 @@ public class BetterLootingListener implements Listener
 		if (event.getEntity() instanceof Player)
 			return;
 
+		if (!(event.getEntity() instanceof Boss ||
+				event.getEntity() instanceof WitherSkeleton ||
+				event.getEntity() instanceof Slime ||
+				event.getEntity() instanceof MagmaCube))
+			return;
+
 		Player damager = event.getEntity().getKiller();
 		if (damager == null)
 			return;
@@ -42,5 +48,7 @@ public class BetterLootingListener implements Listener
 		for (ItemStack drop : drops)
 			for (int i = 0; i < multiplier; ++i)
 				event.getDrops().add(new ItemStack(drop));
+
+		event.setDroppedExp(event.getDroppedExp() * (multiplier + 1));
 	}
 }
