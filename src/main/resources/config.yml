@@ -1,0 +1,55 @@
+# Enable or disable modules
+modules:
+  give: on
+  fly: on
+  owner-kit: on
+  remove-owner-kit: on
+  gamemode: on
+  mkstack: on
+  bag: on
+  uuid: on
+  ret: on
+  invsee: on
+  offlinegm: on
+  ench: on
+  dead_inventory: on
+  boost_librarian: on
+  boost_minecart: on
+  better_looting: on
+
+# Enable or disable crafts
+crafts:
+  debug-stick: on
+  emerald: off
+  enchanted-golden-apple: off
+  spawner: on
+  spawner-eggs: on
+
+# Maximum enchantment experience level cost for survival players (def: 900)
+enchantments:
+  max_level: 900
+
+
+# Speed: How fast the cart will travel (max: 6, def: 1)
+# Rideable: Apply properties to passenger carts.
+#  Empty: Empty cart
+#  Player: Cart with player passenger
+#  Entity: Cart with non player passenger
+# Explosive: Apply properties to explosive (tnt) carts.
+# Hopper: Apply properties to hopper carts.
+# Powered: Apply properties to powered (furnace) carts.
+# Storage: Apply properties to storage (chest) carts.
+# Storage: Apply properties to command (command_block) carts.
+bc:
+  properties:
+    speed: 2
+  carts:
+    rideable:
+      empty: false
+      player: true
+      entity: false
+    explosive: false
+    hopper: false
+    powered: false
+    storage: true
+    command: false
