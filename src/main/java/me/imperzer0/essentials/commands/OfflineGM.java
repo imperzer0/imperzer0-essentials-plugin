@@ -3,19 +3,19 @@ package me.imperzer0.essentials.commands;
 import me.imperzer0.essentials.Main;
 import me.imperzer0.essentials.utils.GameModeUtils;
 import me.imperzer0.essentials.utils.PlayerUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import static me.imperzer0.essentials.utils.Loger.loger;
 
@@ -25,31 +25,9 @@ public class OfflineGM extends me.imperzer0.essentials.commands.Command implemen
 	public static final String USAGE = "<gamemode> <user_uuid>";
 	public static final String PERMISSION = "imperzer0-essentials.command." + NAME;
 
-	public static Map<UUID, String> gamemodes = new HashMap<>();
-
 	public OfflineGM()
 	{
 		super(Objects.requireNonNull(me.imperzer0.essentials.Main.getInstance().getCommand(NAME)), PERMISSION);
-		load_config_vals();
-	}
-
-	private static void load_config_vals()
-	{
-		for (OfflinePlayer p : Bukkit.getOfflinePlayers())
-		{
-			String gm = Main.getInstance().get_offline_gamemodes_config().getString("gamemode." + p.getUniqueId(), null);
-			gamemodes.put(p.getUniqueId(), gm);
-		}
-	}
-
-	public static void save_config_vals()
-	{
-		for (OfflinePlayer p : Bukkit.getOfflinePlayers())
-		{
-			String gm = gamemodes.get(p.getUniqueId());
-			Main.getInstance().get_offline_gamemodes_config().set("gamemode." + p.getUniqueId(), gm);
-		}
-		Main.getInstance().saveConfig();
 	}
 
 	@Override
@@ -82,22 +60,27 @@ public class OfflineGM extends me.imperzer0.essentials.commands.Command implemen
 		}
 
 		OfflinePlayer offline_player = PlayerUtils.Bukkit_getOfflinePlayer(args[1], loger, sender);
-		if (offline_player != null)
+		if (offline_player == null)
 		{
-			GameMode gm = GameModeUtils.parse_gamemode(args[0]);
-			if (gm == null)
-			{
-				loger.error(sender, "Invalid GameMode value: \"" + args[0] + "\".");
-				return false;
-			}
-
-			Main.getInstance().get_offline_gamemodes_config().set("gamemode." + offline_player.getUniqueId(), gm.name());
-			Main.getInstance().saveConfig();
-			return true;
+			loger.error(sender, "Player \"" + args[1] + "\" not found.");
+			return false;
 		}
 
-		loger.error(sender, "Player \"" + args[1] + "\" not found.");
-		return false;
+		GameMode gm = GameModeUtils.parse_gamemode(args[0]);
+		if (gm == null)
+		{
+			loger.error(sender, "Invalid GameMode value: \"" + args[0] + "\".");
+			return false;
+		}
+
+		Main.getInstance().get_offline_gamemodes_config().set(offline_player.getUniqueId().toString(), gm.name());
+		Main.getInstance().saveConfig();
+
+		loger.message(sender, ChatColor.GRAY + "Will change \"" + ChatColor.YELLOW + offline_player.getName() +
+				ChatColor.GRAY + "\"'s GameMode to \"" +
+				ChatColor.LIGHT_PURPLE + gm.name().toLowerCase() + ChatColor.GRAY + "\".");
+
+		return true;
 	}
 
 	@Nullable
