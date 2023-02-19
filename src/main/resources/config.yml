@@ -16,6 +16,7 @@ modules:
   boost_librarian: on
   boost_minecart: on
   better_looting: on
+  nested_shulkerboxes: on
 
 # Enable or disable crafts
 crafts:

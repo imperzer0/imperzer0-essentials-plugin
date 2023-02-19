@@ -176,6 +176,7 @@ public class Main extends JavaPlugin
 		if (config.getBoolean("modules.boost_librarian", false)) new BoostLibrarianListener(manager);
 		if (config.getBoolean("modules.boost_minecart", false)) new BoostMinecartListener(manager);
 		if (config.getBoolean("modules.better_looting", false)) new BetterLootingListener(manager);
+		if (config.getBoolean("modules.nested_shulkerboxes", false)) new NestedShulkerBoxListener(manager);
 
 
 		/// Commands
