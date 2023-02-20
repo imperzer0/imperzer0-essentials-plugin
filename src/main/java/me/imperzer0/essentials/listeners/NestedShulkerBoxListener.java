@@ -1,6 +1,7 @@
 package me.imperzer0.essentials.listeners;
 
 import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,6 +24,14 @@ public class NestedShulkerBoxListener extends Listener
 		super(manager);
 	}
 
+	private boolean is_shulker_box(@NotNull ItemStack item)
+	{
+		for (Material m : Tag.SHULKER_BOXES.getValues())
+			if (item.getType().equals(m))
+				return true;
+		return false;
+	}
+
 	private @Nullable ArrayList<ItemStack> get_shulkerboxes_from_inventory(@NotNull ItemStack item)
 	{
 		if (!(item.getItemMeta() instanceof BlockStateMeta meta))
@@ -37,7 +46,7 @@ public class NestedShulkerBoxListener extends Listener
 		{
 			if (i == null)
 				continue;
-			if (i.getType().equals(Material.SHULKER_BOX))
+			if (is_shulker_box(i))
 				boxes.add(i);
 		}
 
@@ -57,13 +66,13 @@ public class NestedShulkerBoxListener extends Listener
 
 		if (event.isShiftClick())
 		{
-			if (!item.getType().equals(Material.SHULKER_BOX))
+			if (!is_shulker_box(item))
 			{
 				item = event.getCurrentItem();
 				if (item == null)
 					return;
 
-				if (!item.getType().equals(Material.SHULKER_BOX))
+				if (!is_shulker_box(item))
 					return;
 			}
 
@@ -97,7 +106,7 @@ public class NestedShulkerBoxListener extends Listener
 		}
 		else
 		{
-			if (!item.getType().equals(Material.SHULKER_BOX))
+			if (!is_shulker_box(item))
 				return;
 
 			ArrayList<ItemStack> inner_boxes = get_shulkerboxes_from_inventory(item);
