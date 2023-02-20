@@ -2,14 +2,13 @@ package me.imperzer0.essentials.listeners;
 
 import org.bukkit.Material;
 import org.bukkit.block.ShulkerBox;
-import org.bukkit.craftbukkit.v1_19_R2.inventory.CraftInventoryPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
@@ -51,6 +50,9 @@ public class NestedShulkerBoxListener extends Listener
 		if (!(event.getView().getBottomInventory().getHolder() instanceof Player player))
 			return;
 
+		if (!(event.getView().getTopInventory().getHolder() instanceof ShulkerBox))
+			return;
+
 		ItemStack item = player.getItemOnCursor();
 
 		if (event.isShiftClick())
@@ -77,8 +79,8 @@ public class NestedShulkerBoxListener extends Listener
 
 			Inventory top_inventory = event.getView().getTopInventory();
 
-			if (!(inventory instanceof CraftInventoryPlayer) ||
-					top_inventory == inventory || top_inventory instanceof CraftInventoryPlayer)
+			if (!(inventory instanceof PlayerInventory) ||
+					top_inventory == inventory || top_inventory instanceof PlayerInventory)
 				return;
 
 			int pos = 0;
@@ -108,7 +110,7 @@ public class NestedShulkerBoxListener extends Listener
 			if (inventory == null)
 				return;
 
-			if (inventory instanceof CraftInventoryPlayer)
+			if (inventory instanceof PlayerInventory)
 				return;
 
 			ItemStack item2 = inventory.getItem(event.getSlot());

@@ -5,7 +5,6 @@ import me.imperzer0.essentials.utils.PlayerUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.enchantments.Enchantment;
@@ -52,16 +51,15 @@ public class Ench extends me.imperzer0.essentials.commands.Command implements Ta
 		}
 
 
-		Integer level = -1;
+		int level = -1;
 
 		if (args.length >= 2)
 			try
 			{
-				level = Integer.valueOf(args[1]);
+				level = Integer.parseInt(args[1]);
 			}
-			catch (Exception e)
+			catch (Exception ignored)
 			{
-				level = 1;
 			}
 
 		HashMap<Enchantment, Integer> map = new HashMap<>();
@@ -213,10 +211,18 @@ public class Ench extends me.imperzer0.essentials.commands.Command implements Ta
 		{
 			int i = args.length - 1;
 			HashSet<String> mentioned_enchantments = new HashSet<>();
-			for (int j = 4; j < args.length; ++j)
+
+			int j = 0;
+			for (; j < i; ++j)
+				if (args[j].equalsIgnoreCase("list"))
+					break;
+
+			for (++j; j < i; ++j)
 				mentioned_enchantments.add(args[j].toLowerCase());
+
 			for (Enchantment e : Enchantment.values())
-				if (e.toString().contains(args[i].toLowerCase()) && !mentioned_enchantments.contains(args[i]))
+				if (e.getKey().getKey().toLowerCase().contains(args[i].toLowerCase()) &&
+						!mentioned_enchantments.contains(e.getKey().getKey().toLowerCase()))
 					list.add(e.getKey().getKey().toLowerCase());
 		}
 		else
