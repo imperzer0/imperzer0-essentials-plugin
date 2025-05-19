@@ -23,8 +23,7 @@ public class OfflineGMListener extends Listener
 	void on_join(@NotNull PlayerJoinEvent event)
 	{
 		String gm = Main.getInstance().get_offline_gamemodes_config().getString(event.getPlayer().getUniqueId().toString());
-		if (gm == null)
-			return;
+		if (gm == null) return;
 
 		event.getPlayer().setGameMode(GameMode.valueOf(gm));
 		loger.message(Bukkit.getConsoleSender(), ChatColor.GRAY + "Changed \"" +

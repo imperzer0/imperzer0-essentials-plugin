@@ -21,7 +21,7 @@ public abstract class Command implements CommandExecutor
 	}
 
 	protected boolean init_command(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command cmd, @NotNull String[] args,
-								@NotNull final String PERMISSION, @NotNull final String USAGE)
+								   @NotNull final String PERMISSION, @NotNull final String USAGE)
 	{
 		if (!sender.hasPermission(PERMISSION))
 		{

@@ -27,8 +27,7 @@ public class BagUtils
 			List<ItemStack> list = (List<ItemStack>) Main.getInstance().get_bags_config().getList(owner.toString());
 			assert list != null;
 			return list.toArray(new ItemStack[list.size()]);
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			return null;
 		}

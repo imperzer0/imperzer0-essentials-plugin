@@ -48,8 +48,7 @@ public class BoostLibrarian extends me.imperzer0.essentials.commands.Command imp
 			try
 			{
 				level = Integer.parseInt(args[1]);
-			}
-			catch (NumberFormatException e)
+			} catch (NumberFormatException e)
 			{
 				loger.error(sender, "Invalid enchantment level \"" + args[1] + "\"");
 				return false;

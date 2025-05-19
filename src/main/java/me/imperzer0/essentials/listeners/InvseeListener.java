@@ -34,8 +34,7 @@ public class InvseeListener extends Listener
 		{
 			for (UUID id : list)
 				Objects.requireNonNull(Bukkit.getPlayer(id)).closeInventory();
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 		Inventory inventory = InvseeUtils.get_archived_inventory(event.getPlayer());
@@ -94,8 +93,7 @@ public class InvseeListener extends Listener
 					}
 				}.runTaskLater(Main.getInstance(), 1);
 			}
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 	}
@@ -114,8 +112,7 @@ public class InvseeListener extends Listener
 			{
 				InvseeUtils.apply_armor(Bukkit.getPlayer(((InvseeUtils.InvArmorHolder) inventory.getHolder()).owner), inventory);
 			}
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 	}
@@ -163,8 +160,7 @@ public class InvseeListener extends Listener
 					}
 				}.runTaskLater(Main.getInstance(), 1);
 			}
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 	}
@@ -197,8 +193,7 @@ public class InvseeListener extends Listener
 					}
 				}.runTaskLater(Main.getInstance(), 1);
 			}
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 	}

@@ -37,7 +37,7 @@ public class BetterLootingListener extends Listener
 		if (damager == null)
 			return;
 
-		int multiplier = damager.getInventory().getItemInMainHand().getEnchantments().getOrDefault(Enchantment.LOOT_BONUS_MOBS, 0);
+		int multiplier = damager.getInventory().getItemInMainHand().getEnchantments().getOrDefault(Enchantment.LOOTING, 0); // LOOT_BONUS_MOBS
 
 		if (multiplier <= 0)
 			return;

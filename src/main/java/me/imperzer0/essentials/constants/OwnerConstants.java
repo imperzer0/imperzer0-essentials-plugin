@@ -30,40 +30,40 @@ public class OwnerConstants
 
 
 		// ====
-		ENCHANTMENTS.put(Enchantment.ARROW_DAMAGE, Short.MAX_VALUE - 1);
-		ENCHANTMENTS.put(Enchantment.ARROW_FIRE, Short.MAX_VALUE - 1);
-		ENCHANTMENTS.put(Enchantment.ARROW_INFINITE, 1);
-		ENCHANTMENTS.put(Enchantment.ARROW_KNOCKBACK, Short.MAX_VALUE - 1);
+		ENCHANTMENTS.put(Enchantment.POWER, Short.MAX_VALUE - 1); // ARROW_DAMAGE
+		ENCHANTMENTS.put(Enchantment.FLAME, Short.MAX_VALUE - 1); // ARROW_FIRE
+		ENCHANTMENTS.put(Enchantment.INFINITY, 1); // ARROW_INFINITE
+		ENCHANTMENTS.put(Enchantment.PUNCH, Short.MAX_VALUE - 1); // ARROW_KNOCKBACK
 		ENCHANTMENTS.put(Enchantment.CHANNELING, Short.MAX_VALUE - 1);
-		ENCHANTMENTS.put(Enchantment.DAMAGE_ALL, Short.MAX_VALUE - 1);
-		ENCHANTMENTS.put(Enchantment.DAMAGE_ARTHROPODS, Short.MAX_VALUE - 1);
-		ENCHANTMENTS.put(Enchantment.DAMAGE_UNDEAD, (Short.MAX_VALUE - 1));
+		ENCHANTMENTS.put(Enchantment.SHARPNESS, Short.MAX_VALUE - 1); // DAMAGE_ALL
+		ENCHANTMENTS.put(Enchantment.BANE_OF_ARTHROPODS, Short.MAX_VALUE - 1); // DAMAGE_ARTHROPODS
+		ENCHANTMENTS.put(Enchantment.SMITE, (Short.MAX_VALUE - 1)); // DAMAGE_UNDEAD
 		ENCHANTMENTS.put(Enchantment.DEPTH_STRIDER, (Short.MAX_VALUE - 1));
-		ENCHANTMENTS.put(Enchantment.DIG_SPEED, (Short.MAX_VALUE - 1));
-		ENCHANTMENTS.put(Enchantment.DURABILITY, (Short.MAX_VALUE - 1));
+		ENCHANTMENTS.put(Enchantment.EFFICIENCY, (Short.MAX_VALUE - 1)); // DIG_SPEED
+		ENCHANTMENTS.put(Enchantment.UNBREAKING, (Short.MAX_VALUE - 1)); // DURABILITY
 		ENCHANTMENTS.put(Enchantment.FIRE_ASPECT, (Short.MAX_VALUE - 1));
 		ENCHANTMENTS.put(Enchantment.FROST_WALKER, (Short.MAX_VALUE - 1));
 		ENCHANTMENTS.put(Enchantment.IMPALING, (Short.MAX_VALUE - 1));
 		ENCHANTMENTS.put(Enchantment.KNOCKBACK, (Short.MAX_VALUE - 1));
-		ENCHANTMENTS.put(Enchantment.LOOT_BONUS_BLOCKS, (Short.MAX_VALUE - 1));
-		ENCHANTMENTS.put(Enchantment.LOOT_BONUS_MOBS, (Short.MAX_VALUE - 1));
+		ENCHANTMENTS.put(Enchantment.FORTUNE, (Short.MAX_VALUE - 1)); // LOOT_BONUS_BLOCKS
+		ENCHANTMENTS.put(Enchantment.LOOTING, (Short.MAX_VALUE - 1)); // LOOT_BONUS_MOBS
 		ENCHANTMENTS.put(Enchantment.LOYALTY, 79);
-		ENCHANTMENTS.put(Enchantment.LUCK, (Short.MAX_VALUE - 1));
+		ENCHANTMENTS.put(Enchantment.LUCK_OF_THE_SEA, (Short.MAX_VALUE - 1)); // LUCK
 		ENCHANTMENTS.put(Enchantment.LURE, (Short.MAX_VALUE - 1));
 		ENCHANTMENTS.put(Enchantment.MENDING, 1);
 		ENCHANTMENTS.put(Enchantment.MULTISHOT, 1);
-		ENCHANTMENTS.put(Enchantment.OXYGEN, (Short.MAX_VALUE - 1));
+		ENCHANTMENTS.put(Enchantment.RESPIRATION, (Short.MAX_VALUE - 1)); // OXYGEN
 		ENCHANTMENTS.put(Enchantment.PIERCING, (Short.MAX_VALUE - 1));
-		ENCHANTMENTS.put(Enchantment.PROTECTION_ENVIRONMENTAL, Short.MAX_VALUE - 1);
-		ENCHANTMENTS.put(Enchantment.PROTECTION_EXPLOSIONS, Short.MAX_VALUE - 1);
-		ENCHANTMENTS.put(Enchantment.PROTECTION_FALL, Short.MAX_VALUE - 1);
-		ENCHANTMENTS.put(Enchantment.PROTECTION_FIRE, Short.MAX_VALUE - 1);
-		ENCHANTMENTS.put(Enchantment.PROTECTION_PROJECTILE, Short.MAX_VALUE - 1);
+		ENCHANTMENTS.put(Enchantment.PROTECTION, Short.MAX_VALUE - 1); // PROTECTION_ENVIRONMENTAL
+		ENCHANTMENTS.put(Enchantment.BLAST_PROTECTION, Short.MAX_VALUE - 1); // PROTECTION_EXPLOSIONS
+		ENCHANTMENTS.put(Enchantment.FEATHER_FALLING, Short.MAX_VALUE - 1); // PROTECTION_FALL
+		ENCHANTMENTS.put(Enchantment.FIRE_PROTECTION, Short.MAX_VALUE - 1); // PROTECTION_FIRE
+		ENCHANTMENTS.put(Enchantment.PROJECTILE_PROTECTION, Short.MAX_VALUE - 1); // PROTECTION_PROJECTILE
 		ENCHANTMENTS.put(Enchantment.QUICK_CHARGE, Short.MAX_VALUE - 1);
 		ENCHANTMENTS.put(Enchantment.SILK_TOUCH, 1);
 		ENCHANTMENTS.put(Enchantment.SWEEPING_EDGE, Short.MAX_VALUE - 1);
 		ENCHANTMENTS.put(Enchantment.THORNS, Short.MAX_VALUE - 1);
-		ENCHANTMENTS.put(Enchantment.WATER_WORKER, Short.MAX_VALUE - 1);
+		ENCHANTMENTS.put(Enchantment.AQUA_AFFINITY, Short.MAX_VALUE - 1); // WATER_WORKER
 		// ====
 
 
@@ -152,20 +152,20 @@ public class OwnerConstants
 		public static OWNER_ITEMS from_index(int idx)
 		{
 			return switch (idx)
-					{
-						case 0 -> OWNER_ITEMS.ANNIHILATOR;
-						case 1 -> OWNER_ITEMS.LIGHTNING_AXE;
-						case 2 -> OWNER_ITEMS.BOW_L;
-						case 3 -> OWNER_ITEMS.AUTO_AIM_BOW;
-						case 4 -> OWNER_ITEMS.SPRAY_ARROW;
-						case 5 -> OWNER_ITEMS.FLYING_TRIDENT;
-						case 6 -> OWNER_ITEMS.ELITE_GUARDIANS;
-						case 7 -> OWNER_ITEMS.BOOTS;
-						case 8 -> OWNER_ITEMS.LEGGINGS;
-						case 9 -> OWNER_ITEMS.WINGS;
-						case 10 -> OWNER_ITEMS.HELMET;
-						default -> null;
-					};
+			{
+				case 0 -> OWNER_ITEMS.ANNIHILATOR;
+				case 1 -> OWNER_ITEMS.LIGHTNING_AXE;
+				case 2 -> OWNER_ITEMS.BOW_L;
+				case 3 -> OWNER_ITEMS.AUTO_AIM_BOW;
+				case 4 -> OWNER_ITEMS.SPRAY_ARROW;
+				case 5 -> OWNER_ITEMS.FLYING_TRIDENT;
+				case 6 -> OWNER_ITEMS.ELITE_GUARDIANS;
+				case 7 -> OWNER_ITEMS.BOOTS;
+				case 8 -> OWNER_ITEMS.LEGGINGS;
+				case 9 -> OWNER_ITEMS.WINGS;
+				case 10 -> OWNER_ITEMS.HELMET;
+				default -> null;
+			};
 		}
 
 		public final int index()

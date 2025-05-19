@@ -227,8 +227,7 @@ public class OwnerEnchantedKitListener extends Listener
 						if (dot >= 0.9D)
 							if (most_looking_at.key < dot)
 								most_looking_at = new Pair<>(dot, (LivingEntity) e);
-					}
-					catch (Exception ignored)
+					} catch (Exception ignored)
 					{
 					}
 				}

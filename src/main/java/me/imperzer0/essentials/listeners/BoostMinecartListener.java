@@ -58,8 +58,7 @@ public class BoostMinecartListener extends Listener
 		try
 		{
 			speed = Double.parseDouble(Objects.requireNonNull(Main.getInstance().getConfig().getString("bc.properties.speed")));
-		}
-		catch (NumberFormatException var2)
+		} catch (NumberFormatException var2)
 		{
 			Main.getInstance().getLogger().log(Level.SEVERE, "Configuration contains INVALID Double(s), using Defaults!");
 			speed = 1;

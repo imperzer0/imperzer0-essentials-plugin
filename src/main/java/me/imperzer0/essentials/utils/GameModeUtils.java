@@ -25,15 +25,13 @@ public class GameModeUtils
 		try
 		{
 			gm = GameMode.valueOf(gamemode);
-		}
-		catch (IllegalArgumentException e)
+		} catch (IllegalArgumentException e)
 		{
 			int val;
 			try
 			{
 				val = Integer.parseInt(gamemode);
-			}
-			catch (NumberFormatException ex)
+			} catch (NumberFormatException ex)
 			{
 				return null;
 			}

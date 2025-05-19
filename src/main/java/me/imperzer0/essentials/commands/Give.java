@@ -130,8 +130,7 @@ public class Give extends me.imperzer0.essentials.commands.Command implements Ta
 		try
 		{
 			amount = Integer.parseInt(amount_str);
-		}
-		catch (NumberFormatException e)
+		} catch (NumberFormatException e)
 		{
 			if (Objects.equals(amount_str, "stack"))
 				amount = material.getMaxStackSize();
@@ -140,8 +139,7 @@ public class Give extends me.imperzer0.essentials.commands.Command implements Ta
 				{
 					amount = Integer.parseInt(amount_str.substring(0, amount_str.length() - "s".length()));
 					amount *= material.getMaxStackSize();
-				}
-				catch (NumberFormatException ex)
+				} catch (NumberFormatException ex)
 				{
 					loger.error(sender, "Invalid amount \"" + args[1] + "\".");
 				}
@@ -171,9 +169,7 @@ public class Give extends me.imperzer0.essentials.commands.Command implements Ta
 			{
 				Integer.parseInt(args[1]);
 				list.add(args[1] + "s");
-			}
-			catch (NumberFormatException e)
-			{ /* ignore */ }
+			} catch (NumberFormatException e) { /* ignore */ }
 		}
 		else if (args.length == 3)
 		{
@@ -183,9 +179,7 @@ public class Give extends me.imperzer0.essentials.commands.Command implements Ta
 			{
 				Integer.parseInt(args[2]);
 				list.add(args[2] + "s");
-			}
-			catch (NumberFormatException e)
-			{ /* ignore */ }
+			} catch (NumberFormatException e) { /* ignore */ }
 		}
 
 		return list;

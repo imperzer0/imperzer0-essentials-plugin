@@ -57,8 +57,7 @@ public class Ench extends me.imperzer0.essentials.commands.Command implements Ta
 			try
 			{
 				level = Integer.parseInt(args[1]);
-			}
-			catch (Exception ignored)
+			} catch (Exception ignored)
 			{
 			}
 

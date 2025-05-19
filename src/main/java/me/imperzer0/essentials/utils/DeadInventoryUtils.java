@@ -26,8 +26,7 @@ public class DeadInventoryUtils
 			List<ItemStack> list = (List<ItemStack>) Main.getInstance().get_dead_inventories_config().getList(owner.toString());
 			assert list != null;
 			return list.toArray(new ItemStack[list.size()]);
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			return null;
 		}
