@@ -20,8 +20,7 @@ public class PlayerUtils
 		try
 		{
 			if (player == null) player = Bukkit.getPlayer(UUID.fromString(identifier));
-		}
-		catch (IllegalArgumentException e)
+		} catch (IllegalArgumentException e)
 		{
 			return null;
 		}
@@ -39,8 +38,7 @@ public class PlayerUtils
 		try
 		{
 			if (player == null) player = Bukkit.getOfflinePlayer(UUID.fromString(identifier));
-		}
-		catch (IllegalArgumentException e)
+		} catch (IllegalArgumentException e)
 		{
 			return null;
 		}
@@ -55,8 +53,7 @@ public class PlayerUtils
 		try
 		{
 			if (player == null) player = Bukkit.getPlayer(UUID.fromString(identifier));
-		}
-		catch (IllegalArgumentException e)
+		} catch (IllegalArgumentException e)
 		{
 			loger.error(sender, "Player identifier \"" + identifier + "\" is invalid.");
 			return null;
@@ -75,8 +72,7 @@ public class PlayerUtils
 		try
 		{
 			if (player == null) player = Bukkit.getPlayer(UUID.fromString(identifier));
-		}
-		catch (IllegalArgumentException e)
+		} catch (IllegalArgumentException e)
 		{
 			loger.error(sender, "Player identifier \"" + identifier + "\" is invalid.");
 			return null;

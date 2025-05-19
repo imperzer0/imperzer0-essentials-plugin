@@ -54,8 +54,7 @@ public class Main extends JavaPlugin
 		try
 		{
 			config.save(file);
-		}
-		catch (IOException var2)
+		} catch (IOException var2)
 		{
 			logger.log(Level.SEVERE, "Could not save config to " + file, var2);
 		}

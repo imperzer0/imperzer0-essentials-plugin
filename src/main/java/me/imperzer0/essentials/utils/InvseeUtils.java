@@ -37,8 +37,7 @@ public class InvseeUtils
 					inventory.setItem(i, inv_serial.get(i));
 				InvseeUtils.put_archive(owner, inventory);
 			}
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 	}

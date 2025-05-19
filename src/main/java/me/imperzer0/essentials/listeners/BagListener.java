@@ -42,8 +42,7 @@ public class BagListener extends Listener
 		try
 		{
 			Bukkit.getServer().getPluginManager().addPermission(permission);
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 	}
@@ -62,8 +61,7 @@ public class BagListener extends Listener
 					process_inventory(inventory);
 				}
 			}.runTaskLater(Main.getInstance(), event.getHandlers().getRegisteredListeners().length + 1);
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 	}
@@ -74,8 +72,7 @@ public class BagListener extends Listener
 		try
 		{
 			process_inventory(event.getView().getTopInventory());
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 	}
@@ -94,8 +91,7 @@ public class BagListener extends Listener
 					process_inventory(inventory);
 				}
 			}.runTaskLater(Main.getInstance(), event.getHandlers().getRegisteredListeners().length + 1);
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 	}
@@ -114,8 +110,7 @@ public class BagListener extends Listener
 					process_inventory(inventory);
 				}
 			}.runTaskLater(Main.getInstance(), event.getHandlers().getRegisteredListeners().length + 1);
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 	}

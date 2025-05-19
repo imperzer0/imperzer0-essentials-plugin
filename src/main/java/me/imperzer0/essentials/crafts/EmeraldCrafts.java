@@ -52,10 +52,10 @@ public class EmeraldCrafts extends Craft
 	public Pair<NamespacedKey, Recipe> emerald_sword_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
-		item.addUnsafeEnchantment(Enchantment.DURABILITY, 2);
-		item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
-		item.addUnsafeEnchantment(Enchantment.DAMAGE_ARTHROPODS, 5);
-		item.addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 5);
+		item.addUnsafeEnchantment(Enchantment.UNBREAKING, 2); // DURABILITY
+		item.addUnsafeEnchantment(Enchantment.SHARPNESS, 5); // DAMAGE_ALL
+		item.addUnsafeEnchantment(Enchantment.BANE_OF_ARTHROPODS, 5); // DAMAGE_ARTHROPODS
+		item.addUnsafeEnchantment(Enchantment.SMITE, 5); // DAMAGE_UNDEAD
 		item.addUnsafeEnchantment(Enchantment.SWEEPING_EDGE, 3);
 		item.addUnsafeEnchantment(Enchantment.KNOCKBACK, 1);
 		try
@@ -63,8 +63,7 @@ public class EmeraldCrafts extends Craft
 			ItemMeta meta = Objects.requireNonNull(item.getItemMeta());
 			meta.setDisplayName(ChatColor.GREEN + "" + ChatColor.ITALIC + "Emerald Sword");
 			item.setItemMeta(meta);
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 		ShapedRecipe recipe = new ShapedRecipe(keys[0], item);
@@ -82,16 +81,15 @@ public class EmeraldCrafts extends Craft
 	public Pair<NamespacedKey, Recipe> emerald_pick_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DIAMOND_PICKAXE);
-		item.addUnsafeEnchantment(Enchantment.DURABILITY, 2);
-		item.addUnsafeEnchantment(Enchantment.DIG_SPEED, 5);
-		item.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS, 2);
+		item.addUnsafeEnchantment(Enchantment.UNBREAKING, 2); // DURABILITY
+		item.addUnsafeEnchantment(Enchantment.EFFICIENCY, 5); // DIG_SPEED
+		item.addUnsafeEnchantment(Enchantment.FORTUNE, 2); // LOOT_BONUS_BLOCKS
 		try
 		{
 			ItemMeta meta = Objects.requireNonNull(item.getItemMeta());
 			meta.setDisplayName(ChatColor.GREEN + "" + ChatColor.ITALIC + "Emerald Pickaxe");
 			item.setItemMeta(meta);
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 		ShapedRecipe recipe = new ShapedRecipe(keys[1], item);
@@ -109,16 +107,15 @@ public class EmeraldCrafts extends Craft
 	public Pair<NamespacedKey, Recipe> emerald_axe_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DIAMOND_AXE);
-		item.addUnsafeEnchantment(Enchantment.DURABILITY, 2);
-		item.addUnsafeEnchantment(Enchantment.DIG_SPEED, 5);
-		item.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS, 2);
+		item.addUnsafeEnchantment(Enchantment.UNBREAKING, 2); // DURABILITY
+		item.addUnsafeEnchantment(Enchantment.EFFICIENCY, 5); // DIG_SPEED
+		item.addUnsafeEnchantment(Enchantment.FORTUNE, 2); // LOOT_BONUS_BLOCKS
 		try
 		{
 			ItemMeta meta = Objects.requireNonNull(item.getItemMeta());
 			meta.setDisplayName(ChatColor.GREEN + "" + ChatColor.ITALIC + "Emerald Axe");
 			item.setItemMeta(meta);
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 		ShapedRecipe recipe = new ShapedRecipe(keys[2], item);
@@ -136,16 +133,15 @@ public class EmeraldCrafts extends Craft
 	public Pair<NamespacedKey, Recipe> emerald_shovel_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DIAMOND_SHOVEL);
-		item.addUnsafeEnchantment(Enchantment.DURABILITY, 2);
-		item.addUnsafeEnchantment(Enchantment.DIG_SPEED, 5);
-		item.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS, 2);
+		item.addUnsafeEnchantment(Enchantment.UNBREAKING, 2); // DURABILITY
+		item.addUnsafeEnchantment(Enchantment.EFFICIENCY, 5); // DIG_SPEED
+		item.addUnsafeEnchantment(Enchantment.FORTUNE, 2); // LOOT_BONUS_BLOCKS
 		try
 		{
 			ItemMeta meta = Objects.requireNonNull(item.getItemMeta());
 			meta.setDisplayName(ChatColor.GREEN + "" + ChatColor.ITALIC + "Emerald Shovel");
 			item.setItemMeta(meta);
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 		ShapedRecipe recipe = new ShapedRecipe(keys[3], item);
@@ -163,16 +159,15 @@ public class EmeraldCrafts extends Craft
 	public Pair<NamespacedKey, Recipe> emerald_hoe_recipe()
 	{
 		ItemStack item = new ItemStack(Material.DIAMOND_HOE);
-		item.addUnsafeEnchantment(Enchantment.DURABILITY, 2);
-		item.addUnsafeEnchantment(Enchantment.DIG_SPEED, 5);
-		item.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS, 2);
+		item.addUnsafeEnchantment(Enchantment.UNBREAKING, 2); // DURABILITY
+		item.addUnsafeEnchantment(Enchantment.EFFICIENCY, 5); // DIG_SPEED
+		item.addUnsafeEnchantment(Enchantment.FORTUNE, 2); // LOOT_BONUS_BLOCKS
 		try
 		{
 			ItemMeta meta = Objects.requireNonNull(item.getItemMeta());
 			meta.setDisplayName(ChatColor.GREEN + "" + ChatColor.ITALIC + "Emerald Hoe");
 			item.setItemMeta(meta);
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 		ShapedRecipe recipe = new ShapedRecipe(keys[4], item);
@@ -190,11 +185,11 @@ public class EmeraldCrafts extends Craft
 	public Pair<NamespacedKey, Recipe> emerald_bow_recipe()
 	{
 		ItemStack item = new ItemStack(Material.BOW);
-		item.addUnsafeEnchantment(Enchantment.DURABILITY, 10);
-		item.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 10);
-		item.addUnsafeEnchantment(Enchantment.ARROW_FIRE, 10);
-		item.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 5);
-		item.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
+		item.addUnsafeEnchantment(Enchantment.UNBREAKING, 10); // DURABILITY
+		item.addUnsafeEnchantment(Enchantment.POWER, 10); // ARROW_DAMAGE
+		item.addUnsafeEnchantment(Enchantment.FLAME, 10); // ARROW_FIRE
+		item.addUnsafeEnchantment(Enchantment.PUNCH, 5); // ARROW_KNOCKBACK
+		item.addUnsafeEnchantment(Enchantment.INFINITY, 1); // ARROW_INFINITE
 		item.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 10);
 		item.addUnsafeEnchantment(Enchantment.KNOCKBACK, 10);
 		item.addUnsafeEnchantment(Enchantment.QUICK_CHARGE, 10);
@@ -203,8 +198,7 @@ public class EmeraldCrafts extends Craft
 			ItemMeta meta = Objects.requireNonNull(item.getItemMeta());
 			meta.setDisplayName(ChatColor.GREEN + "" + ChatColor.ITALIC + "Emerald Bow");
 			item.setItemMeta(meta);
-		}
-		catch (Exception ignored)
+		} catch (Exception ignored)
 		{
 		}
 		ShapedRecipe recipe = new ShapedRecipe(keys[5], item);

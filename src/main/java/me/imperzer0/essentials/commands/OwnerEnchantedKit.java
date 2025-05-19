@@ -71,8 +71,7 @@ public class OwnerEnchantedKit extends me.imperzer0.essentials.commands.Command 
 				try
 				{
 					amount = Integer.parseInt(args[1]);
-				}
-				catch (NumberFormatException e)
+				} catch (NumberFormatException e)
 				{
 					amount = 1;
 				}

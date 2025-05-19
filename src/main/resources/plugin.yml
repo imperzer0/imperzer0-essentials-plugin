@@ -2,7 +2,7 @@ main: me.imperzer0.essentials.Main
 name: imperzer0-essentials
 version: '${version}'
 author: imperzer0
-api-version: 1.19
+api-version: 1.21
 load: POSTWORLD
 prefix: "[ :: imperzer0-essentials :: ]"
 website: https://github.com/imperzer0/imperzer0-essentials.git

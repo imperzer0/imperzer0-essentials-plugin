@@ -116,8 +116,7 @@ public class Invsee extends me.imperzer0.essentials.commands.Command implements 
 			{
 				sender_p.openInventory(InvseeUtils.get_archived_inventory(player));
 				InvseeUtils.add_current_archive_viewer(player, sender_p);
-			}
-			catch (Exception e)
+			} catch (Exception e)
 			{
 				loger.error(sender, ChatColor.BOLD + "This inventory does not exist in archive.");
 				return false;
