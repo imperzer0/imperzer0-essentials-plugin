@@ -20,6 +20,6 @@ public class EnchantmentsListener extends Listener
 		if (val <= 0)
 			return;
 
-		event.getInventory().setMaximumRepairCost(val);
+		event.getView().setMaximumRepairCost(val);
 	}
 }

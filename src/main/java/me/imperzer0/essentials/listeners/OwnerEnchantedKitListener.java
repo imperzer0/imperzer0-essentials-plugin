@@ -185,7 +185,7 @@ public class OwnerEnchantedKitListener extends Listener
 					Fireball fireball = player.getWorld().spawn(location, Fireball.class);
 					fireball.setGravity(true);
 					fireball.setDirection(location.getDirection().multiply(1000));
-					fireball.setBounce(false);
+					fireball.setBounce(false); // Not used anymore
 					fireball.setIsIncendiary(true);
 					fireball.setYield(100.f);
 					fireball.setCustomName(Ghast.class.getName());
@@ -199,7 +199,7 @@ public class OwnerEnchantedKitListener extends Listener
 					arrow.setGravity(true);
 					arrow.setPierceLevel(100);
 					arrow.setDamage(100000.0);
-					arrow.setKnockbackStrength(100);
+					arrow.setKnockbackStrength(100); // Now is determined by the bow shooting it
 					arrow.addCustomEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1000000, 255), true);
 					arrow.setPickupStatus(AbstractArrow.PickupStatus.ALLOWED);
 					arrow.setCustomName(Skeleton.class.getName());
@@ -284,7 +284,7 @@ public class OwnerEnchantedKitListener extends Listener
 					arrow.setGravity(true);
 					arrow.setPierceLevel(100);
 					arrow.setDamage(100000.0);
-					arrow.setKnockbackStrength(100);
+					arrow.setKnockbackStrength(100); // Now is determined by the bow shooting it
 					arrow.addCustomEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1000000, 255), true);
 					arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
 					arrow.setCustomName(Skeleton.class.getName());
