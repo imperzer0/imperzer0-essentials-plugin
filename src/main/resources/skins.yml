@@ -1,0 +1,5 @@
+# Syntax:
+#
+# <UUID>:
+#   texture: <base64>
+#   signature: <base64>

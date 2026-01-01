@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Loger
@@ -37,6 +38,12 @@ public class Loger
 	public static @NotNull TextComponent create_component(String str)
 	{
 		return new TextComponent(new ComponentBuilder(str).create());
+	}
+
+	public Loger debug(String message)
+	{
+		logger.log(Level.FINEST, message);
+		return this;
 	}
 
 	public Loger info(String message)

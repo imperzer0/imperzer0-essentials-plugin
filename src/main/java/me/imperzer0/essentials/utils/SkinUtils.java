@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
+import java.util.Map;
 import java.util.UUID;
 
 import static me.imperzer0.essentials.utils.Loger.loger;
@@ -38,6 +40,14 @@ public class SkinUtils
 			return;
 		}
 
+		for (Map.Entry<String, Collection<Property>> prop : profile.getProperties().asMap().entrySet())
+		{
+			loger.debug("'" + prop.getKey() + "' : ");
+			for (Property p : prop.getValue())
+                loger.debug("{ name: '" + p.name() + "', value: '" + p.value() + "', signature: '" + p.signature() + "' };");
+			loger.debug("");
+		}
+
 		profile.getProperties().removeAll("textures");
 		profile.getProperties().put("textures", skin);
 
@@ -46,26 +56,37 @@ public class SkinUtils
 		show_player(player);
 	}
 
-	public static @Nullable Property generate_property(@NotNull UUID uuid)
+	public static @Nullable Property load_property(@NotNull UUID uuid)
 	{
-		String val = Main.getInstance().get_skins_config().getString(uuid.toString(), null);
-		if (val == null) return null;
-		else return new Property("textures", val);
+		String texture = Main.getInstance().get_skins_config().getString(uuid + ".texture", null);
+		String signature = Main.getInstance().get_skins_config().getString(uuid + ".signature", null);
+		if (texture == null) return null;
+		else return new Property("textures", texture, signature);
 	}
 
 	public static void apply_skin(@NotNull Player player)
 	{
 		{
-			Property prop = generate_property(player.getUniqueId());
+			Property prop = load_property(player.getUniqueId());
 			if (prop != null)
-				change_skin(player, prop);
+            {
+                change_skin(player, prop);
+            }
+			else
+			{
+				loger.message(player, "[Skin Subsystem] If you want your skin to be different,");
+				loger.message(player, "[Skin Subsystem] please, go to https://mineskin.org/, upload");
+				loger.message(player, "[Skin Subsystem] your skin texture, copy your skin url and");
+				loger.message(player, "[Skin Subsystem] ask your Server Administrator to apply it to");
+				loger.message(player, "[Skin Subsystem] your UUID in skins.yml");
+			}
 		}
 
 		for (Player p : Bukkit.getOnlinePlayers())
 		{
 			if (!player.getUniqueId().equals(p.getUniqueId()))
 			{
-				Property prop = generate_property(p.getUniqueId());
+				Property prop = load_property(p.getUniqueId());
 				if (prop != null)
 					change_skin(p, prop);
 			}
