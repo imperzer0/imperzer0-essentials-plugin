@@ -1,6 +1,7 @@
 # Enable or disable modules
 modules:
   give: on
+  get: on
   fly: on
   owner-kit: on
   remove-owner-kit: on
