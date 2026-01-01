@@ -181,6 +181,7 @@ public class Main extends JavaPlugin
 		/// Commands
 		new me.imperzer0.essentials.commands.Main();
 		if (config.getBoolean("modules.give", false)) new Give();
+		if (config.getBoolean("modules.get", false)) new Get();
 		if (config.getBoolean("modules.fly", false)) new Fly();
 		if (config.getBoolean("modules.owner-kit", false)) new OwnerEnchantedKit();
 		if (config.getBoolean("modules.remove-owner-kit", false)) new RemoveOwnerEnchantedKit();
