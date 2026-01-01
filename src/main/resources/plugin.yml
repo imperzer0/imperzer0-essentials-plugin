@@ -13,6 +13,10 @@ commands:
     description: Manage imperzer0-essentials plugin
     permission-message: Permission denied. Please contact administrator.
 
+  get:
+    description: Gives stuff
+    permission-message: Permission denied. Please contact administrator.
+
   give:
     description: Gives stuff
     permission-message: Permission denied. Please contact administrator.
