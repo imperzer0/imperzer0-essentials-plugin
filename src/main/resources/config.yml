@@ -1,5 +1,6 @@
 # Enable or disable modules
 modules:
+  anvil_max_level: on
   give: on
   get: on
   fly: on

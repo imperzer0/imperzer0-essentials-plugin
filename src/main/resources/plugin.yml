@@ -100,6 +100,7 @@ permissions:
       imperzer0-essentials.command.gamemode: true
       imperzer0-essentials.command.uuid: true
       imperzer0-essentials.command.give: true
+      imperzer0-essentials.command.get: true
       imperzer0-essentials.command.mkstack: true
 
       imperzer0-essentials.command.owner_kit: true

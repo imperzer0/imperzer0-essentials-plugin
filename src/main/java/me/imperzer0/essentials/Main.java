@@ -214,19 +214,19 @@ public class Main extends JavaPlugin
         PluginManager manager = getServer().getPluginManager();
 
 
-		/// Listeners
-		new SkinListener(manager);
-		new EnchantmentsListener(manager);
-		if (config.getBoolean("modules.owner-kit", false)) new OwnerEnchantedKitListener(manager);
-		if (config.getBoolean("modules.bag", false)) new BagListener(manager);
-		if (config.getBoolean("modules.ret", false)) new RetListener(manager);
-		if (config.getBoolean("modules.offlinegm", false)) new OfflineGMListener(manager);
-		if (config.getBoolean("modules.invsee", false)) new InvseeListener(manager);
-		if (config.getBoolean("modules.dead_inventory", false)) new DeadInventoryListener(manager);
-		if (config.getBoolean("modules.boost_librarian", false)) new BoostLibrarianListener(manager);
-		if (config.getBoolean("modules.boost_minecart", false)) new BoostMinecartListener(manager);
-		if (config.getBoolean("modules.better_looting", false)) new BetterLootingListener(manager);
-		if (config.getBoolean("modules.nested_shulkerboxes", false)) new NestedShulkerBoxListener(manager);
+        /// Listeners
+        new SkinListener(manager);
+        if (config.getBoolean("modules.anvil_max_level", false)) new EnchantmentsListener(manager);
+        if (config.getBoolean("modules.owner-kit", false)) new OwnerEnchantedKitListener(manager);
+        if (config.getBoolean("modules.bag", false)) new BagListener(manager);
+        if (config.getBoolean("modules.ret", false)) new RetListener(manager);
+        if (config.getBoolean("modules.offlinegm", false)) new OfflineGMListener(manager);
+        if (config.getBoolean("modules.invsee", false)) new InvseeListener(manager);
+        if (config.getBoolean("modules.dead_inventory", false)) new DeadInventoryListener(manager);
+        if (config.getBoolean("modules.boost_librarian", false)) new BoostLibrarianListener(manager);
+        if (config.getBoolean("modules.boost_minecart", false)) new BoostMinecartListener(manager);
+        if (config.getBoolean("modules.better_looting", false)) new BetterLootingListener(manager);
+        if (config.getBoolean("modules.nested_shulkerboxes", false)) new NestedShulkerBoxListener(manager);
 
 
         /// Commands
