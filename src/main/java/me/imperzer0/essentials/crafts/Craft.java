@@ -14,7 +14,7 @@ public abstract class Craft implements Listener
 {
 	public final NamespacedKey[] keys;
 
-	protected Craft(@NotNull String @NotNull ... identifiers)
+	protected Craft(@NotNull String... identifiers)
 	{
 		keys = new NamespacedKey[identifiers.length];
 		for (int i = 0; i < identifiers.length; ++i)

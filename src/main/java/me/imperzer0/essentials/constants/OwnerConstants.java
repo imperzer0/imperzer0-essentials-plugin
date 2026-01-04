@@ -94,13 +94,13 @@ public class OwnerConstants
 	}
 
 	@Contract(value = " -> new", pure = true)
-	public static ItemStack @NotNull [] filter_owner_items_for_inventory()
+	public static ItemStack[] filter_owner_items_for_inventory()
 	{
 		return Arrays.copyOf(owner_items, owner_items.length - 4);
 	}
 
 	@Contract(value = " -> new", pure = true)
-	public static ItemStack @NotNull [] filter_owner_items_for_armor()
+	public static ItemStack[] filter_owner_items_for_armor()
 	{
 		return Arrays.copyOfRange(owner_items, owner_items.length - 4, owner_items.length);
 	}
