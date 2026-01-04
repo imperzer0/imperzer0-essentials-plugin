@@ -3,13 +3,13 @@ package me.imperzer0.essentials.utils;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class MaterialUtils
 {
-	public static @NotNull ArrayList<String> Material_getAllMaterialsNames(String filter)
+	public static @NotNull LinkedList<String> Material_getAllMaterialsNames(String filter)
 	{
-		ArrayList<String> names = new ArrayList<>();
+		LinkedList<String> names = new LinkedList<>();
 		for (Material material : Material.values())
 		{
 			if (filter == null)

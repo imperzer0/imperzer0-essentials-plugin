@@ -3,13 +3,13 @@ package me.imperzer0.essentials.utils;
 import org.bukkit.enchantments.Enchantment;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class EnchantmentUtils
 {
-	public static @NotNull ArrayList<String> Enchantment_getAllEnchantmentsNames(String filter)
+	public static @NotNull LinkedList<String> Enchantment_getAllEnchantmentsNames(String filter)
 	{
-		ArrayList<String> names = new ArrayList<>();
+		LinkedList<String> names = new LinkedList<>();
 		for (Enchantment enchantment : Enchantment.values())
 		{
 			if (filter == null)

@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -81,9 +81,9 @@ public class PlayerUtils
 		return player;
 	}
 
-	public static @NotNull ArrayList<String> Bukkit_getAllPlayersIdentifiers(String filter)
+	public static @NotNull LinkedList<String> Bukkit_getAllPlayersIdentifiers(String filter)
 	{
-		ArrayList<String> identifiers = new ArrayList<>();
+		LinkedList<String> identifiers = new LinkedList<>();
 		for (OfflinePlayer player : Bukkit.getOfflinePlayers())
 			if (filter == null)
 			{
@@ -98,9 +98,9 @@ public class PlayerUtils
 		return identifiers;
 	}
 
-	public static @NotNull ArrayList<String> Bukkit_getAllPlayersUUIDs(String filter)
+	public static @NotNull LinkedList<String> Bukkit_getAllPlayersUUIDs(String filter)
 	{
-		ArrayList<String> identifiers = new ArrayList<>();
+		LinkedList<String> identifiers = new LinkedList<>();
 		for (OfflinePlayer player : Bukkit.getOfflinePlayers())
 			if (filter == null)
 				identifiers.add(player.getUniqueId().toString());
@@ -109,9 +109,9 @@ public class PlayerUtils
 		return identifiers;
 	}
 
-	public static @NotNull ArrayList<String> Bukkit_getAllPlayersNames(String filter)
+	public static @NotNull LinkedList<String> Bukkit_getAllPlayersNames(String filter)
 	{
-		ArrayList<String> identifiers = new ArrayList<>();
+		LinkedList<String> identifiers = new LinkedList<>();
 		for (OfflinePlayer player : Bukkit.getOfflinePlayers())
 			if (filter == null)
 				identifiers.add(player.getName());
