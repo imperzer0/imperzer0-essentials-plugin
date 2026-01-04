@@ -4,7 +4,7 @@ version: '${version}'
 author: imperzer0
 api-version: 1.21
 load: POSTWORLD
-prefix: "[ :: imperzer0-essentials :: ]"
+prefix: " imperzer0-essentials "
 website: https://github.com/imperzer0/imperzer0-essentials.git
 database: false
 
@@ -81,6 +81,11 @@ commands:
     description: Override next librarian's book offer enchantment.
     permission-message: Permission denied. Please contact administrator.
 
+  checkpoint:
+    aliases: [ cp ]
+    description: Save and teleport to checkpoints.
+    permission-message: Permission denied. Please contact administrator.
+
 permissions:
   imperzer0-essentials.*:
     default: op
@@ -114,4 +119,5 @@ permissions:
       imperzer0-essentials.command.ench: true
       imperzer0-essentials.command.dead_inventory: true
       imperzer0-essentials.command.boost_librarian: true
+      imperzer0-essentials.command.checkpoint: true
       imperzer0-essentials.command.essentials: true

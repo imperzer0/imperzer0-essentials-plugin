@@ -18,6 +18,7 @@ modules:
   boost_minecart: on
   better_looting: on
   nested_shulkerboxes: on
+  checkpoints: on
 
 # Enable or disable crafts
 crafts:

@@ -1,0 +1,10 @@
+# Syntax:
+#
+# <UUID>:
+#   <name1>:
+#     <serialised-location>
+#   <name2>:
+#     <serialised-location>
+# ...
+#   <nameN>:
+#     <serialised-location>
