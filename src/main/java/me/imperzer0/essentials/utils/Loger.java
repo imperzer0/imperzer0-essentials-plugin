@@ -54,13 +54,13 @@ public class Loger
 
 	public Loger warning(String message)
 	{
-		logger.warning(ChatColor.YELLOW + "" + ChatColor.BOLD + message + ChatColor.RESET);
+		logger.warning(ChatColor.YELLOW + "" + message + ChatColor.RESET);
 		return this;
 	}
 
 	public Loger severe(String message)
 	{
-		logger.severe(ChatColor.RED + "" + ChatColor.BOLD + message + ChatColor.RESET);
+		logger.severe(ChatColor.RED + "" + message + ChatColor.RESET);
 		return this;
 	}
 
@@ -72,25 +72,24 @@ public class Loger
 
 	public void no_permissions(@NotNull CommandSender sender)
 	{
-		sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "You don't have permissions to run this command." +
-				ChatColor.RESET);
+		sender.sendMessage(ChatColor.RED + "You don't have permissions to run this command." + ChatColor.RESET);
 	}
 
 	public void invalid_entity(@NotNull CommandSender sender)
 	{
-		sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "You are an unexpected entity." + ChatColor.RESET);
+		sender.sendMessage(ChatColor.RED + "You are an unexpected entity." + ChatColor.RESET);
 	}
 
 	public void help(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String args_usage)
 	{
-		sender.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "/" + ChatColor.LIGHT_PURPLE + cmd.getName() +
+		sender.sendMessage(ChatColor.AQUA + "/" + ChatColor.LIGHT_PURPLE + cmd.getName() +
 				ChatColor.RESET + ChatColor.YELLOW + " " + args_usage + ChatColor.RESET);
 	}
 
 	public void help(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull TextComponent... args_usage)
 	{
 		TextComponent[] tcs = new TextComponent[args_usage.length + 1];
-		tcs[0] = new TextComponent(ChatColor.BOLD + "" + ChatColor.LIGHT_PURPLE + "/" + ChatColor.AQUA + cmd.getName() +
+		tcs[0] = new TextComponent(ChatColor.LIGHT_PURPLE + "/" + ChatColor.AQUA + cmd.getName() +
 				ChatColor.RESET + ChatColor.YELLOW + " ");
 		System.arraycopy(args_usage, 0, tcs, 1, args_usage.length);
 		sender.spigot().sendMessage(tcs);
@@ -98,8 +97,8 @@ public class Loger
 
 	public void error(@NotNull CommandSender sender, @NotNull String what)
 	{
-		sender.sendMessage(
-				ChatColor.RED + "" + ChatColor.BOLD + "An error occurred: " + ChatColor.ITALIC + what + ChatColor.RESET);
+		sender.sendMessage(ChatColor.RED + "An error occurred: " + ChatColor.ITALIC + what + ChatColor.RESET);
+		logger.info("To " + sender.getName() + ": An error occurred: " + what);
 	}
 
 	public Loger error(@NotNull CommandSender sender, @NotNull TextComponent message)
@@ -113,12 +112,18 @@ public class Loger
 	public Loger message(@NotNull CommandSender sender, @NotNull String message)
 	{
 		sender.sendMessage(message + ChatColor.RESET);
+		logger.info("To " + sender.getName() + ": " + message);
 		return this;
 	}
 
 	public Loger message(@NotNull CommandSender sender, @NotNull TextComponent... message)
 	{
 		sender.spigot().sendMessage(message);
+		StringBuilder unformatted_msg = new StringBuilder();
+
+		for (TextComponent m : message)
+			unformatted_msg.append(m.getText());
+		logger.info("To " + sender.getName() + ": " + unformatted_msg);
 		return this;
 	}
 }
