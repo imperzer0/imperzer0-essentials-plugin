@@ -1,12 +1,10 @@
 package me.imperzer0.essentials.commands;
 
-import me.imperzer0.essentials.Main;
-import me.imperzer0.essentials.listeners.RetListener;
+import me.imperzer0.essentials.utils.CheckpointUtils;
 import me.imperzer0.essentials.utils.PlayerUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
@@ -47,7 +45,7 @@ public class Ret extends me.imperzer0.essentials.commands.Command implements Tab
 			return false;
 		}
 
-		Location location = RetListener.get_death_location(player.getUniqueId());
+		Location location = CheckpointUtils.Get_death_location(player.getUniqueId());
 		if (location == null)
 		{
 			loger.error(sender, ChatColor.ITALIC + "Die first!!!");
