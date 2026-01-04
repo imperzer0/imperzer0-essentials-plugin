@@ -162,7 +162,10 @@ public class CheckpointUtils
 
     public static Location Get_checkpoint(UUID uuid, String name)
     {
-        return checkpoints.get(uuid).get(name);
+        Map<String, Location> points = checkpoints.get(uuid);
+        if (points == null)
+            return null;
+        return points.get(name);
     }
 
     public static void Set_death_location(UUID uuid, Location pos)
