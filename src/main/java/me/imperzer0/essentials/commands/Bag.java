@@ -56,8 +56,8 @@ public class Bag extends me.imperzer0.essentials.commands.Command implements Tab
 		{
 			OfflinePlayer player = PlayerUtils.Bukkit_getOfflinePlayer(args[0], loger, sender);
 			if (player == null) return false;
-			loger.message(sender, ChatColor.GRAY + "Opening \"" +
-					ChatColor.GOLD + player.getName() + ChatColor.GRAY + "\"'s...");
+			loger.message(sender, ChatColor.GRAY + "Opening " +
+					ChatColor.GOLD + player.getName() + ChatColor.GRAY + "'s bag...");
 			human.openInventory(BagUtils.open_bag(player.getUniqueId()));
 		}
 		else if (args.length == 2 && args[0].equals("clear"))
@@ -66,8 +66,8 @@ public class Bag extends me.imperzer0.essentials.commands.Command implements Tab
 			{
 				for (OfflinePlayer player : Bukkit.getOfflinePlayers())
 				{
-					loger.message(sender, ChatColor.GRAY + "Cleaning \"" +
-							ChatColor.GOLD + player.getName() + ChatColor.GRAY + "\"'s bag...");
+					loger.message(sender, ChatColor.GRAY + "Cleaning " +
+							ChatColor.GOLD + player.getName() + ChatColor.GRAY + "'s bag...");
 					BagUtils.clear_bag(sender, player.getUniqueId());
 				}
 			}
@@ -75,8 +75,8 @@ public class Bag extends me.imperzer0.essentials.commands.Command implements Tab
 			{
 				OfflinePlayer player = PlayerUtils.Bukkit_getOfflinePlayer(args[1], loger, sender);
 				if (player == null) return false;
-				loger.message(sender, ChatColor.GRAY + "Cleaning \"" +
-						ChatColor.GOLD + player.getName() + ChatColor.GRAY + "\"'s bag...");
+				loger.message(sender, ChatColor.GRAY + "Cleaning " +
+						ChatColor.GOLD + player.getName() + ChatColor.GRAY + "'s bag...");
 				BagUtils.clear_bag(sender, player.getUniqueId());
 			}
 		}

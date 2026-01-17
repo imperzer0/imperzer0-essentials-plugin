@@ -88,7 +88,7 @@ public class Ench extends me.imperzer0.essentials.commands.Command implements Ta
 						if (enchantment != null)
 							map.put(enchantment, level <= 0 ? enchantment.getMaxLevel() : level);
 						else
-							loger.error(sender, "invalid enchantment : " + ChatColor.UNDERLINE + args[j]);
+							loger.error(sender, "Invalid enchantment : " + ChatColor.UNDERLINE + args[j]);
 					}
 				break;
 			}

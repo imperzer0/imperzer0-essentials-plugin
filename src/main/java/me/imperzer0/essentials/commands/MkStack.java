@@ -51,16 +51,15 @@ public class MkStack extends me.imperzer0.essentials.commands.Command implements
 
 		if (human == null)
 		{
-			loger.error(sender, "Invalid player name: \"" + args[0] + "\".");
+			loger.error(sender, "Invalid player name: " + ChatColor.GRAY + args[0]);
 			return false;
 		}
 
 		ItemStack stack = human.getInventory().getItemInMainHand();
 		stack.setAmount(stack.getMaxStackSize());
 
-		loger.message(sender, ChatColor.GRAY + "Refilled \"" + ChatColor.YELLOW + human.getName() +
-				ChatColor.GRAY + "\"'s stack of \"" +
-				ChatColor.LIGHT_PURPLE + stack.getType().name().toLowerCase() + ChatColor.GRAY + "\".");
+		loger.message(sender, ChatColor.GRAY + "Refilled " + ChatColor.GOLD + human.getName() +
+				ChatColor.GRAY + "'s stack of " + ChatColor.LIGHT_PURPLE + stack.getType().name().toLowerCase());
 
 		return true;
 	}

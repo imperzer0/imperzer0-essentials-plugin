@@ -66,7 +66,7 @@ public class Get extends me.imperzer0.essentials.commands.Command implements Tab
                 Player player = Bukkit.getPlayer(args[0]);
                 if (player == null)
                 {
-                    loger.error(sender, "Player '" + args[0] + "' not found.");
+                    loger.error(sender, "Player " + args[0] + " not found.");
                     return false;
                 }
                 who = player;
@@ -77,7 +77,7 @@ public class Get extends me.imperzer0.essentials.commands.Command implements Tab
                 Player player = Bukkit.getPlayer(args[0]);
                 if (player == null)
                 {
-                    loger.error(sender, "Player '" + args[0] + "' not found.");
+                    loger.error(sender, "Player " + args[0] + " not found.");
                     return false;
                 }
                 who = player;
@@ -93,8 +93,7 @@ public class Get extends me.imperzer0.essentials.commands.Command implements Tab
 
         Block block = who.getTargetBlock(null, DISTANCE);
         int amount = 1;
-        if (stack == true)
-            amount = block.getBlockData().getMaterial().getMaxStackSize();
+        if (stack) amount = block.getBlockData().getMaterial().getMaxStackSize();
 
         who.getInventory().addItem(new ItemStack(block.getBlockData().getMaterial(), amount));
 

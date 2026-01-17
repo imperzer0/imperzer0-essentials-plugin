@@ -46,14 +46,14 @@ public class Give extends me.imperzer0.essentials.commands.Command implements Ta
 			Material material = Material.matchMaterial(args[0]);
 			if (material == null)
 			{
-				loger.error(sender, "Can't match material \"" + args[0] + "\".");
+				loger.error(sender, "Can't match material " + ChatColor.GRAY + args[0]);
 				return false;
 			}
 
 			player.getInventory().addItem(new ItemStack(material));
 
-			loger.message(sender, ChatColor.GREEN + "Gave " + ChatColor.LIGHT_PURPLE + material + ChatColor.GREEN +
-					" to player \"" + ChatColor.RED + player.getName() + ChatColor.GREEN + "\".");
+			loger.message(sender, ChatColor.GRAY + "Gave " + ChatColor.LIGHT_PURPLE + material +
+					ChatColor.GRAY + " to " + ChatColor.GOLD + player.getName());
 
 			return true;
 		}
@@ -79,7 +79,7 @@ public class Give extends me.imperzer0.essentials.commands.Command implements Ta
 			Material material = Material.matchMaterial(args[shift]);
 			if (material == null)
 			{
-				loger.error(sender, "Can't match material \"" + args[shift] + "\".");
+				loger.error(sender, "Can't match material " + args[shift]);
 				return false;
 			}
 
@@ -91,8 +91,8 @@ public class Give extends me.imperzer0.essentials.commands.Command implements Ta
 
 			player.getInventory().addItem(new ItemStack(material, amount));
 
-			loger.message(sender, ChatColor.GREEN + "Gave " + ChatColor.LIGHT_PURPLE + material + ChatColor.GREEN +
-					" to player \"" + ChatColor.RED + player.getName() + ChatColor.GREEN + "\".");
+			loger.message(sender, ChatColor.GRAY + "Gave " + ChatColor.GREEN + amount + " " + ChatColor.LIGHT_PURPLE + material +
+					ChatColor.GRAY + " to " + ChatColor.GOLD + player.getName());
 
 			return true;
 		}
@@ -106,7 +106,7 @@ public class Give extends me.imperzer0.essentials.commands.Command implements Ta
 			Material material = Material.matchMaterial(args[1]);
 			if (material == null)
 			{
-				loger.error(sender, "Can't match material \"" + args[1] + "\".");
+				loger.error(sender, "Can't match material " + args[1]);
 				return false;
 			}
 
@@ -115,8 +115,8 @@ public class Give extends me.imperzer0.essentials.commands.Command implements Ta
 
 			player.getInventory().addItem(new ItemStack(material, amount));
 
-			loger.message(sender, ChatColor.GREEN + "Gave " + ChatColor.LIGHT_PURPLE + material +
-					ChatColor.GREEN + " to player \"" + ChatColor.RED + player.getName() + ChatColor.GREEN + "\".");
+			loger.message(sender, ChatColor.GRAY + "Gave " + ChatColor.GREEN + amount + " " + ChatColor.LIGHT_PURPLE + material +
+					ChatColor.GRAY + " to " + ChatColor.GOLD + player.getName());
 
 			return true;
 		}
@@ -141,9 +141,9 @@ public class Give extends me.imperzer0.essentials.commands.Command implements Ta
 					amount *= material.getMaxStackSize();
 				} catch (NumberFormatException ex)
 				{
-					loger.error(sender, "Invalid amount \"" + args[1] + "\".");
+					loger.error(sender, "Invalid amount: " + args[1]);
 				}
-			else loger.error(sender, "Invalid amount \"" + args[1] + "\".");
+			else loger.error(sender, "Invalid amount: " + args[1]);
 		}
 		return amount;
 	}

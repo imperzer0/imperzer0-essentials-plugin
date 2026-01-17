@@ -34,8 +34,8 @@ public class Main extends me.imperzer0.essentials.commands.Command implements Ta
 
 		if (args.length == 1 && args[0].equalsIgnoreCase("reload"))
 		{
-			PluginDescriptionFile pdfFile = me.imperzer0.essentials.Main.getInstance().getDescription();
-			sender.sendMessage("Reloading " + pdfFile.getName() + " version " + pdfFile.getVersion() + " ...");
+			PluginDescriptionFile pdFile = me.imperzer0.essentials.Main.getInstance().getDescription();
+			sender.sendMessage("Reloading " + pdFile.getName() + " version " + pdFile.getVersion() + " ...");
 
 			me.imperzer0.essentials.Main.getInstance().reloadConfig();
 
@@ -43,7 +43,7 @@ public class Main extends me.imperzer0.essentials.commands.Command implements Ta
 			loger.message(sender, "[BoostMinecart] Speed:    " + BoostMinecartListener.get_speed());
 			loger.message(sender, "[BoostMinecart] Carts:    " + BoostMinecartListener.get_carts());
 
-			loger.message(sender, ChatColor.GREEN + "[" + pdfFile.getName() + "] Config reloaded.");
+			loger.message(sender, ChatColor.GREEN + "[" + pdFile.getName() + "] Config reloaded.");
 		}
 		else
 		{

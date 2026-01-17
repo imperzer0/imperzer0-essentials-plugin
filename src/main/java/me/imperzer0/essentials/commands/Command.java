@@ -17,7 +17,7 @@ public abstract class Command implements CommandExecutor
 	{
 		command.setExecutor(this);
 		Bukkit.getPluginManager().addPermission(new Permission(PERMISSION, command.getDescription(), PermissionDefault.FALSE));
-		Main.getInstance().getLogger().info("Loaded \"" + command.getName() + "\" command handler [" + getClass().getName() + "].");
+		Main.getInstance().getLogger().info("Loaded " + command.getName() + " handler: [" + getClass().getName() + "].");
 	}
 
 	protected boolean init_command(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command cmd, @NotNull String[] args,

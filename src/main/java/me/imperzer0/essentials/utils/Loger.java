@@ -60,13 +60,7 @@ public class Loger
 
 	public Loger severe(String message)
 	{
-		logger.severe(ChatColor.RED + "" + message + ChatColor.RESET);
-		return this;
-	}
-
-	public Loger fine(String message)
-	{
-		logger.fine(ChatColor.GREEN + message + ChatColor.RESET);
+		logger.severe(ChatColor.RED + message + ChatColor.RESET);
 		return this;
 	}
 
@@ -98,7 +92,7 @@ public class Loger
 	public void error(@NotNull CommandSender sender, @NotNull String what)
 	{
 		sender.sendMessage(ChatColor.RED + "An error occurred: " + ChatColor.ITALIC + what + ChatColor.RESET);
-		logger.info("To " + sender.getName() + ": An error occurred: " + what);
+		logger.info("To " + sender.getName() + ": An error occurred: " + ChatColor.stripColor(what));
 	}
 
 	public Loger error(@NotNull CommandSender sender, @NotNull TextComponent message)
@@ -112,7 +106,7 @@ public class Loger
 	public Loger message(@NotNull CommandSender sender, @NotNull String message)
 	{
 		sender.sendMessage(message + ChatColor.RESET);
-		logger.info("To " + sender.getName() + ": " + message);
+		logger.info("To " + sender.getName() + ": " + ChatColor.stripColor(message));
 		return this;
 	}
 

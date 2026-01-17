@@ -5,6 +5,7 @@ import me.imperzer0.essentials.utils.BoostLibrarianUtils;
 import me.imperzer0.essentials.utils.EnchantmentUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -37,10 +38,10 @@ public class BoostLibrarian extends me.imperzer0.essentials.commands.Command imp
 
 		if (args.length == 2)
 		{
-			Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(args[0].toLowerCase()));
+			Enchantment enchantment = Registry.ENCHANTMENT.get(NamespacedKey.minecraft(args[0].toLowerCase()));
 			if (enchantment == null)
 			{
-				loger.error(sender, "Invalid enchantment \"" + args[0] + "\"");
+				loger.error(sender, "Invalid enchantment " + ChatColor.GOLD + args[0]);
 				return false;
 			}
 
@@ -50,7 +51,7 @@ public class BoostLibrarian extends me.imperzer0.essentials.commands.Command imp
 				level = Integer.parseInt(args[1]);
 			} catch (NumberFormatException e)
 			{
-				loger.error(sender, "Invalid enchantment level \"" + args[1] + "\"");
+				loger.error(sender, "Invalid enchantment level " + ChatColor.GOLD + args[1]);
 				return false;
 			}
 

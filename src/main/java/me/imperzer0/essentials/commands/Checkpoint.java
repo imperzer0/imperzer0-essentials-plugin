@@ -66,12 +66,12 @@ public class Checkpoint extends me.imperzer0.essentials.commands.Command impleme
                 case 2: // def <name>
                 {
                     CheckpointUtils.Set_checkpoint(player.getUniqueId(), name, player.getLocation());
-                    loger.message(sender, "Set '" + name + "' to [ " +
-                            player.getLocation().getX() + " " +
-                            player.getLocation().getY() + " " +
-                            player.getLocation().getZ() + " " +
-                            player.getLocation().getYaw() + " " +
-                            player.getLocation().getPitch() + " ]");
+                    loger.message(sender, ChatColor.GRAY + "Set " + ChatColor.GOLD + name + ChatColor.GRAY + " to [ " +
+                            ChatColor.DARK_PURPLE + player.getLocation().getX() + ChatColor.GRAY + " " +
+                            ChatColor.DARK_PURPLE + player.getLocation().getY() + ChatColor.GRAY + " " +
+                            ChatColor.DARK_PURPLE + player.getLocation().getZ() + ChatColor.GRAY + " " +
+                            ChatColor.DARK_PURPLE + player.getLocation().getYaw() + ChatColor.GRAY + " " +
+                            ChatColor.DARK_PURPLE + player.getLocation().getPitch() + ChatColor.GRAY + " ]");
                     break;
                 }
                 case 6: // def <name> <world> <x> <y> <z>
@@ -79,7 +79,7 @@ public class Checkpoint extends me.imperzer0.essentials.commands.Command impleme
                     World world = Bukkit.getWorld(args[2]);
                     if (world == null)
                     {
-                        loger.error(sender, "World '" + args[2] + "' does not exist!");
+                        loger.error(sender, ChatColor.GRAY + "World " + ChatColor.LIGHT_PURPLE + args[2] + ChatColor.GRAY + " does not exist!");
                         return false;
                     }
 
@@ -88,12 +88,12 @@ public class Checkpoint extends me.imperzer0.essentials.commands.Command impleme
                         Location pos = new Location(world, Double.parseDouble(args[3]), Double.parseDouble(args[4]), Double.parseDouble(args[5]));
                         CheckpointUtils.Set_checkpoint(player.getUniqueId(), name, pos);
 
-                        loger.message(sender, "Set '" + name + "' to [ " +
-                                pos.getX() + " " +
-                                pos.getY() + " " +
-                                pos.getZ() + " " +
-                                pos.getYaw() + " " +
-                                pos.getPitch() + " ]");
+                        loger.message(sender, ChatColor.GRAY + "Set " + ChatColor.GOLD + name + ChatColor.GRAY + " to [ " +
+                                ChatColor.DARK_PURPLE + player.getLocation().getX() + ChatColor.GRAY + " " +
+                                ChatColor.DARK_PURPLE + player.getLocation().getY() + ChatColor.GRAY + " " +
+                                ChatColor.DARK_PURPLE + player.getLocation().getZ() + ChatColor.GRAY + " " +
+                                ChatColor.DARK_PURPLE + player.getLocation().getYaw() + ChatColor.GRAY + " " +
+                                ChatColor.DARK_PURPLE + player.getLocation().getPitch() + ChatColor.GRAY + " ]");
 
                         new CheckpointPreview(player, pos).preview().runTaskLater(Main.getInstance(), 80L); // 80t / 20tps = 4sec
                     } catch (NumberFormatException e)
@@ -108,7 +108,7 @@ public class Checkpoint extends me.imperzer0.essentials.commands.Command impleme
                     World world = Bukkit.getWorld(args[2]);
                     if (world == null)
                     {
-                        loger.error(sender, "World '" + args[2] + "' does not exist!");
+                        loger.error(sender, ChatColor.GRAY + "World " + ChatColor.LIGHT_PURPLE + args[2] + ChatColor.GRAY + " does not exist!");
                         return false;
                     }
 
@@ -118,12 +118,12 @@ public class Checkpoint extends me.imperzer0.essentials.commands.Command impleme
                                 Float.parseFloat(args[6]), Float.parseFloat(args[7]));
                         CheckpointUtils.Set_checkpoint(player.getUniqueId(), name, pos);
 
-                        loger.message(sender, "Set '" + name + "' to [ " +
-                                pos.getX() + " " +
-                                pos.getY() + " " +
-                                pos.getZ() + " " +
-                                pos.getYaw() + " " +
-                                pos.getPitch() + " ]");
+                        loger.message(sender, ChatColor.GRAY + "Set " + ChatColor.GOLD + name + ChatColor.GRAY + " to [ " +
+                                ChatColor.DARK_PURPLE + player.getLocation().getX() + ChatColor.GRAY + " " +
+                                ChatColor.DARK_PURPLE + player.getLocation().getY() + ChatColor.GRAY + " " +
+                                ChatColor.DARK_PURPLE + player.getLocation().getZ() + ChatColor.GRAY + " " +
+                                ChatColor.DARK_PURPLE + player.getLocation().getYaw() + ChatColor.GRAY + " " +
+                                ChatColor.DARK_PURPLE + player.getLocation().getPitch() + ChatColor.GRAY + " ]");
 
                         new CheckpointPreview(player, pos).preview().runTaskLater(Main.getInstance(), 80L); // 80t / 20tps = 4sec
                     } catch (NumberFormatException e)
@@ -143,12 +143,12 @@ public class Checkpoint extends me.imperzer0.essentials.commands.Command impleme
             Location pos = CheckpointUtils.Get_checkpoint(player.getUniqueId(), name);
             if (pos == null)
             {
-                loger.message(sender, "Checkpoint '" + name + "' does not exist.");
+                loger.message(sender, ChatColor.YELLOW + "Checkpoint " + ChatColor.GRAY + name + ChatColor.YELLOW + " does not exist.");
                 return false;
             }
             player.teleport(pos);
 
-            loger.message(sender, "Teleported to '" + name + "' checkpoint.");
+            loger.message(sender, ChatColor.GRAY + "Teleported to " + ChatColor.GOLD + name + ChatColor.GRAY + " checkpoint.");
             return true;
         }
 

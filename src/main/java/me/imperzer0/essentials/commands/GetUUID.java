@@ -33,7 +33,7 @@ public class GetUUID extends me.imperzer0.essentials.commands.Command implements
 		if (super.init_command(sender, cmd, args, PERMISSION, USAGE)) return false;
 
 		if (args.length == 1)
-			loger.message(sender, "" + ChatColor.DARK_PURPLE + ChatColor.BOLD + ChatColor.ITALIC +
+			loger.message(sender, "" + ChatColor.DARK_PURPLE + ChatColor.ITALIC +
 					Objects.requireNonNull(PlayerUtils.Bukkit_getOfflinePlayer(args[0], loger, sender)).getUniqueId());
 		else loger.help(sender, cmd, USAGE);
 

@@ -37,18 +37,15 @@ public class Main extends JavaPlugin
         {
             file = new File(plugin.getDataFolder(), YML);
 
-            if (!file.exists())
-                plugin.saveResource(YML, false);
+            if (!file.exists()) plugin.saveResource(YML, false);
         }
 
 
         public void saveConfig(JavaPlugin plugin) throws NullPointerException
         {
-            if (file == null)
-                file = new File(plugin.getDataFolder(), YML);
+            if (file == null) file = new File(plugin.getDataFolder(), YML);
 
-            if (config == null)
-                throw new NullPointerException("saveConfig(): FileConfiguration{ } is null. Can not save!");
+            if (config == null) throw new NullPointerException("saveConfig(): FileConfiguration{ } is null. Can not save!");
 
             try
             {
@@ -102,8 +99,7 @@ public class Main extends JavaPlugin
 
         public FileConfiguration getConfig(JavaPlugin plugin)
         {
-            if (config == null)
-                reloadConfig(plugin);
+            if (config == null) reloadConfig(plugin);
             return config;
         }
     }
@@ -200,7 +196,6 @@ public class Main extends JavaPlugin
     @Override
     public void onLoad()
     {
-        getLogger().info("====================== Loading plugin " + getName() + " v" + getDescription().getVersion() + " ... ======================");
         saveDefaultConfig();
     }
 
@@ -208,8 +203,6 @@ public class Main extends JavaPlugin
     @Override
     public void onEnable()
     {
-        getLogger().info("======================== Enabled plugin " + getName() + " v" + getDescription().getVersion() + " ========================");
-
         FileConfiguration config = super.getConfig();
         PluginManager manager = getServer().getPluginManager();
 
@@ -271,7 +264,7 @@ public class Main extends JavaPlugin
     @Override
     public void onDisable()
     {
-        getLogger().info("========================= Disabled plugin " + getName() + " v" + getDescription().getVersion() + " =======================");
+        getLogger().info("===== Disabled plugin " + getName() + " v" + getDescription().getVersion() + " ====");
 
         saveConfig();
 

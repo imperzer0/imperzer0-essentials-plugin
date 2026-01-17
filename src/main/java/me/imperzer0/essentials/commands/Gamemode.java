@@ -58,15 +58,14 @@ public class Gamemode extends me.imperzer0.essentials.commands.Command implement
 
 		if (gm == null)
 		{
-			loger.error(sender, "Invalid GameMode value: \"" + args[0] + "\".");
+			loger.error(sender, "Invalid GameMode value: " + ChatColor.GRAY + args[0]);
 			return false;
 		}
 
 		human.setGameMode(gm);
 
-		loger.message(sender, ChatColor.GRAY + "Changed \"" + ChatColor.YELLOW + human.getName() +
-				ChatColor.GRAY + "\"'s GameMode to \"" +
-				ChatColor.LIGHT_PURPLE + human.getGameMode().toString().toLowerCase() + ChatColor.GRAY + "\".");
+		loger.message(sender, ChatColor.GRAY + "Changed " + ChatColor.YELLOW + human.getName() +
+				ChatColor.GRAY + "'s GameMode to " + ChatColor.LIGHT_PURPLE + human.getGameMode().toString().toLowerCase());
 
 		return true;
 	}
