@@ -54,7 +54,7 @@ public class Loger
 
 	public Loger warning(String message)
 	{
-		logger.warning(ChatColor.YELLOW + "" + message + ChatColor.RESET);
+		logger.warning(ChatColor.YELLOW + message + ChatColor.RESET);
 		return this;
 	}
 

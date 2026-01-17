@@ -105,22 +105,22 @@ public class Main extends JavaPlugin
     }
 
     public static final String INVENTORIES_YML = "inventories.yml";
-    private ConfigWrapper inventories_config = new ConfigWrapper(INVENTORIES_YML);
+    private final ConfigWrapper inventories_config = new ConfigWrapper(INVENTORIES_YML);
 
     public static final String SKINS_YML = "skins.yml";
-    private ConfigWrapper skins_config = new ConfigWrapper(SKINS_YML);
+    private final ConfigWrapper skins_config = new ConfigWrapper(SKINS_YML);
 
     public static final String BAGS_YML = "bags.yml";
-    private ConfigWrapper bags_config = new ConfigWrapper(BAGS_YML);
+    private final ConfigWrapper bags_config = new ConfigWrapper(BAGS_YML);
 
     public static final String DEAD_INVENTORIES_YML = "dead_inventories.yml";
-    private ConfigWrapper dead_inventories_config = new ConfigWrapper(DEAD_INVENTORIES_YML);
+    private final ConfigWrapper dead_inventories_config = new ConfigWrapper(DEAD_INVENTORIES_YML);
 
     public static final String OFFLINE_GAMEMODES_YML = "offline_gamemodes.yml";
-    private ConfigWrapper offline_gamemodes_config = new ConfigWrapper(OFFLINE_GAMEMODES_YML);
+    private final ConfigWrapper offline_gamemodes_config = new ConfigWrapper(OFFLINE_GAMEMODES_YML);
 
     public static final String CHECKPOINTS_YML = "checkpoints.yml";
-    private ConfigWrapper checkpoints_config = new ConfigWrapper(CHECKPOINTS_YML);
+    private final ConfigWrapper checkpoints_config = new ConfigWrapper(CHECKPOINTS_YML);
 
 
     public Main()
