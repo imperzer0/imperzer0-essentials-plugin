@@ -31,7 +31,7 @@ crafts:
 
 # Maximum enchantment experience level cost for survival players (def: 900)
 enchantments:
-  max_level: 900
+  max_level: 9000
 
 
 # Speed: How fast the cart will travel (max: 6, def: 1)
