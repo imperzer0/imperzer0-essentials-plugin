@@ -258,6 +258,9 @@ public class Main extends JavaPlugin
 
         if (config.getBoolean("crafts.spawner-eggs", false))
             manager.registerEvents(new SpawnerEggsCrafts(), this);
+
+        if (config.getBoolean("crafts.charcoal-block", false))
+            manager.registerEvents(new CharcoalBlockCraft(), this);
     }
 
     /// When disabled

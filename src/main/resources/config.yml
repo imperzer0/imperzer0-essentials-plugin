@@ -28,6 +28,7 @@ crafts:
   enchanted-golden-apple: off
   spawner: on
   spawner-eggs: on
+  charcoal-block: on
 
 # Maximum enchantment experience level cost for survival players (def: 900)
 enchantments:
